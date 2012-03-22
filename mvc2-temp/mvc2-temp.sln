@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvc2-temp", "mvc2-temp\mvc2-temp.csproj", "{42E06305-08FB-4C06-BB2E-B777365F1746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvc2-temp.Tests", "mvc2-temp.Tests\mvc2-temp.Tests.csproj", "{C377D547-AADB-4F70-AC61-DF9999918374}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42E06305-08FB-4C06-BB2E-B777365F1746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42E06305-08FB-4C06-BB2E-B777365F1746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42E06305-08FB-4C06-BB2E-B777365F1746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42E06305-08FB-4C06-BB2E-B777365F1746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C377D547-AADB-4F70-AC61-DF9999918374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C377D547-AADB-4F70-AC61-DF9999918374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C377D547-AADB-4F70-AC61-DF9999918374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C377D547-AADB-4F70-AC61-DF9999918374}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

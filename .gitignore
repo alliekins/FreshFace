@@ -1,0 +1,5 @@
+mvc2-temp/mvc2-temp/obj/*
+mvc3-temp/mvc3-temp/obj/*
+*.suo
+*.user
+*.cache
