@@ -1,3 +1,7 @@
+FreshFace/FreshFace/obj/*
+FreshFace/FreshFace/bin/*
+FreshFace/FreshFace.Tests/bin/*
+FreshFace/FreshFace.Tests/obj/*
 mvc2-temp/mvc2-temp/obj/*
 mvc3-temp/mvc3-temp/obj/*
 *.suo
