@@ -1,3 +1,5 @@
+FreshFace/build/*
+FreshFace/FreshFace/FreshFace.Publish.xml
 FreshFace/FreshFace/obj/*
 FreshFace/FreshFace/bin/*
 FreshFace/FreshFace.Tests/bin/*
