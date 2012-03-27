@@ -101,6 +101,7 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\grid.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\storage.js" />

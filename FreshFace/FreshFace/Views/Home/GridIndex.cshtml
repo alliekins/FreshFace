@@ -3,17 +3,65 @@
     Layout = "~/Views/Shared/_GridLayout.cshtml";
 }
 
-<article id="twoway">
-	<section class="wrapper">
-		<h3>A two-way split</h3>
-		<p>
-			These two blocks of text will float side by side with some empty columns on the sides on large screens. On medium-sized screens the empty columns will disappear, and on small screens the blocks will be stacked vertically.
-		</p>
-	</section>
-	<section class="wrapper">
-		<h3>By the way</h3>
-		<p>
-			If you're viewing this page on an iOS device, it might zoom in wonkily when you rotate your device. This is because of <a href="http://filamentgroup.com/examples/iosScaleBug/">a Mobile Safari bug</a>.
-		</p>
-	</section>
+<article class="oneway">
+    <div class="wrapper">
+
+        <!-- Calendar -->
+
+        <section>
+            <h3>Events Calendar</h3>
+            <div class="calendar"></div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".calendar").fullCalendar({
+                        editable: false
+                    });
+                });
+            </script>
+        </section>
+
+        <!-- End Calendar -->
+        
+
+
+        <!-- FB Controls -->
+
+        <section>
+            <h3>Actions</h3>
+            <div class="actions">
+                <a class="btn">Add Friend</a>
+                <a class="btn">Upload Photo</a>
+            </div>
+        </section>
+
+        <!-- End FB Controls -->
+
+    </div>
 </article>
+
+<!-- News Feed -->
+
+<section class="twoway">
+    <div class="wrapper">
+        <h2>News Feed</h2>
+        <article>
+            <h3>News Article - by Brian Wyant</h3>
+            <div>This is my content!  I hope you like it.</div>
+        </article>
+    </div>
+</section>
+
+<!-- End News Feed -->
+
+<!-- Stock Ticker -->
+
+<section class="oneway">
+    <div class="wrapper">
+        <h3>My Stock Viewer</h3>
+        <article>
+            <h4>NASDAQ:GOOG</h4>
+        </article>
+    </div>
+</section>
+
+<!-- End Stock Ticker -->

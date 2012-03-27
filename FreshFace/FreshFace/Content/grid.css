@@ -209,7 +209,7 @@ body {
 *  5.55555% | %  25  50  75  100 | 5.55555%
 *
 */
-header, #twoway {
+header, .twoway {
   margin: 0 5.555555555555555%;
 }
 h1, h2 {
@@ -221,6 +221,13 @@ h2 {
 h3 {
   margin: 1.5em 0 1.5em;
 }
+.actions .btn 
+{
+    display: block;
+}
+.oneway 
+{
+    display: none;
 /*
 *  Simple elastic gutters
 *  Note: box-sizing will not work in IE6-7
@@ -280,9 +287,14 @@ h3 {
   
     font-size: 1em;
   }
-  #twoway .wrapper {
+  .oneway .wrapper 
+  {
+      float: left;
+      width: 24%;
+  }
+  .twoway .wrapper {
     float: left;
-    width: 50%;
+    width: 48%;
   }
 }
 /* @media screen and (min-width: 888px) */
@@ -300,7 +312,7 @@ h3 {
   
     font-size: 1em;
   }
-  header, #twoway {
+  header, .twoway {
     margin: 0 16.666666666666664%;
   }
 }
@@ -319,7 +331,7 @@ h3 {
   
     font-size: 1em;
   }
-  header, #twoway {
+  header, .twoway {
     margin: 0 27.77777777777778%;
   }
 }
@@ -342,17 +354,17 @@ h3 {
 */
 /* @media screen and (min-width: 1872px) */
 @media screen and (min-width: 117em) {
-  header, #twoway {
+  header, .twoway {
     margin: 0 5.555555555555555%;
   }
   header .wrapper {
     width: 37.5%;
     margin-left: 25%;
   }
-  #twoway .wrapper {
+  .twoway .wrapper {
     width: 25%;
   }
-  #twoway .wrapper:first-child {
+  .twoway .wrapper:first-child {
     margin-left: 25%;
   }
 }
