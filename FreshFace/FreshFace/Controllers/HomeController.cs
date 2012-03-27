@@ -19,5 +19,10 @@ namespace FreshFace.Controllers
         {
             return View();
         }
+
+        public ActionResult GridIndex()
+        {
+            return View();
+        }
     }
 }
