@@ -163,6 +163,11 @@ body {
   font-size: 1em;
   line-height: 1.5em;
 }
+.container 
+{
+    margin: 40px auto;
+    padding: 0 1em;
+}
 .small {
   /* 13px / 18px */
 
@@ -227,7 +232,12 @@ h3 {
 }
 .oneway 
 {
+    display: block;
+}
+.oneway .wrapper
+{
     display: none;
+}
 /*
 *  Simple elastic gutters
 *  Note: box-sizing will not work in IE6-7
@@ -290,7 +300,8 @@ h3 {
   .oneway .wrapper 
   {
       float: left;
-      width: 24%;
+      width: 20%;
+      display: inherit;
   }
   .twoway .wrapper {
     float: left;
