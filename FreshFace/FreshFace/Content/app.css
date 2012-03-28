@@ -1,0 +1,67 @@
+/* Foundation v2.2 http://foundation.zurb.com */
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+body 
+{
+    background: url('img/back.png') ;
+}
+
+
+/* -----------------------------------------
+   Main Page
+----------------------------------------- */
+.sidebar 
+{
+    display: none;
+}
+
+@media only screen and (min-width: 880px)
+{
+    .sidebar 
+    {
+        display: inherit;
+    }
+}
+
+@media only screen and (min-width: 770px)
+{
+    .side-right 
+    {
+        display: inherit;
+    }
+}
+
+.fc-header-title h2
+{
+    font-size: 1em;
+    line-height: 1em;
+}
+
+.fc-button-content div
+{
+    padding: 0px;
+}
+
+.fc-widget-header
+{
+    padding: 2px;
+}
+
+.fc-widget-content 
+{
+    padding: 2px;
+    font-size: 1em;
+    line-height: 1em;
+}

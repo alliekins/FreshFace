@@ -3,12 +3,15 @@
     Layout = "~/Views/Shared/_GridLayout.cshtml";
 }
 
-<article class="oneway">
-    <div class="wrapper">
+<!-- Start Row -->
+
+<div class="row">
+
+    <div class="three columns sidebar">
 
         <!-- Calendar -->
 
-        <section>
+        <section class="row">
             <h3>Events Calendar</h3>
             <div class="calendar"></div>
             <script type="text/javascript">
@@ -26,42 +29,41 @@
 
         <!-- FB Controls -->
 
-        <section>
+        <section class="row">
             <h3>Actions</h3>
             <div class="actions">
-                <a class="btn">Add Friend</a>
-                <a class="btn">Upload Photo</a>
+                <div class="row"><a class="btn">Add Friend</a></div>
+                <div class="row"><a class="btn">Upload Photo</a></div>
             </div>
         </section>
 
         <!-- End FB Controls -->
 
     </div>
-</article>
 
 <!-- News Feed -->
 
-<section class="twoway">
-    <div class="wrapper">
+    <section class="seven columns">
         <h2>News Feed</h2>
         <article>
             <h3>News Article - by Brian Wyant</h3>
             <div>This is my content!  I hope you like it.</div>
         </article>
-    </div>
-</section>
+    </section>
 
-<!-- End News Feed -->
+    <!-- End News Feed -->
 
-<!-- Stock Ticker -->
+    <!-- Stock Ticker -->
 
-<section class="oneway">
-    <div class="wrapper">
+    <section class="two columns sidebar side-right">
         <h3>My Stock Viewer</h3>
         <article>
-            <h4>NASDAQ:GOOG</h4>
+            <div>NASDAQ:GOOG</div>
         </article>
-    </div>
-</section>
+    </section>
 
-<!-- End Stock Ticker -->
+    <!-- End Stock Ticker -->
+
+</div>
+
+<!-- End Row -->
