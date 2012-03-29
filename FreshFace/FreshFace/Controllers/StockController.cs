@@ -16,6 +16,11 @@ namespace FreshFace.Controllers
         [HttpGet]
         public JsonResult Details(int id)
         {
+            if (!Request.IsAuthenticated)
+            {
+                return null;
+            }
+
             return Json(new StockModel() { CompanyName = "GOOG", ChangePrice = 5, CurrentPrice = 600 }, JsonRequestBehavior.AllowGet);
         }
 
