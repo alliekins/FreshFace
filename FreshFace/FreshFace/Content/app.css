@@ -49,6 +49,21 @@ body
     line-height: 1em;
 }
 
+.fc-header td
+{
+    vertical-align: baseline;
+}
+
+.fc-header-center
+{
+    padding: 0px;
+}
+
+.fc-header-right span
+{
+    float: right;
+}
+
 .fc-button-content div
 {
     padding: 0px;
