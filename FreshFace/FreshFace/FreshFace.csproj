@@ -122,6 +122,7 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\fb_calendar.js" />
     <Content Include="Scripts\foundation.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
