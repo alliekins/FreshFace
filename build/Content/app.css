@@ -1,0 +1,112 @@
+/* Foundation v2.2 http://foundation.zurb.com */
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+body 
+{
+    background: url('img/back.png') ;
+}
+
+.container
+{
+    padding-top: 0px;
+}
+
+
+/* -----------------------------------------
+   Main Page
+----------------------------------------- */
+.sidebar 
+{
+    display: none;
+}
+
+@media only screen and (min-width: 880px)
+{
+    .sidebar 
+    {
+        display: inherit;
+    }
+}
+
+@media only screen and (min-width: 770px)
+{
+    .side-right 
+    {
+        display: inherit;
+    }
+    .container
+    {
+        padding-top: 20px;
+    }
+}
+
+/* -----------------------------------------
+   Making FullCalendar Small
+----------------------------------------- */
+
+.fc-header-title h2
+{
+    font-size: 1em;
+    line-height: 1em;
+}
+
+.fc-header td
+{
+    vertical-align: baseline;
+}
+
+.fc-header h2
+{
+    line-height: inherit;
+    margin: 0 auto;
+}
+
+.fc-header-center
+{
+    padding: 0px;
+}
+
+.fc-header-left span
+{
+    line-height: inherit;
+    float: left;
+}
+
+.fc-header-right span
+{
+    float: right;
+}
+
+.fc-button-content div
+{
+    padding: 0px;
+}
+
+.fc-widget-header
+{
+    padding: 2px;
+}
+
+.fc-widget-content 
+{
+    padding: 2px;
+    font-size: 1em;
+    line-height: 1em;
+}
+
+.fc-hover
+{
+    background-color: #37FDFC;
+}

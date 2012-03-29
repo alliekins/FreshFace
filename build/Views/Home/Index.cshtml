@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Fresh Face Home";
+    Layout = "~/Views/Shared/_GridLayout.cshtml";
+}
+
+<!-- Start Row -->
+
+<div class="row">
+
+    <div class="three columns sidebar">
+
+        <!-- Calendar -->
+
+        <section class="row">
+            <h4>My Events</h4>
+            <div class="calendar"></div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".calendar").fullCalendar({
+                        editable: false,
+                        header: {
+                            left: 'title',
+                            center: '',
+                            right: 'next,prev today',
+                        },
+                    });
+
+                    $(".fc-widget-content").hover(
+                        function (ev) { // Hovering in
+                            $(this).toggleClass("fc-hover", true);
+                        }, 
+                        function (ev) { // Hovering out
+                            $(this).toggleClass("fc-hover", false);
+                        }
+                    );
+                });
+            </script>
+        </section>
+
+        <!-- End Calendar -->
+        
+
+
+        <!-- FB Controls -->
+
+        <section class="row">
+            <h4>My Actions</h4>
+            <div class="actions">
+                <div class="row"><a class="btn">Add Friend</a></div>
+                <div class="row"><a class="btn">Upload Photo</a></div>
+            </div>
+        </section>
+
+        <!-- End FB Controls -->
+
+    </div>
+
+<!-- News Feed -->
+
+    <section class="seven columns">
+        <h2>My News</h2>
+        <article>
+            <h3>News Article - by Brian Wyant</h3>
+            <div>This is my content!  I hope you like it.</div>
+        </article>
+    </section>
+
+    <!-- End News Feed -->
+
+    <!-- Stock Ticker -->
+
+    <section class="two columns sidebar side-right">
+        <h4>My Stocks</h4>
+        <article>
+            <div>NASDAQ:GOOG</div>
+        </article>
+    </section>
+
+    <!-- End Stock Ticker -->
+
+</div>
+
+<!-- End Row -->
