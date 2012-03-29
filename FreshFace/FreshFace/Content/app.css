@@ -54,9 +54,21 @@ body
     vertical-align: baseline;
 }
 
+.fc-header h2
+{
+    line-height: inherit;
+    margin: 0 auto;
+}
+
 .fc-header-center
 {
     padding: 0px;
+}
+
+.fc-header-left span
+{
+    line-height: inherit;
+    float: left;
 }
 
 .fc-header-right span
