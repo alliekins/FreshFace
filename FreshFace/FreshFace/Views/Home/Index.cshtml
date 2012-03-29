@@ -1,8 +1,69 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Fresh Face Home";
+    Layout = "~/Views/Shared/_GridLayout.cshtml";
 }
 
-<h2>@ViewBag.Message</h2>
-<p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
+<!-- Start Row -->
+
+<div class="row">
+
+    <div class="three columns sidebar">
+
+        <!-- Calendar -->
+
+        <section class="row">
+            <h3>Events Calendar</h3>
+            <div class="calendar"></div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".calendar").fullCalendar({
+                        editable: false
+                    });
+                });
+            </script>
+        </section>
+
+        <!-- End Calendar -->
+        
+
+
+        <!-- FB Controls -->
+
+        <section class="row">
+            <h3>Actions</h3>
+            <div class="actions">
+                <div class="row"><a class="btn">Add Friend</a></div>
+                <div class="row"><a class="btn">Upload Photo</a></div>
+            </div>
+        </section>
+
+        <!-- End FB Controls -->
+
+    </div>
+
+<!-- News Feed -->
+
+    <section class="seven columns">
+        <h2>News Feed</h2>
+        <article>
+            <h3>News Article - by Brian Wyant</h3>
+            <div>This is my content!  I hope you like it.</div>
+        </article>
+    </section>
+
+    <!-- End News Feed -->
+
+    <!-- Stock Ticker -->
+
+    <section class="two columns sidebar side-right">
+        <h3>My Stock Viewer</h3>
+        <article>
+            <div>NASDAQ:GOOG</div>
+        </article>
+    </section>
+
+    <!-- End Stock Ticker -->
+
+</div>
+
+<!-- End Row -->

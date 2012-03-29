@@ -75,6 +75,13 @@ namespace FreshFace.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            // TODO remove hack
+            // You register?  You authenticated!  Yay!  Remove before we have a DB or anything.
+            {
+                FormsAuthentication.SetAuthCookie(model.UserName, false);
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 // Attempt to register the user

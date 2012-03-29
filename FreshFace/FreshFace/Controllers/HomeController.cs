@@ -10,17 +10,19 @@ namespace FreshFace.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to FreshFace!  More to come!";
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.Message = "Welcome to FreshFace!  More to come!";
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
         }
 
         public ActionResult About()
-        {
-            return View();
-        }
-
-        public ActionResult GridIndex()
         {
             return View();
         }
