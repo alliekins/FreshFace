@@ -80,3 +80,8 @@ body
     font-size: 1em;
     line-height: 1em;
 }
+
+.fc-hover
+{
+    background-color: #37FDFC;
+}
