@@ -77,6 +77,22 @@
     <Content Include="Content\foundation.css" />
     <Content Include="Content\ie.css" />
     <Content Include="Content\img\back.png" />
+    <Content Include="Content\misc\button-gloss.png" />
+    <Content Include="Content\misc\button-overlay.png" />
+    <Content Include="Content\misc\custom-form-sprites.png" />
+    <Content Include="Content\misc\input-bg-outset.png" />
+    <Content Include="Content\misc\input-bg.png" />
+    <Content Include="Content\misc\modal-gloss.png" />
+    <Content Include="Content\misc\table-sorter.png" />
+    <Content Include="Content\orbit\bullets.jpg" />
+    <Content Include="Content\orbit\left-arrow.png" />
+    <Content Include="Content\orbit\loading.gif" />
+    <Content Include="Content\orbit\mask-black.png" />
+    <Content Include="Content\orbit\pause-black.png" />
+    <Content Include="Content\orbit\right-arrow.png" />
+    <Content Include="Content\orbit\rotator-black.png" />
+    <Content Include="Content\orbit\timer-black.png" />
+    <Content Include="Content\presentation.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -152,8 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\misc\" />
-    <Folder Include="Content\orbit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

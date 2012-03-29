@@ -16,6 +16,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		
         <!-- Stuff from Foundation Grid -->
+		<link href="@Url.Content("~/Content/presentation.css")" rel="stylesheet"></link>
 		<link href="@Url.Content("~/Content/foundation.css")" rel="stylesheet"></link>
 		<link href="@Url.Content("~/Content/app.css")" rel="stylesheet"></link> 
 
@@ -45,9 +46,22 @@
 	
 	<body lang="en">
 		
-		<header>
-			<h1>FreshFace</h1>
-		</header>
+        <header id="zurBar" class="container">
+            <nav class="row">
+                <div class="four columns">
+                    <a href="#" id="mobileNav" data-reveal-id="navModal" class="small nice button show-on-phones">Nav</a>
+                    <h1><a href="/Home/Index">FreshFace</a></h1>
+                </div>
+                <div class="eight columns hide-on-phones">
+                    <strong class="right">
+                        <a href="">My Calendar</a>
+                        <a href="">My Actions</a>
+                        <a href="">My Feed</a>
+                        <a href="">My Stocks</a>
+                    </strong>
+                </div>
+            </nav>
+        </header>
 		
         <div class="container">
             @RenderBody()

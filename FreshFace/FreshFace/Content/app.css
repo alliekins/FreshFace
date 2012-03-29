@@ -18,6 +18,11 @@ body
     background: url('img/back.png') ;
 }
 
+.container
+{
+    padding-top: 0px;
+}
+
 
 /* -----------------------------------------
    Main Page
@@ -41,7 +46,15 @@ body
     {
         display: inherit;
     }
+    .container
+    {
+        padding-top: 20px;
+    }
 }
+
+/* -----------------------------------------
+   Making FullCalendar Small
+----------------------------------------- */
 
 .fc-header-title h2
 {
