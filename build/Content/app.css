@@ -20,7 +20,16 @@ body
 
 .container
 {
-    padding-top: 0px;
+    padding-top: 48px;
+}
+
+#zurBar
+{
+    position: fixed;
+    right: 0px;
+    left: 0px;
+    z-index: 1000;
+    margin-bottom: 0px;
 }
 
 
@@ -48,7 +57,7 @@ body
     }
     .container
     {
-        padding-top: 20px;
+        padding-top: 68px;
     }
 }
 

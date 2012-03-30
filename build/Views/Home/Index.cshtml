@@ -14,27 +14,6 @@
         <section class="row">
             <h4>My Events</h4>
             <div class="calendar"></div>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $(".calendar").fullCalendar({
-                        editable: false,
-                        header: {
-                            left: 'title',
-                            center: '',
-                            right: 'next,prev today',
-                        },
-                    });
-
-                    $(".fc-widget-content").hover(
-                        function (ev) { // Hovering in
-                            $(this).toggleClass("fc-hover", true);
-                        }, 
-                        function (ev) { // Hovering out
-                            $(this).toggleClass("fc-hover", false);
-                        }
-                    );
-                });
-            </script>
         </section>
 
         <!-- End Calendar -->
@@ -81,3 +60,5 @@
 </div>
 
 <!-- End Row -->
+
+<script src="@Url.Content("~/Scripts/fb_calendar.js")" type="text/javascript"></script>

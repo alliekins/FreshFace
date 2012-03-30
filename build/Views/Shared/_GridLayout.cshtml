@@ -26,8 +26,39 @@
 	    <![endif]-->
 
         <!-- End stuff from Foundation Grid -->
-		
+
         <script src="@Url.Content("~/Scripts/jquery-1.7.2.js")" type="text/javascript"></script>
+	</head>
+	
+	<body lang="en">
+		
+        <header id="zurBar" class="container">
+            <nav class="row">
+                <div class="four columns">
+                    <a href="#" id="mobileNav" data-reveal-id="navModal" class="small nice button show-on-phones">Nav</a>
+                    <h1><a href="/Home/Index">FreshFace</a></h1>
+                </div>
+                <div class="eight columns hide-on-phones">
+                    <strong class="right">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <a href="">My Calendar</a>
+                            <a href="">My Actions</a>
+                            <a href="">My Feed</a>
+                            <a href="">My Stocks</a>
+                        }
+                        @Html.Partial("_LogOnPartial")
+                    </strong>
+                </div>
+            </nav>
+        </header>
+		
+        <div class="container">
+            @RenderBody()
+        </div>
+			
+        <!-- Putting scripts at bottom of page so that content loads first -->
+
 		<script src="@Url.Content("~/Scripts/app.js")" type="text/javascript"></script>
 		<script src="@Url.Content("~/Scripts/modernizr.foundation.js")" type="text/javascript"></script>
 		<script src="@Url.Content("~/Scripts/foundation.js")" type="text/javascript"></script>
@@ -42,31 +73,7 @@
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-	</head>
-	
-	<body lang="en">
-		
-        <header id="zurBar" class="container">
-            <nav class="row">
-                <div class="four columns">
-                    <a href="#" id="mobileNav" data-reveal-id="navModal" class="small nice button show-on-phones">Nav</a>
-                    <h1><a href="/Home/Index">FreshFace</a></h1>
-                </div>
-                <div class="eight columns hide-on-phones">
-                    <strong class="right">
-                        <a href="">My Calendar</a>
-                        <a href="">My Actions</a>
-                        <a href="">My Feed</a>
-                        <a href="">My Stocks</a>
-                    </strong>
-                </div>
-            </nav>
-        </header>
-		
-        <div class="container">
-            @RenderBody()
-        </div>
-			
+
 	</body>
 	
 </html>
