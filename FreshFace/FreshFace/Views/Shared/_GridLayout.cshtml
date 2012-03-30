@@ -40,10 +40,14 @@
                 </div>
                 <div class="eight columns hide-on-phones">
                     <strong class="right">
-                        <a href="">My Calendar</a>
-                        <a href="">My Actions</a>
-                        <a href="">My Feed</a>
-                        <a href="">My Stocks</a>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <a href="">My Calendar</a>
+                            <a href="">My Actions</a>
+                            <a href="">My Feed</a>
+                            <a href="">My Stocks</a>
+                        }
+                        @Html.Partial("_LogOnPartial")
                     </strong>
                 </div>
             </nav>
