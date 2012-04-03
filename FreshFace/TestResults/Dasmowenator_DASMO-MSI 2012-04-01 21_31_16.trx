@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="83616e23-a2c7-48b2-8330-d5f2f079834c" name="Dasmowenator@DASMO-MSI 2012-04-01 21:31:16" runUser="Dasmo-MSI\Dasmowenator" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="1d15b0c8-5ea5-4efe-8b1d-def1ea48a887">
+    <Deployment runDeploymentRoot="Dasmowenator_DASMO-MSI 2012-04-01 21_31_16">
+      <DeploymentItem filename="C:\Users\Dasmowenator\Documents\College Work\WebEngineering\FreshFace\FreshFace\FreshFace\bin\FreshFace.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-04-01T21:31:16.1176518-04:00" queuing="2012-04-01T21:31:20.8369217-04:00" start="2012-04-01T21:31:20.9329272-04:00" finish="2012-04-01T21:31:30.0494486-04:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="2" executed="1" error="0" failed="0" timeout="0" aborted="1" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="1" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="DASMO-MSI" outcome="Error" timestamp="2012-04-01T21:31:30.0484486-04:00">
+        <Text>Test host process exited unexpectedly.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="About" storage="c:\users\dasmowenator\documents\college work\webengineering\freshface\freshface\freshface.tests\bin\debug\freshface.tests.dll" id="6ec78336-70b9-06aa-53cd-196f99ddd8c9">
+      <Execution id="a5c08f1b-ca74-4ff0-be63-793285b891fb" />
+      <TestMethod codeBase="C:/Users/Dasmowenator/Documents/College Work/WebEngineering/FreshFace/FreshFace/FreshFace.Tests/bin/Debug/FreshFace.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="FreshFace.Tests.Controllers.HomeControllerTest, FreshFace.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="About" />
+    </UnitTest>
+    <UnitTest name="Index" storage="c:\users\dasmowenator\documents\college work\webengineering\freshface\freshface\freshface.tests\bin\debug\freshface.tests.dll" id="8c2449ba-f6a6-68ed-27cd-c4e448780ce3">
+      <Execution id="97e744ad-776c-4f79-b853-2512d7fca34b" />
+      <TestMethod codeBase="C:/Users/Dasmowenator/Documents/College Work/WebEngineering/FreshFace/FreshFace/FreshFace.Tests/bin/Debug/FreshFace.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="FreshFace.Tests.Controllers.HomeControllerTest, FreshFace.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Index" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="8c2449ba-f6a6-68ed-27cd-c4e448780ce3" executionId="97e744ad-776c-4f79-b853-2512d7fca34b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ec78336-70b9-06aa-53cd-196f99ddd8c9" executionId="a5c08f1b-ca74-4ff0-be63-793285b891fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="97e744ad-776c-4f79-b853-2512d7fca34b" testId="8c2449ba-f6a6-68ed-27cd-c4e448780ce3" testName="Index" computerName="DASMO-MSI" duration="00:00:09.0525177" startTime="2012-04-01T21:31:20.9969309-04:00" endTime="2012-04-01T21:31:30.0494486-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Aborted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97e744ad-776c-4f79-b853-2512d7fca34b">
+    </UnitTestResult>
+    <UnitTestResult executionId="a5c08f1b-ca74-4ff0-be63-793285b891fb" testId="6ec78336-70b9-06aa-53cd-196f99ddd8c9" testName="About" computerName="DASMO-MSI" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5c08f1b-ca74-4ff0-be63-793285b891fb">
+    </UnitTestResult>
+  </Results>
+</TestRun>
