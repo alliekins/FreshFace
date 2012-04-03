@@ -115,7 +115,7 @@ body
     line-height: 1em;
 }
 
-.fc-hover
+.fc-widget-content:hover
 {
     background-color: #37FDFC;
 }
