@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,21 @@ namespace FreshFace.Controllers
 
         public ActionResult LogOn()
         {
+            // Default ID that Sam setup
+            ViewBag.AppID = "377609208946698";
+
+            try
+            {
+                // But if you provide your own ID in this file 
+                //  (root/fb_app_id.txt) , use it
+                var filePath = HttpContext.Server.MapPath("../fb_app_id.txt");
+                ViewBag.AppID = System.IO.File.ReadAllText(filePath);
+            }
+            catch (Exception)
+            {
+                // Don't care otherwise; use the default.
+            }
+
             return View();
         }
 
