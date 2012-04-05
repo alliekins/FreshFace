@@ -1,5 +1,6 @@
 FreshFace/build/*
 FreshFace/FreshFace/FreshFace.Publish.xml
+FreshFace/FreshFace/fb_app_id.txt
 FreshFace/FreshFace/obj/*
 FreshFace/FreshFace/bin/*
 FreshFace/FreshFace.Tests/bin/*
