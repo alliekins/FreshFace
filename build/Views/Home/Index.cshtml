@@ -75,7 +75,7 @@
         });
         $(".logout").click(function (event) {
             FB.logout(function (response) {
-                $.post('/Account/LogOff', function (resp) {
+                $.post('../Account/LogOff', function (resp) {
                     window.location.href = '/Account/LogOn';
                 });
             });
