@@ -27,7 +27,7 @@
             <div class="actions">
                 <div class="row"><a class="btn">Add Friend</a></div>
                 <div class="row"><a class="btn">Upload Photo</a></div>
-                <div class="row"><a class="btn logout">Real Logout</a></div>
+                <div class="row"><a class="btn logout">Logout</a></div>
             </div>
         </section>
 
@@ -73,9 +73,12 @@
             xfbml      : true,
             oauth      : true,
         });
-        $(".logout").click(function (hacks) {
-            console.log("Logging off");
-            FB.logout();
+        $(".logout").click(function (event) {
+            FB.logout(function (response) {
+                $.post('/Account/LogOff', function (resp) {
+                    window.location.href = '/Account/LogOn';
+                });
+            });
         });
     };
     (function(d){
