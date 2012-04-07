@@ -5,7 +5,7 @@ $(document).ready(function () {
         header: {
             left: 'title',
             center: '',
-            right: 'next,prev today',
-        },
+            right: 'next,prev today'
+        }
     });
 });
