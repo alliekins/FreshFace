@@ -54,6 +54,22 @@
         <div id="fb-root"></div>
         <script>
           window.fbAsyncInit = function() {
+            FB.Event.subscribe('auth.statusChange', function (response) {
+                if (response.authResponse) {
+                    console.log("Now logged in!  Post to the server, boy.");
+                    $.post("/Account/LogOn", function (resp) {
+                        console.log("Posted back to our server, received resp: " + resp);
+                    });
+
+                    // This is bad, and I should feel bad.
+                    $("input[type=submit]").click();
+                } 
+                else {
+                    if (typeof console !== "undefined") {
+                        console.log("Logging out");
+                    }
+                }
+            });
             FB.init({
               appId      : "@ViewBag.AppID",
               status     : true, 
