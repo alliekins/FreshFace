@@ -27,18 +27,18 @@ namespace FreshFace.Controllers
         //
         // GET: /Stock/Create
 
-        public ActionResult Create(StockModel stock)
+        /*public ActionResult Create(StockModel stock)
         {
             return View();
-        }
+        }*/
 
         //
         // GET: /Stock/Delete/5
  
-        public ActionResult Delete(int id)
+        /*public ActionResult Delete(int id)
         {
             return View();
-        }
+        }*/
 
     }
 }
