@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using FreshFace.Models;
+using FreshFace.models;
 
 namespace FreshFace.Controllers
 {
@@ -18,6 +19,8 @@ namespace FreshFace.Controllers
 
         public ActionResult LogOn()
         {
+            ViewBag.Num = StockEngine.FetchStocks();
+
             // Default ID that Sam setup
             ViewBag.AppID = FBModel.GetAppID(HttpContext);
 

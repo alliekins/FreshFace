@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FreshFace.Models;
+using FreshFace.models;
 
 namespace FreshFace.Controllers
 {
@@ -11,6 +12,7 @@ namespace FreshFace.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Num = StockEngine.FetchStocks();
             // Default ID that Sam setup
             ViewBag.AppID = FBModel.GetAppID(HttpContext);
 
