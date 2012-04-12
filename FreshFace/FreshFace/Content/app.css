@@ -111,55 +111,6 @@ body
     background-color: #A0A0A0;
 }
 
-/*
-.actions a
-{
-    display: block;
-    width: 200px;
-    padding: 5px;
-    text-decoration: none;
-    border-top: 1px solid #9F7554;
-    border-right: 2px solid #9F7554;
-    border-bottom: 2px solid #9F7554;
-    border-left: 1px solid #9F7554;
-    color: #00f;
-    background-color: #CCCCCC;
-    font-weight: bold;
-}
-
-.actions a:link
-{
-
-}
-
-.actions a:visited
-{
-
-}
-
-.actions a:active
-{
-    text-decoration: underline;
-    border-top: 2px solid #6E3C14;
-    border-right: 1px solid #6E3C14;
-    border-bottom: 1px solid #6E3C14;
-    border-left: 2px solid #6E3C14;
-    color: #F94141;
-    background-color: #404040;
-}
-
-.actions a:hover
-{
-    text-decoration: underline;
-    border-top: 2px solid #6E3C14;
-    border-right: 1px solid #6E3C14;
-    border-bottom: 1px solid #6E3C14;
-    border-left: 2px solid #6E3C14;
-    color: #5DA2EF;
-    background-color: #404040;
-}
-*/
-
 /* -----------------------------------------
    Making FullCalendar Small
 ----------------------------------------- */
