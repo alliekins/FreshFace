@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Fresh Face Home";
+    ViewBag.Title = @Resources.Strings.FreshFaceHome;
     Layout = "~/Views/Shared/_GridLayout.cshtml";
 }
 
@@ -22,7 +22,7 @@
         <!-- Calendar -->
 
         <section class="row">
-            <h4>My Events</h4>
+            <h4>@Resources.Strings.MyEvents</h4>
             <div class="calendar"></div>
         </section>
 
@@ -33,11 +33,11 @@
         <!-- FB Controls -->
 
         <section class="row">
-            <h4>My Actions</h4>
+            <h4>@Resources.Strings.MyActions</h4>
             <div class="actions">
-                <div class="row"><a class="btn">Add Friend</a></div>
-                <div class="row"><a class="btn">Upload Photo</a></div>
-                <div class="row"><a class="btn logout">Logout</a></div>
+                <div class="row"><a class="btn" href="">@Resources.Strings.AddFriend</a></div>
+                <div class="row"><a class="btn" href="">@Resources.Strings.UploadPhoto</a></div>
+                <div class="row"><a class="btn logout" href="">@Resources.Strings.Logout</a></div>
             </div>
         </section>
 
@@ -50,7 +50,7 @@
     <section class="seven columns">
         <h2>My News</h2>
         <div class="ff-feed-parent">
-            <h3>News Article - by <span class="ff ff-name">--</span></h3>
+            <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
             
             <!-- Template for feed items:
             <article class="ff-feed-item">
@@ -69,7 +69,7 @@
     <!-- Stock Ticker -->
 
     <section class="two columns sidebar side-right">
-        <h4>My Stocks</h4>
+        <h4>@Resources.Strings.MyStocks</h4>
         <article>
             <div>NASDAQ:GOOG</div>
         </article>
@@ -95,6 +95,7 @@ window.fbAsyncInit = function () {
         FB.logout(function (response) {
             FreshFace.logOff();
         });
+        event.preventDefault();
     });
     FB.getLoginStatus(function (logResp) {
         if (logResp.status === 'connected') {

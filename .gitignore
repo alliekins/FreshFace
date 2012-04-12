@@ -13,3 +13,4 @@ mvc3-temp/mvc3-temp.Tests/bin/*
 *.suo
 *.user
 *.cache
+*/Thumbs.db
