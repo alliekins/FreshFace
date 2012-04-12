@@ -14,7 +14,7 @@ namespace FreshFace.Models
 
         public static string GetAppID(HttpContextBase server)
         {
-            var AppID = "377609208946698"; // the actualy AppID for deployment
+            var AppID = "377609208946698"; // the actual AppID for deployment
 
             try
             {
