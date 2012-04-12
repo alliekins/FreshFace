@@ -118,22 +118,55 @@ window.fbAsyncInit = function () {
                 $(apiResp.data).each(function (index, post) {
                     // A post should have:
                         // post.from.name
-                        // post.story
+                        // post.name
                         // and others!
+                    // A post may have:
+                        // post.story
+                        // post.link
 
                     var article = document.createElement("article");
-                    var from = document.createElement("h6");
+                    var tLink = undefined;
+                    var title = document.createElement("h6");
                     var story = document.createElement("p");
 
                     article.class = "ff-feed-item";
-                    from.class = "ff-feed-from";
+                    title.class = "ff-feed-from";
                     story.class = "ff-feed-story";
 
-                    $(from).html("By " + post.from.name + ":");
-                    $(story).html(post.story);
+                    var titleText = "";
+                    if (post.name) {
+                        titleText = post.name;
+                    } else if (post.from.name) {
+                        titleText = "From " + post.from.name + ":";
+                    } else {
+                        titleText = post.caption;
+                    }
 
-                    $(article).append(from).append(story);
+                    if (post.link) {
+                        tLink = document.createElement("a");
+                        tLink.href = post.link;
+                        $(tLink).append(title);
+                    }
+
+                    $(title).html(titleText);
+
+                    var storyText = "";
+                    if (post.story) {
+                        storyText = post.story;
+                    } else if (post.message) {
+                        storyText = post.message;
+                    }
+                    $(story).html(storyText);
+
+                    if (tLink) {
+                        $(article).append(tLink).append(story);
+                    } else {
+                        $(article).append(title).append(story);
+                    }
                     $(feedPar).append(article);
+
+                    Debug.log("The post by: " + post.from.name);
+                    Debug.log("Reaching end of index: " + index);
                 });
             });
         } else {
