@@ -91,6 +91,12 @@ window.fbAsyncInit = function () {
         xfbml      : true,
         oauth      : true,
     });
+    FB.Event.subscribe('auth.statusChange', function (response) {
+        if (!response.authResponse) {
+            Debug.log("FB has likely timed us out, log out.");
+            FreshFace.logOff();
+        }
+    });
     $(".logout").click(function (event) {
         FB.logout(function (response) {
             FreshFace.logOff();
@@ -165,8 +171,8 @@ window.fbAsyncInit = function () {
                     }
                     $(feedPar).append(article);
 
-                    Debug.log("The post by: " + post.from.name);
-                    Debug.log("Reaching end of index: " + index);
+                    //Debug.log("The post by: " + post.from.name);
+                    //Debug.log("Reaching end of index: " + index);
                 });
             });
         } else {
