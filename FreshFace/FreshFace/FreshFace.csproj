@@ -62,6 +62,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StockController.cs" />
@@ -78,6 +83,7 @@
     <Content Include="Content\foundation.css" />
     <Content Include="Content\ie.css" />
     <Content Include="Content\img\back.png" />
+    <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\misc\button-gloss.png" />
     <Content Include="Content\misc\button-overlay.png" />
     <Content Include="Content\misc\custom-form-sprites.png" />
@@ -171,6 +177,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_GridLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Strings.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
