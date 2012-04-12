@@ -35,9 +35,9 @@
         <section class="row">
             <h4>@Resources.Strings.MyActions</h4>
             <div class="actions">
-                <div class="row"><a class="btn">@Resources.Strings.AddFriend</a></div>
-                <div class="row"><a class="btn">@Resources.Strings.UploadPhoto</a></div>
-                <div class="row"><a class="btn logout">@Resources.Strings.Logout</a></div>
+                <div class="row"><a class="btn" href="">@Resources.Strings.AddFriend</a></div>
+                <div class="row"><a class="btn" href="">@Resources.Strings.UploadPhoto</a></div>
+                <div class="row"><a class="btn logout" href="">@Resources.Strings.Logout</a></div>
             </div>
         </section>
 
@@ -95,6 +95,7 @@ window.fbAsyncInit = function () {
         FB.logout(function (response) {
             FreshFace.logOff();
         });
+        event.preventDefault();
     });
     FB.getLoginStatus(function (logResp) {
         if (logResp.status === 'connected') {

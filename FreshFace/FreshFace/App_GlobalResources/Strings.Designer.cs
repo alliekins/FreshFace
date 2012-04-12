@@ -178,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to News Article - by.
+        ///   Looks up a localized string similar to News Article - by .
         /// </summary>
         internal static string NewsBy {
             get {
