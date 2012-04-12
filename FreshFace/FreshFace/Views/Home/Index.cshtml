@@ -49,6 +49,9 @@
 
     <section class="seven columns">
         <h2>My News</h2>
+        <span>
+            My status: <input class="status" type="text" /> <a class="post" href="">Post</a>
+        </span>
         <div class="ff-feed-parent">
             <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
             
@@ -102,6 +105,32 @@ window.fbAsyncInit = function () {
             FreshFace.logOff();
         });
         event.preventDefault();
+    });
+    var postStatus = function (msg) {
+        var data = {
+            message: msg
+        };
+        FB.api('/me/feed', 'post', data, function (resp) {
+            if (!resp || resp.error) {
+                Debug.log("FB post error.");
+            } else {
+                Debug.log("FB responded to status post.");
+                Debug.log(resp);
+            }
+        });
+    }
+    $(".post").click(function (event) {
+        Debug.log("Posting to FB: " + $(".status").val());
+        postStatus($(".status").val());
+        event.preventDefault();
+    });
+    $(".status").keyup(function (event) {
+        // On enter key
+        if (event.keyCode == 13) {
+            Debug.log($(this));
+            Debug.log($(this).val());
+            postStatus($(this).val());
+        }
     });
     FB.getLoginStatus(function (logResp) {
         if (logResp.status === 'connected') {
