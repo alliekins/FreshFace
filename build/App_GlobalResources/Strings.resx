@@ -165,4 +165,13 @@
   <data name="MyEvents" xml:space="preserve">
     <value>My Events</value>
   </data>
+  <data name="MyNews" xml:space="preserve">
+    <value>My News</value>
+  </data>
+  <data name="MyStatus" xml:space="preserve">
+    <value>My status:</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Post</value>
+  </data>
 </root>

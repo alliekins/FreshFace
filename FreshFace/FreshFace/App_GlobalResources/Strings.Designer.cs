@@ -169,6 +169,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My News.
+        /// </summary>
+        internal static string MyNews {
+            get {
+                return ResourceManager.GetString("MyNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My status:.
+        /// </summary>
+        internal static string MyStatus {
+            get {
+                return ResourceManager.GetString("MyStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Stocks.
         /// </summary>
         internal static string MyStocks {
@@ -183,6 +201,15 @@ namespace Resources {
         internal static string NewsBy {
             get {
                 return ResourceManager.GetString("NewsBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post.
+        /// </summary>
+        internal static string Post {
+            get {
+                return ResourceManager.GetString("Post", resourceCulture);
             }
         }
         
