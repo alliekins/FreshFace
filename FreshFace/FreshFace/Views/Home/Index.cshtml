@@ -151,6 +151,9 @@ window.fbAsyncInit = function () {
                 var feedPar = $(".ff-feed-parent");
                 Debug.log("User's feed: " + apiResp);
                 $(apiResp.data).each(function (index, post) {
+                    if (index >= 10) {
+                        return;
+                    }
                     // A post should have:
                         // post.from.name
                         // post.name
