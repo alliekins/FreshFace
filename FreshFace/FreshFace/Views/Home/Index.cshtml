@@ -191,7 +191,7 @@ window.fbAsyncInit = function () {
                     } else {
                         titleText = post.caption;
                     }
-                    if (post.picture){
+                    if (post.picture && post.type === "photo"){
                         photo = "<img src=\"" + post.picture + "\"/>";
                     }
 
