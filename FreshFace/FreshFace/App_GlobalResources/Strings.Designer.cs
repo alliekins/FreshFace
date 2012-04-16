@@ -214,6 +214,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        internal static string StockChange {
+            get {
+                return ResourceManager.GetString("StockChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string StockName {
+            get {
+                return ResourceManager.GetString("StockName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        internal static string StockPrice {
+            get {
+                return ResourceManager.GetString("StockPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload Photo.
         /// </summary>
         internal static string UploadPhoto {

@@ -14,14 +14,16 @@ namespace FreshFace.Controllers
         // GET: /Stock/Details/5
 
         [HttpGet]
-        public JsonResult Details(int id)
+        public JsonResult Details(string id)
         {
+            
             if (!Request.IsAuthenticated)
             {
                 return null;
             }
-
-            return Json(new StockModel() { CompanyName = "GOOG", ChangePrice = 5, CurrentPrice = 600 }, JsonRequestBehavior.AllowGet);
+            
+            StockEngine se = StockEngine.Execute(id);
+            return Json(new StockModel() { CompanyName = se.Symbol, ChangePrice = se.ChangeValue, CurrentPrice = se.Value }, JsonRequestBehavior.AllowGet);
         }
 
         //

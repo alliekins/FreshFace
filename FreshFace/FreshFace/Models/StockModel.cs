@@ -9,9 +9,9 @@ namespace FreshFace.models
         [Required]
         public string CompanyName { get; set; }
 
-        public int CurrentPrice { get; set; }
+        public double CurrentPrice { get; set; }
 
-        public int ChangePrice { get; set; }
+        public double ChangePrice { get; set; }
     }
 
 }

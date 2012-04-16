@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\FBModel.cs" />
+    <Compile Include="Models\StockEngine.cs" />
     <Compile Include="Models\StockModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <Content Include="App_GlobalResources\Strings.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
