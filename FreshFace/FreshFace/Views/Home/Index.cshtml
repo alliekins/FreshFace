@@ -177,6 +177,7 @@ window.fbAsyncInit = function () {
                     var tLink = undefined;
                     var title = document.createElement("h6");
                     var story = document.createElement("p");
+                    var photo = undefined
 
                     article.class = "ff-feed-item";
                     title.class = "ff-feed-from";
@@ -189,6 +190,9 @@ window.fbAsyncInit = function () {
                         titleText = "From " + post.from.name + ":";
                     } else {
                         titleText = post.caption;
+                    }
+                    if (post.picture){
+                        photo = "<img src=\"" + post.picture + "\"/>";
                     }
 
                     if (post.link) {
@@ -213,6 +217,8 @@ window.fbAsyncInit = function () {
                         $(article).append(title).append(story);
                     }
                     $(feedPar).append(article);
+                    $(feedPar).append(photo);
+                    $(feedPar).append("<hr />");
 
                     //Debug.log("The post by: " + post.from.name);
                     //Debug.log("Reaching end of index: " + index);
