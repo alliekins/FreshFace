@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = @Resources.Strings.FreshFaceHome;
+    Layout = "~/Views/Shared/_GridLayout.cshtml";
+}
+
+<!-- Start Row -->
+
+<div class="row">
+
+    <div class="three columns sidebar">
+
+        <!-- Self Picture -->
+
+        <div class="row">
+            <!-- Hiding profile pic; can't think 
+                    of a sensible way to display -->
+            <div class="hide four columns centered ff-profile-pic"></div>
+        </div>
+
+        <!-- End Self Picture -->
+
+        <!-- Calendar -->
+
+        <section class="row">
+            <h4>@Resources.Strings.MyEvents</h4>
+            <div class="calendar"></div>
+        </section>
+
+        <!-- End Calendar -->
+        
+
+
+        <!-- FB Controls -->
+
+        <!-- Actions are moved to the header bar
+        <section class="row">
+            <h4>@Resources.Strings.MyActions</h4>
+            <div class="pagelinks">
+                <div class="row"><a class="btn" href="">@Resources.Strings.AddFriend</a></div>
+                <div class="row"><a class="btn" href="">@Resources.Strings.UploadPhoto</a></div>
+                <div class="row"><a class="btn logout" href="">@Resources.Strings.Logout</a></div>
+            </div>
+        </section>
+        -->
+
+        <!-- End FB Controls -->
+
+    </div>
+
+<!-- News Feed -->
+
+    <section class="seven columns">
+        <h2>@Resources.Strings.MyNews</h2>
+        <span class="pagelinks">
+            @Resources.Strings.MyStatus<input class="status" type="text" /> <a class="post" href="">@Resources.Strings.Post</a>
+        </span>
+        <div class="ff-feed-parent">
+            <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
+            
+            <!-- Template for feed items:
+            <article class="ff-feed-item">
+                <h6 class="ff-feed-from">Brian Wyant</h6>:
+                <p class="ff-feed-story">
+                    Lots of text!
+                </p>
+            </article>
+            <!-- End Template -->
+
+        </div>
+    </section>
+
+    <!-- End News Feed -->
+
+    <!-- Stock Ticker -->
+
+    <section class="two columns sidebar side-right">
+        <h4>@Resources.Strings.MyStocks</h4>
+        <div>
+
+            <table id="stocks">
+            <tr>
+                <th>@Resources.Strings.StockName</th><th>@Resources.Strings.StockPrice</th><th>@Resources.Strings.StockChange</th>
+                <th> </th>
+            </tr>
+            </table> 
+            <span class="pagelinks">
+                <input class="stockname" type="text" /> <a class="addStock" href="">@Resources.Strings.AddStock</a>
+            </span>
+        </div>
+    </section>
+
+    <!-- End Stock Ticker -->
+
+</div>
+
+<!-- End Row -->
+
+<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function () {
+    FB.init({
+        appId      : "@ViewBag.AppID",
+        status     : true, 
+        cookie     : true,
+        xfbml      : true,
+        oauth      : true,
+    });
+    FB.Event.subscribe('auth.statusChange', function (response) {
+        if (!response.authResponse) {
+            Debug.log("FB has likely timed us out, log out.");
+            FreshFace.logOff();
+        }
+    });
+    $(".logout").click(function (event) {
+        FB.logout(function (response) {
+            FreshFace.logOff();
+        });
+        event.preventDefault();
+    });
+    var postStatus = function (msg) {
+        var data = {
+            message: msg
+        };
+        FB.api('/me/feed', 'post', data, function (resp) {
+            if (!resp || resp.error) {
+                Debug.log("FB post error.");
+            } else {
+                Debug.log("FB responded to status post.");
+                Debug.log(resp);
+            }
+        });
+    }
+    $(".post").click(function (event) {
+        Debug.log("Posting to FB: " + $(".status").val());
+        postStatus($(".status").val());
+        event.preventDefault();
+    });
+    $(".remove").click(function (event) {
+        FreshFace.removeStock(this.id);
+    });
+    $(".addStock").click(function (event) {
+        var name = $(".stockname").val();
+        if (name.length >= 3 && name.length <= 6) {
+            FreshFace.addStock(name.toUpperCase());
+        }
+    });
+    $(".status").keyup(function (event) {
+        // On enter key
+        if (event.keyCode == 13) {
+            Debug.log($(this));
+            Debug.log($(this).val());
+            postStatus($(this).val());
+        }
+    });
+    FB.getLoginStatus(function (logResp) {
+        if (logResp.status === 'connected') {
+            // Do stuff that we need to be logged in to do
+            Debug.log("Logged in!  Can do stuff now.");
+
+            FB.api('/me', function (apiResp) {
+                var uName = apiResp.name;
+                Debug.log("User name: " + uName);
+                $(".ff-name").html(uName);
+            });
+            FB.api('/me/picture', function (apiResp) {
+                Debug.log("Profile pic url: " + apiResp);
+                var img = '<img class="centered" src="' + apiResp + '"></img>';
+                $(".ff-profile-pic").html(img);
+            });
+            FB.api('/me/home', function (apiResp) {
+                var feedPar = $(".ff-feed-parent");
+                Debug.log("User's feed: " + apiResp);
+                $(apiResp.data).each(function (index, post) {
+                    if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
+                        return;
+                    }
+                    // A post should have:
+                        // post.from.name
+                        // post.name
+                        // and others!
+                    // A post may have:
+                        // post.story
+                        // post.link
+
+                    var article = document.createElement("article");
+                    var tLink = undefined;
+                    var title = document.createElement("h6");
+                    var story = document.createElement("p");
+                    var photo = undefined
+
+                    article.class = "ff-feed-item";
+                    title.class = "ff-feed-from";
+                    story.class = "ff-feed-story";
+
+                    var titleText = "";
+                    if (post.name) {
+                        titleText = post.name;
+                    } else if (post.from.name) {
+                        titleText = "From " + post.from.name + ":";
+                    } else {
+                        titleText = post.caption;
+                    }
+                    if (post.picture && post.type === "photo"){
+                        photo = "<img src=\"" + post.picture + "\"/>";
+                    }
+
+                    if (post.link) {
+                        tLink = document.createElement("a");
+                        tLink.href = post.link;
+                        $(tLink).append(title);
+                    }
+
+                    $(title).html(titleText);
+
+                    var storyText = "";
+                    if (post.story) {
+                        storyText = post.story;
+                    } else if (post.message) {
+                        storyText = post.message;
+                    } else if (post.description) {
+                        storyText = post.description;
+                    }
+                    $(story).html(storyText);
+
+                    if (tLink) {
+                        $(article).append(tLink).append(story);
+                    } else {
+                        $(article).append(title).append(story);
+                    }
+                    $(feedPar).append(article);
+                    $(feedPar).append(photo);
+                    $(feedPar).append("<hr />");
+
+                    //Debug.log("The post by: " + post.from.name);
+                    //Debug.log("Reaching end of index: " + index);
+                });
+            });
+        } else {
+            Debug.log("Logging out, FB has decided we're done.");
+            FreshFace.logOff();
+        }
+    });
+};
+(function(d){
+    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
+</script>
