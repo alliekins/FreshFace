@@ -78,11 +78,14 @@
         <div>
 
             <table id="stocks">
-            <tr><th>@Resources.Strings.StockName</th><th>@Resources.Strings.StockPrice</th><th>@Resources.Strings.StockChange</th><th> </th></tr>
+            <tr>
+                <th>@Resources.Strings.StockName</th><th>@Resources.Strings.StockPrice</th><th>@Resources.Strings.StockChange</th>
+                <th> </th>
+            </tr>
             </table> 
-            <span class="actions">
-            <input class="stockname" type="text" /> <a class="addStock" href="">Add Stock</a>
-        </span>
+            <span class="pagelinks">
+                <input class="stockname" type="text" /> <a class="addStock" href="">@Resources.Strings.AddStock</a>
+            </span>
         </div>
     </section>
 
@@ -168,7 +171,7 @@ window.fbAsyncInit = function () {
                 var feedPar = $(".ff-feed-parent");
                 Debug.log("User's feed: " + apiResp);
                 $(apiResp.data).each(function (index, post) {
-                    if (index >= 10) {
+                    if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
                         return;
                     }
                     // A post should have:

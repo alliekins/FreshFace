@@ -29,8 +29,8 @@ body
     right: 0px;
     left: 0px;
     z-index: 1000;
-    margin-bottom: 0px;
-    padding-bottom: 5px;
+    margin: 0px;
+    padding: 5px;
 }
 
 .ilblock
@@ -69,8 +69,27 @@ body
     }
     .container
     {
-        padding-top: 68px;
+        padding-top: 75px;
     }
+}
+
+/* -----------------------------------------
+   Used to verically center links on the top-right side of the header
+----------------------------------------- */
+
+.vcenter
+{
+    margin-top: 15px;
+}
+
+/* -----------------------------------------
+   Stocks link
+----------------------------------------- */
+
+.addStock
+{
+    margin-left: 2px;
+    margin-top: 2px;
 }
 
 /* -----------------------------------------
@@ -85,7 +104,7 @@ body
     text-decoration: none;
     border: 1px solid #DCDCDC;
     border-radius: 3px;
-    box-shadow: 0px 0px 5px 0px #444444;
+    box-shadow: 0px 0px 2px 0px #444444;
     color: #444444;
     background-color: #F2F2F2;
     font-weight: bold;
@@ -106,7 +125,8 @@ body
 .pagelinks a:hover
 {
     text-decoration: underline;
-    border-top: 1px solid #CCCCCC;
+    padding: 2px 9px 2px 9px;
+    border: 2px solid #CCCCCC;
     color: #333333;
     background-color: #E5E5E5;
 }
@@ -117,6 +137,7 @@ body
 
 .navlinks a
 {
+    color: #FFFFFF;
     text-decoration: none;
 }
 
@@ -137,13 +158,76 @@ body
     text-decoration: underline;
 }
 
+
+/* -----------------------------------------
+   Links in the news feed
+----------------------------------------- */
+
+.ff-feed-parent a p
+{
+    color: inherit;
+}
+
+.ff-feed-parent a h1
+{
+    color: inherit;
+}
+
+.ff-feed-parent a h2
+{
+    color: inherit;
+}
+
+.ff-feed-parent a h3
+{
+    color: inherit;
+}
+
+.ff-feed-parent a h4
+{
+    color: inherit;
+}
+
+.ff-feed-parent a h5
+{
+    color: inherit;
+}
+
+.ff-feed-parent a h6
+{
+    color: inherit;
+}
+
+.ff-feed-parent a
+{
+    color: #3366CC !important;
+    text-decoration: none;
+}
+
+.ff-feed-parent a:link
+{
+}
+
+.ff-feed-parent a:visited
+{
+}
+
+.ff-feed-parent a:active
+{
+}
+
+.ff-feed-parent a:hover
+{
+    text-decoration: underline;
+}
+
 /* -----------------------------------------
    Format the avatar and logo
 ----------------------------------------- */
 
 .logo table
 {
-    background-color: transparent;
+    background-color: inherit;
     text-align: center;
     vertical-align: middle;
     border: 0;
