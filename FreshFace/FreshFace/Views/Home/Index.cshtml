@@ -76,7 +76,7 @@
         <div>
 
             <table id="stocks">
-            <tr><th>@Resources.Strings.StockName</th><th>@Resources.Strings.StockPrice</th><th>@Resources.Strings.StockChange</th></tr>
+            <tr><th>@Resources.Strings.StockName</th><th>@Resources.Strings.StockPrice</th><th>@Resources.Strings.StockChange</th><th> </th></tr>
             </table> 
             <span class="actions">
             <input class="stockname" type="text" /> <a class="addStock" href="">Add Stock</a>
@@ -129,6 +129,17 @@ window.fbAsyncInit = function () {
         Debug.log("Posting to FB: " + $(".status").val());
         postStatus($(".status").val());
         event.preventDefault();
+    });
+    $(".remove").click(function (event) {
+        var s = getCookie("curStocks");
+        var stocks = s.split(',');
+        for (var i = 0; i < stocks.length; i++) {
+            if (this.id == stocks[i]) {
+                stocks.splice(i,1);
+                break;
+            }
+        }
+        setCookie("curStocks", stocks, 7);
     });
     $(".addStock").click(function (event) {
         var name = $(".stockname").val();

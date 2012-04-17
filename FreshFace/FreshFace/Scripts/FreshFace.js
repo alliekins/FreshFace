@@ -47,9 +47,11 @@ $(document).ready(function () {
     var s = getCookie("curStocks");
     var stocks;
 
-    if (s == null || s.length == "") {
+    if (s == null) {
         stocks = new Array("GOOG", "MSFT", "AAPL", "AMZN");
         setCookie("curStocks", stocks, 7);
+    } else if (s.length == "") {
+        $("#stocks").append("<tr><td>Add</td><td>Stocks</td><td>Below</td><tr>");
     } else {
         stocks = s.split(',');
     }
@@ -60,7 +62,7 @@ $(document).ready(function () {
         $.get("../Stock/Details/" + stocks[i], function (data) {
             $("#stocks").append("<tr><td><a href=\"http://finance.yahoo.com/q?s=" + data.CompanyName + "\">"
             + data.CompanyName + "</a></td><td>" + data.CurrentPrice.toFixed(2) + "</td><td> "
-             + data.ChangePrice.toFixed(2) + "</td></tr>");
+             + data.ChangePrice.toFixed(2) + "</td><td><a id=\"" + data.CompanyName + "\" class=\"remove\" href=\"\">X</a></td></tr>");
 
         });
     }
@@ -79,6 +81,8 @@ $(document).ready(function () {
     });
 });
 
+//Function that creates a cookie
+//http://www.w3schools.com/js/js_cookies.asp
 function setCookie(c_name, value, exdays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
@@ -86,6 +90,8 @@ function setCookie(c_name, value, exdays) {
     document.cookie = c_name + "=" + c_value;
 }
 
+//Function that getsa cookie
+//http://www.w3schools.com/js/js_cookies.asp
 function getCookie(c_name) {
     var i, x, y, ARRcookies = document.cookie.split(";");
     for (i = 0; i < ARRcookies.length; i++) {
@@ -97,3 +103,4 @@ function getCookie(c_name) {
         }
     }
 }
+
