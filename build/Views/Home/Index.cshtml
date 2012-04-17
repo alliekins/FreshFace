@@ -32,14 +32,16 @@
 
         <!-- FB Controls -->
 
+        <!-- Actions are moved to the header bar
         <section class="row">
             <h4>@Resources.Strings.MyActions</h4>
-            <div class="actions">
+            <div class="pagelinks">
                 <div class="row"><a class="btn" href="">@Resources.Strings.AddFriend</a></div>
                 <div class="row"><a class="btn" href="">@Resources.Strings.UploadPhoto</a></div>
                 <div class="row"><a class="btn logout" href="">@Resources.Strings.Logout</a></div>
             </div>
         </section>
+        -->
 
         <!-- End FB Controls -->
 
@@ -49,7 +51,7 @@
 
     <section class="seven columns">
         <h2>@Resources.Strings.MyNews</h2>
-        <span class="actions">
+        <span class="pagelinks">
             @Resources.Strings.MyStatus<input class="status" type="text" /> <a class="post" href="">@Resources.Strings.Post</a>
         </span>
         <div class="ff-feed-parent">
@@ -73,9 +75,18 @@
 
     <section class="two columns sidebar side-right">
         <h4>@Resources.Strings.MyStocks</h4>
-        <article>
-            <div>NASDAQ:GOOG</div>
-        </article>
+        <div>
+
+            <table id="stocks">
+            <tr>
+                <th>@Resources.Strings.StockName</th><th>@Resources.Strings.StockPrice</th><th>@Resources.Strings.StockChange</th>
+                <th> </th>
+            </tr>
+            </table> 
+            <span class="pagelinks">
+                <input class="stockname" type="text" /> <a class="addStock" href="">Add Stock</a>
+            </span>
+        </div>
     </section>
 
     <!-- End Stock Ticker -->
@@ -124,6 +135,26 @@ window.fbAsyncInit = function () {
         postStatus($(".status").val());
         event.preventDefault();
     });
+    $(".remove").click(function (event) {
+        var s = getCookie("curStocks");
+        var stocks = s.split(',');
+        for (var i = 0; i < stocks.length; i++) {
+            if (this.id == stocks[i]) {
+                stocks.splice(i,1);
+                break;
+            }
+        }
+        setCookie("curStocks", stocks, 7);
+    });
+    $(".addStock").click(function (event) {
+        var name = $(".stockname").val();
+        if (name.length >= 3 && name.length <= 6) {
+            var s = getCookie("curStocks");
+            var stocks = s.split(',');
+            stocks.push(name.toUpperCase());
+            setCookie("curStocks", stocks, 7);
+        }
+    });
     $(".status").keyup(function (event) {
         // On enter key
         if (event.keyCode == 13) {
@@ -147,10 +178,13 @@ window.fbAsyncInit = function () {
                 var img = '<img class="centered" src="' + apiResp + '"></img>';
                 $(".ff-profile-pic").html(img);
             });
-            FB.api('/me/feed', function (apiResp) {
+            FB.api('/me/home', function (apiResp) {
                 var feedPar = $(".ff-feed-parent");
                 Debug.log("User's feed: " + apiResp);
                 $(apiResp.data).each(function (index, post) {
+                    if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
+                        return;
+                    }
                     // A post should have:
                         // post.from.name
                         // post.name
@@ -163,6 +197,7 @@ window.fbAsyncInit = function () {
                     var tLink = undefined;
                     var title = document.createElement("h6");
                     var story = document.createElement("p");
+                    var photo = undefined
 
                     article.class = "ff-feed-item";
                     title.class = "ff-feed-from";
@@ -175,6 +210,9 @@ window.fbAsyncInit = function () {
                         titleText = "From " + post.from.name + ":";
                     } else {
                         titleText = post.caption;
+                    }
+                    if (post.picture && post.type === "photo"){
+                        photo = "<img src=\"" + post.picture + "\"/>";
                     }
 
                     if (post.link) {
@@ -190,6 +228,8 @@ window.fbAsyncInit = function () {
                         storyText = post.story;
                     } else if (post.message) {
                         storyText = post.message;
+                    } else if (post.description) {
+                        storyText = post.description;
                     }
                     $(story).html(storyText);
 
@@ -199,6 +239,8 @@ window.fbAsyncInit = function () {
                         $(article).append(title).append(story);
                     }
                     $(feedPar).append(article);
+                    $(feedPar).append(photo);
+                    $(feedPar).append("<hr />");
 
                     //Debug.log("The post by: " + post.from.name);
                     //Debug.log("Reaching end of index: " + index);

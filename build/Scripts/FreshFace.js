@@ -10,6 +10,7 @@
 * @global
 *
 */
+
 var FreshFace = {
 
     /**
@@ -41,19 +42,31 @@ var FreshFace = {
     }
 };
 
-
-// EXAMPLE CODE ONLY
-// Getting a stock from the server
 $(document).ready(function () {
-    Debug.log("Accessing service...");
 
-    $.get("../Stock/Details/5", function (data) {
-        Debug.log("Accessed data: " + data);
-        Debug.log("Company accessed: " + data.CompanyName);
-        Debug.log("Company change: " + data.ChangePrice);
-        Debug.log("Company price: " + data.CurrentPrice);
+    var s = getCookie("curStocks");
+    var stocks;
 
-    });
+    if (s == null) {
+        stocks = new Array("GOOG", "MSFT", "AAPL", "AMZN");
+        setCookie("curStocks", stocks, 7);
+    } else if (s.length == "") {
+        $("#stocks").append("<tr><td>Add</td><td>Stocks</td><td>Below</td><tr>");
+    } else {
+        stocks = s.split(',');
+    }
+
+    for (var i = 0; i < stocks.length; i++) {
+
+        var url = "../Stock/Details/" + stocks[i];
+        $.get("../Stock/Details/" + stocks[i], function (data) {
+            $("#stocks").append("<tr><td><a href=\"http://finance.yahoo.com/q?s=" + data.CompanyName + "\">"
+            + data.CompanyName + "</a></td><td>" + data.CurrentPrice.toFixed(2) + "</td><td> "
+             + data.ChangePrice.toFixed(2) + "</td><td><a id=\"" + data.CompanyName 
+             + "\" title=\"Remove "+ data.CompanyName +"\" class=\"remove\" href=\"\">X</a></td></tr>");
+
+        });
+    }
 });
 
 // Turns calendars into FullCalendars
@@ -68,3 +81,27 @@ $(document).ready(function () {
         }
     });
 });
+
+//Function that creates a cookie
+//http://www.w3schools.com/js/js_cookies.asp
+function setCookie(c_name, value, exdays) {
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+    document.cookie = c_name + "=" + c_value;
+}
+
+//Function that getsa cookie
+//http://www.w3schools.com/js/js_cookies.asp
+function getCookie(c_name) {
+    var i, x, y, ARRcookies = document.cookie.split(";");
+    for (i = 0; i < ARRcookies.length; i++) {
+        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+        x = x.replace(/^\s+|\s+$/g, "");
+        if (x == c_name) {
+            return unescape(y);
+        }
+    }
+}
+
