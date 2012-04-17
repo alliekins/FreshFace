@@ -183,4 +183,7 @@
   <data name="StockChange" xml:space="preserve">
     <value>Change</value>
   </data>
+  <data name="Nav" xml:space="preserve">
+    <value>Nav</value>
+  </data>
 </root>

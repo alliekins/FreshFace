@@ -47,19 +47,23 @@
 		
         <header id="zurBar" class="container">
             <nav class="row">
-                <div class="four columns">
-                    <a href="#" id="mobileNav" data-reveal-id="navModal" class="small nice button show-on-phones">Nav</a>
-                    <a href="@Url.Content("~/Home/Index")" class="ff-profile-pic ilblock prof-header"></a>
-                    <h1 class="ilblock"><a href="@Url.Content("~/Home/Index")">@Resources.Strings.FreshFace</a></h1>
+                <div class="four columns logo">
+                    <table>
+                    <tr>
+                        <td><a href="#" id="mobileNav" data-reveal-id="navModal" class="small nice button show-on-phones">@Resources.Strings.Nav</a></td>
+                        <td><a href="@Url.Content("~/Home/Index")" class="ff-profile-pic ilblock prof-header"></a></td>
+                        <td><h1 class="ilblock  navlinks"><a href="@Url.Content("~/Home/Index")">@Resources.Strings.FreshFace</a></h1></td>
+                    </tr>
+                    </table>
                 </div>
                 <div class="eight columns hide-on-phones">
-                    <strong class="right">
+                    <strong class="right navlinks">
                         @if (Request.IsAuthenticated)
                         {
                             <a href="">@Resources.Strings.MyCalendar</a>
-                            <a href="">@Resources.Strings.MyActions</a>
-                            <a href="">@Resources.Strings.MyFeed</a>
                             <a href="">@Resources.Strings.MyStocks</a>
+                            <a href="">@Resources.Strings.AddFriend</a>
+                            <a href="">@Resources.Strings.UploadPhoto</a>
                         }
                         @Html.Partial("_LogOnPartial")
                     </strong>

@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nav.
+        /// </summary>
+        internal static string Nav {
+            get {
+                return ResourceManager.GetString("Nav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to News Article - by .
         /// </summary>
         internal static string NewsBy {
