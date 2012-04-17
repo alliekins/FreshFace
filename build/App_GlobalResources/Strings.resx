@@ -174,4 +174,16 @@
   <data name="Post" xml:space="preserve">
     <value>Post</value>
   </data>
+  <data name="StockName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="StockPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="StockChange" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Nav" xml:space="preserve">
+    <value>Nav</value>
+  </data>
 </root>

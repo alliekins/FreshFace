@@ -133,23 +133,12 @@ window.fbAsyncInit = function () {
         event.preventDefault();
     });
     $(".remove").click(function (event) {
-        var s = getCookie("curStocks");
-        var stocks = s.split(',');
-        for (var i = 0; i < stocks.length; i++) {
-            if (this.id == stocks[i]) {
-                stocks.splice(i,1);
-                break;
-            }
-        }
-        setCookie("curStocks", stocks, 7);
+        FreshFace.removeStock(this.id);
     });
     $(".addStock").click(function (event) {
         var name = $(".stockname").val();
         if (name.length >= 3 && name.length <= 6) {
-            var s = getCookie("curStocks");
-            var stocks = s.split(',');
-            stocks.push(name.toUpperCase());
-            setCookie("curStocks", stocks, 7);
+            FreshFace.addStock(name.toUpperCase());
         }
     });
     $(".status").keyup(function (event) {

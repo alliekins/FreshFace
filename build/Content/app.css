@@ -30,6 +30,18 @@ body
     left: 0px;
     z-index: 1000;
     margin-bottom: 0px;
+    padding-bottom: 5px;
+}
+
+.ilblock
+{
+    display: inline-block;
+}
+
+.prof-header
+{
+    width: 35px;
+    height: 35px;
 }
 
 
@@ -62,45 +74,109 @@ body
 }
 
 /* -----------------------------------------
-   Links on side of page
+   Links on the main part of the page
 ----------------------------------------- */
 
-.actions a
+.pagelinks a
 {
     display: inline-block;
     padding: 3px 10px 3px 10px;
     width: inherit;
     text-decoration: none;
-    border-top: 1px solid #DCDCDC;
-    border-right: 2px solid #DCDCDC;
-    border-bottom: 2px solid #DCDCDC;
-    border-left: 1px solid #C6C6C6;
+    border: 1px solid #DCDCDC;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px 0px #444444;
     color: #444444;
     background-color: #F2F2F2;
     font-weight: bold;
 }
 
-.actions a:link
+.pagelinks a:link
 {
 }
 
-.actions a:visited
+.pagelinks a:visited
 {
 }
 
-.actions a:active
+.pagelinks a:active
 {
 }
 
-.actions a:hover
+.pagelinks a:hover
 {
     text-decoration: underline;
-    border-top: 2px solid #C6C6C6;
-    border-right: 1px solid #C6C6C6;
-    border-bottom: 1px solid #C6C6C6;
-    border-left: 2px solid #C6C6C6;
+    border-top: 1px solid #CCCCCC;
     color: #333333;
-    background-color: #F2F2F2;
+    background-color: #E5E5E5;
+}
+
+/* -----------------------------------------
+   Links in the header
+----------------------------------------- */
+
+.navlinks a
+{
+    text-decoration: none;
+}
+
+.navlinks a:link
+{
+}
+
+.navlinks a:visited
+{
+}
+
+.navlinks a:active
+{
+}
+
+.navlinks a:hover
+{
+    text-decoration: underline;
+}
+
+/* -----------------------------------------
+   Format the avatar and logo
+----------------------------------------- */
+
+.logo table
+{
+    background-color: transparent;
+    text-align: center;
+    vertical-align: middle;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+
+.logo tr
+{
+    background-color: transparent;
+    text-align: center;
+    vertical-align: middle;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.logo td
+{
+    background-color: transparent;
+    text-align: center;
+    vertical-align: middle;
+    border: 0;
+    padding: 3px;
+    margin: 0;
+}
+
+.logo img
+{
+    border: 1px solid #FFFFFF;
+    padding: 0;
+    margin: 0;
 }
 
 /* -----------------------------------------
@@ -159,5 +235,5 @@ body
 
 .fc-widget-content:hover
 {
-    background-color: #37FDFC;
+    background-color: #00A5FF;
 }
