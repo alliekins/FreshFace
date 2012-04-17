@@ -30,6 +30,18 @@ body
     left: 0px;
     z-index: 1000;
     margin-bottom: 0px;
+    padding-bottom: 5px;
+}
+
+.ilblock
+{
+    display: inline-block;
+}
+
+.prof-header
+{
+    width: 35px;
+    height: 35px;
 }
 
 
