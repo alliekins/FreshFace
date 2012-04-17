@@ -196,8 +196,8 @@ public class StockEngine
   /// <param name="html">The HTML to parse.</param>
   private void ParseQuote(string html)
   {
-    if (html.Contains("N/A"))
-      throw new ArgumentException("The symbol '" + Symbol + "' does not exist.");
+    //if (html.Contains("N/A"))
+      //throw new ArgumentException("The symbol '" + Symbol + "' does not exist.");
 
     string[] args = html.Split(',');
     CultureInfo format = new CultureInfo("en-US");
