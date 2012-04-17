@@ -62,7 +62,8 @@ $(document).ready(function () {
         $.get("../Stock/Details/" + stocks[i], function (data) {
             $("#stocks").append("<tr><td><a href=\"http://finance.yahoo.com/q?s=" + data.CompanyName + "\">"
             + data.CompanyName + "</a></td><td>" + data.CurrentPrice.toFixed(2) + "</td><td> "
-             + data.ChangePrice.toFixed(2) + "</td><td><a id=\"" + data.CompanyName + "\" class=\"remove\" href=\"\">X</a></td></tr>");
+             + data.ChangePrice.toFixed(2) + "</td><td><a id=\"" + data.CompanyName 
+             + "\" title=\"Remove "+ data.CompanyName +"\" class=\"remove\" href=\"\">X</a></td></tr>");
 
         });
     }
