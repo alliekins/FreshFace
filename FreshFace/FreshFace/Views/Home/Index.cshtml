@@ -212,6 +212,8 @@ window.fbAsyncInit = function () {
                         storyText = post.story;
                     } else if (post.message) {
                         storyText = post.message;
+                    } else if (post.description) {
+                        storyText = post.description;
                     }
                     $(story).html(storyText);
 
