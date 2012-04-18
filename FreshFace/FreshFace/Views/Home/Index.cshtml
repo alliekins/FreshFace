@@ -110,7 +110,7 @@ window.fbAsyncInit = function () {
         status     : true, 
         cookie     : true,
         xfbml      : true,
-        oauth      : true,
+        oauth      : true
     });
     FB.Event.subscribe('auth.statusChange', function (response) {
         if (!response.authResponse) {
@@ -200,11 +200,11 @@ window.fbAsyncInit = function () {
                     var tLink = undefined;
                     var title = document.createElement("h6");
                     var story = document.createElement("p");
-                    var photo = undefined
+                    var photo = undefined;
 
-                    article.class = "ff-feed-item";
-                    title.class = "ff-feed-from";
-                    story.class = "ff-feed-story";
+                    $(article).addClass("ff-feed-item");
+                    $(title).addClass("ff-feed-from");
+                    $(story).addClass("ff-feed-story");
 
                     var titleText = "";
                     if (post.name) {

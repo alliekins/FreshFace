@@ -89,6 +89,10 @@ $(document).ready(function () {
 
         var url = "../Stock/Details/" + stocks[i];
         $.get("../Stock/Details/" + stocks[i], function (data) {
+            if (data === "") {
+                Debug.log("ERROR: returned data from getting stocks was empty string.");
+                return;
+            }
             $("#stocks").append("<tr><td><a href=\"http://finance.yahoo.com/q?s=" + data.CompanyName + "\">"
             + data.CompanyName + "</a></td><td>" + data.CurrentPrice.toFixed(2) + "</td><td> "
              + data.ChangePrice.toFixed(2) + "</td><td><a id=\"" + data.CompanyName

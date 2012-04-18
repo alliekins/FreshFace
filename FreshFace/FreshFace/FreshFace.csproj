@@ -135,6 +135,7 @@
     <Content Include="Scripts\FreshFace.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
+    <Content Include="Scripts\json.js" />
     <Content Include="Scripts\modernizr.foundation.js" />
     <Content Include="Scripts\storage.js" />
     <Content Include="Web.config" />
