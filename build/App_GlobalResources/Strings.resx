@@ -186,4 +186,7 @@
   <data name="Nav" xml:space="preserve">
     <value>Nav</value>
   </data>
+  <data name="AddStock" xml:space="preserve">
+    <value>Add Stock</value>
+  </data>
 </root>

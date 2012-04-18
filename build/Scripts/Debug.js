@@ -23,6 +23,8 @@ var Debug = {
     prepare: function () {
         // Regex test: does the url contain ?debug=true
         Debug.debug = (/debug=true/i.test(window.location));
+
+        $.ajaxSetup({ cache: false });
     },
 
     /**
