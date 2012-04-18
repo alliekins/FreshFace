@@ -12,6 +12,15 @@
     </form> 
 </div>
 
+<div id="photoModal" class="reveal-modal">
+     <form id="photoForm" name="photoForm" action="" method="post">
+        <!--<input id="source" name="source" type="file" />-->
+        <!--<input type="submit" value="@Resources.Strings.UploadPhoto" />-->
+        <input type="text" class="photo_url" />
+        <a class="addPhoto" href="">@Resources.Strings.UploadPhoto</a>
+    </form> 
+</div>
+
 <div class="row">
 
     <div class="three columns sidebar">
@@ -61,8 +70,8 @@
         <span class="pagelinks">
             @Resources.Strings.MyStatus<input class="status" type="text" /> <a class="post" href="">@Resources.Strings.Post</a>
         </span>
+        <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
         <div class="ff-feed-parent">
-            <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
             
             <!-- Template for feed items:
             <article class="ff-feed-item">
@@ -110,7 +119,9 @@ window.fbAsyncInit = function () {
         status     : true, 
         cookie     : true,
         xfbml      : true,
-        oauth      : true
+        oauth      : true,
+        fileUpload : true,
+        uploadFile : true
     });
     FB.Event.subscribe('auth.statusChange', function (response) {
         if (!response.authResponse) {
@@ -125,6 +136,7 @@ window.fbAsyncInit = function () {
         event.preventDefault();
     });
     var postStatus = function (msg) {
+        $(".status").val("");
         var data = {
             message: msg
         };
@@ -134,6 +146,15 @@ window.fbAsyncInit = function () {
             } else {
                 Debug.log("FB responded to status post.");
                 Debug.log(resp);
+                var _index = resp.id.indexOf("_");
+                var postId = resp.id.substr(_index + 1);
+
+                FB.api('/' + postId, function (postData) {
+                    Debug.log("And the data is...");
+                    Debug.log(postData);
+
+                    FreshFace.prependPost($(".ff-feed-parent"), postData);
+                });
             }
         });
     }
@@ -143,7 +164,6 @@ window.fbAsyncInit = function () {
     $(".post").click(function (event) {
         Debug.log("Posting to FB: " + $(".status").val());
         postStatus($(".status").val());
-        event.preventDefault();
     });
     $(".addStock").click(function (event) {
         var name = $(".stockname").val();
@@ -154,6 +174,29 @@ window.fbAsyncInit = function () {
     $(".addFriend").click(function (event) {
         var friend = $(".friend_email").val();
         addFriend(friend);
+        $("#myModal").hide();
+    });
+    $(".addPhoto").click(function (event) {
+        //var album = $(".photo_album").val();
+        var photo = $(".photo_url").val();
+        var data = {
+            url: photo
+        };
+        //Debug.log($("#photoForm").serialize());
+        FB.api("/me/photos", "post", data, function (resp) {
+            Debug.log("Posted photo, resp:");
+            Debug.log(resp);
+
+            FB.api('/' + resp.id, function (postData) {
+                Debug.log("And the data is...");
+                Debug.log(postData);
+
+                FreshFace.prependPost($(".ff-feed-parent"), postData, "photo");
+
+                $("#photoModal").trigger("reveal:close");
+            });
+        });
+        event.preventDefault();
     });
     $(".status").keyup(function (event) {
         // On enter key
@@ -167,10 +210,25 @@ window.fbAsyncInit = function () {
         if (logResp.status === 'connected') {
             // Do stuff that we need to be logged in to do
             Debug.log("Logged in!  Can do stuff now.");
+            Debug.log(logResp);
 
             FB.api('/me', function (apiResp) {
                 var uName = apiResp.name;
                 Debug.log("User name: " + uName);
+                Debug.log(apiResp);
+
+                var fb_url = "https://graph.facebook.com/";
+                fb_url += apiResp.id;
+                var photoUrl = fb_url + "/albums";
+                photoUrl += "?access_token=" + logResp.authResponse.accessToken;
+                photoUrl += "&app_id=" + "@ViewBag.AppID";
+                photoUrl += "&method=post";
+                photoUrl += "&sdk=joey";
+                photoUrl += "&pretty=0";
+                $("#photoForm").attr("action", photoUrl);
+                //$("#photoForm").ajaxForm(function (photoResp) {
+                //    Debug.log(photoResp);
+                //});
                 $(".ff-name").html(uName);
             });
             FB.api('/me/picture', function (apiResp) {
@@ -178,72 +236,15 @@ window.fbAsyncInit = function () {
                 var img = '<img class="centered" src="' + apiResp + '"></img>';
                 $(".ff-profile-pic").html(img);
             });
-            FB.api('/me/home', function (apiResp) {
+            FB.api('/me/home', {limit: 10}, function (apiResp) {
                 var feedPar = $(".ff-feed-parent");
                 Debug.log("User's feed: " + apiResp);
                 $(apiResp.data).each(function (index, post) {
-                    if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
-                        return;
-                    }
-                    // A post should have:
-                        // post.from.name
-                        // post.name
-                        // and others!
-                    // A post may have:
-                        // post.story
-                        // post.link
-
-                    var article = document.createElement("article");
-                    var tLink = undefined;
-                    var title = document.createElement("h6");
-                    var story = document.createElement("p");
-                    var photo = undefined;
-
-                    $(article).addClass("ff-feed-item");
-                    $(title).addClass("ff-feed-from");
-                    $(story).addClass("ff-feed-story");
-
-                    var titleText = "";
-                    if (post.name) {
-                        titleText = post.name;
-                    } else if (post.from.name) {
-                        titleText = "From " + post.from.name + ":";
-                    } else {
-                        titleText = post.caption;
-                    }
-                    if (post.picture && (post.type === "photo" || post.type === "video")){
-                        photo = "<img src=\"" + post.picture + "\"/>";
-                    }
-
-                    if (post.link) {
-                        tLink = document.createElement("a");
-                        tLink.href = post.link;
-                        $(tLink).append(title);
-                    }
-
-                    $(title).html(titleText);
-
-                    var storyText = "";
-                    if (post.story) {
-                        storyText = post.story;
-                    } else if (post.message) {
-                        storyText = post.message;
-                    } else if (post.description) {
-                        storyText = post.description;
-                    }
-                    $(story).html(storyText);
-
-                    if (tLink) {
-                        $(article).append(tLink).append(story);
-                    } else {
-                        $(article).append(title).append(story);
-                    }
-                    $(feedPar).append(article);
-                    $(feedPar).append(photo);
-                    $(feedPar).append("<hr />");
-
-                    //Debug.log("The post by: " + post.from.name);
-                    //Debug.log("Reaching end of index: " + index);
+                    //if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
+                    //    return;
+                    //}
+                    
+                    FreshFace.appendPost(feedPar, post);
                 });
             });
         } else {

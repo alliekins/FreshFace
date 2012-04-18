@@ -64,7 +64,7 @@
                             <a href="">@Resources.Strings.MyCalendar</a>
                             <a href="">@Resources.Strings.MyStocks</a>
                             <a href="#" data-reveal-id="myModal">@Resources.Strings.AddFriend</a>
-                            <a href="">@Resources.Strings.UploadPhoto</a>
+                            <a href="#" data-reveal-id="photoModal">@Resources.Strings.UploadPhoto</a>
                         }
                         @Html.Partial("_LogOnPartial")
                     </strong>
@@ -82,6 +82,7 @@
 			
         <!-- Putting what scripts we can at bottom of page so that content loads first -->
         
+		<script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
 		<script src="@Url.Content("~/Scripts/app.js")" type="text/javascript"></script>
 		<script src="@Url.Content("~/Scripts/modernizr.foundation.js")" type="text/javascript"></script>
 		<script src="@Url.Content("~/Scripts/foundation.js")" type="text/javascript"></script>
