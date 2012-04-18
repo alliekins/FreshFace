@@ -61,8 +61,8 @@
         <span class="pagelinks">
             @Resources.Strings.MyStatus<input class="status" type="text" /> <a class="post" href="">@Resources.Strings.Post</a>
         </span>
+        <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
         <div class="ff-feed-parent">
-            <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
             
             <!-- Template for feed items:
             <article class="ff-feed-item">
@@ -125,6 +125,7 @@ window.fbAsyncInit = function () {
         event.preventDefault();
     });
     var postStatus = function (msg) {
+        $(".status").val("");
         var data = {
             message: msg
         };
@@ -134,6 +135,15 @@ window.fbAsyncInit = function () {
             } else {
                 Debug.log("FB responded to status post.");
                 Debug.log(resp);
+                var _index = resp.id.indexOf("_");
+                var postId = resp.id.substr(_index + 1);
+
+                FB.api('/' + postId, function (postData) {
+                    Debug.log("And the data is...");
+                    Debug.log(postData);
+
+                    FreshFace.prependPost($(".ff-feed-parent"), postData);
+                });
             }
         });
     }
@@ -178,72 +188,15 @@ window.fbAsyncInit = function () {
                 var img = '<img class="centered" src="' + apiResp + '"></img>';
                 $(".ff-profile-pic").html(img);
             });
-            FB.api('/me/home', function (apiResp) {
+            FB.api('/me/home', {limit: 10}, function (apiResp) {
                 var feedPar = $(".ff-feed-parent");
                 Debug.log("User's feed: " + apiResp);
                 $(apiResp.data).each(function (index, post) {
-                    if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
-                        return;
-                    }
-                    // A post should have:
-                        // post.from.name
-                        // post.name
-                        // and others!
-                    // A post may have:
-                        // post.story
-                        // post.link
-
-                    var article = document.createElement("article");
-                    var tLink = undefined;
-                    var title = document.createElement("h6");
-                    var story = document.createElement("p");
-                    var photo = undefined;
-
-                    $(article).addClass("ff-feed-item");
-                    $(title).addClass("ff-feed-from");
-                    $(story).addClass("ff-feed-story");
-
-                    var titleText = "";
-                    if (post.name) {
-                        titleText = post.name;
-                    } else if (post.from.name) {
-                        titleText = "From " + post.from.name + ":";
-                    } else {
-                        titleText = post.caption;
-                    }
-                    if (post.picture && (post.type === "photo" || post.type === "video")){
-                        photo = "<img src=\"" + post.picture + "\"/>";
-                    }
-
-                    if (post.link) {
-                        tLink = document.createElement("a");
-                        tLink.href = post.link;
-                        $(tLink).append(title);
-                    }
-
-                    $(title).html(titleText);
-
-                    var storyText = "";
-                    if (post.story) {
-                        storyText = post.story;
-                    } else if (post.message) {
-                        storyText = post.message;
-                    } else if (post.description) {
-                        storyText = post.description;
-                    }
-                    $(story).html(storyText);
-
-                    if (tLink) {
-                        $(article).append(tLink).append(story);
-                    } else {
-                        $(article).append(title).append(story);
-                    }
-                    $(feedPar).append(article);
-                    $(feedPar).append(photo);
-                    $(feedPar).append("<hr />");
-
-                    //Debug.log("The post by: " + post.from.name);
-                    //Debug.log("Reaching end of index: " + index);
+                    //if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
+                    //    return;
+                    //}
+                    
+                    FreshFace.appendPost(feedPar, post);
                 });
             });
         } else {

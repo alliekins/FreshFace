@@ -14,11 +14,11 @@
 var FreshFace = {
 
     /**
-     * Log out of session on server.
-     *
-     * @method logOff
-     *
-     */
+    * Log out of session on server.
+    *
+    * @method logOff
+    *
+    */
     logOff: function () {
         $.post('../Account/LogOff', function (resp) {
             // Logging off is always successful, no need to check response
@@ -27,12 +27,12 @@ var FreshFace = {
     },
 
     /**
-     * Log into a session on server, given FB data.
-     *
-     * @method logOn
-     * @param (Object) data the data to send to server
-     *
-     */
+    * Log into a session on server, given FB data.
+    *
+    * @method logOn
+    * @param (Object) data the data to send to server
+    *
+    */
     logOn: function (data) {
         $.post("../Account/LogOn", data, function (resp) {
             if (resp.Success) {
@@ -42,11 +42,11 @@ var FreshFace = {
     },
 
     /**
-     * Removes the given stock.
-     *
-     * @method removeStock
-     *
-     */
+    * Removes the given stock.
+    *
+    * @method removeStock
+    *
+    */
     removeStock: function (name) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
@@ -58,16 +58,124 @@ var FreshFace = {
     },
 
     /**
-     * Removes the given stock.
-     *
-     * @method removeStock
-     *
-     */
+    * Removes the given stock.
+    *
+    * @method removeStock
+    *
+    */
     addStock: function (name) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
         stocks.push(name);
         localStorage.setItem("MyStocks", JSON.stringify(stocks));
+    },
+
+    generatePost: function (post) {
+        // A post should have:
+        // post.from.name
+        // post.name
+        // and others!
+        // A post may have:
+        // post.story
+        // post.link
+
+        var article = document.createElement("article");
+        var tLink = undefined;
+        var title = document.createElement("h6");
+        var story = document.createElement("p");
+        var photo = "";
+
+        $(article).addClass("ff-feed-item");
+        $(title).addClass("ff-feed-from");
+        $(story).addClass("ff-feed-story");
+
+        var titleText = "";
+        if (post.name) {
+            titleText = post.name;
+        } else if (post.from.name) {
+            titleText = "From " + post.from.name + ":";
+        } else {
+            titleText = post.caption;
+        }
+        if (post.picture && (post.type === "photo" || post.type === "video")) {
+            photo = "<img src=\"" + post.picture + "\"/>";
+        }
+
+        if (post.link) {
+            tLink = document.createElement("a");
+            tLink.href = post.link;
+            $(tLink).append(title);
+        }
+
+        $(title).html(titleText);
+
+        var storyText = "";
+        if (post.story) {
+            storyText = post.story;
+        } else if (post.message) {
+            storyText = post.message;
+        } else if (post.description) {
+            storyText = post.description;
+        }
+        $(story).html(storyText);
+
+        if (tLink) {
+            $(article).append(tLink).append(story);
+        } else {
+            $(article).append(title).append(story);
+        }
+
+        $(article).append(photo);
+        $(article).append("<hr />");
+
+        return article;
+    },
+
+    prependPost: function (feedPar, postData) {
+        var article = FreshFace.generatePost(postData);
+
+        $(feedPar).prepend(article);
+    },
+
+    appendPost: function (feedPar, postData) {
+        var article = FreshFace.generatePost(postData);
+
+        $(feedPar).append(article);
+    },
+
+    appendStock: function (stockData) {
+        var stockRow = document.createElement("tr");
+        var stockName = document.createElement("td");
+        var stockLink = document.createElement("a");
+        var stockPrice = document.createElement("td");
+        var stockChange = document.createElement("td");
+        var stockExtra = document.createElement("td");
+        var stockRem = document.createElement("a");
+
+        $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
+        $(stockLink).html(stockData.CompanyName);
+        $(stockName).append(stockLink);
+
+        $(stockPrice).html(stockData.CurrentPrice.toFixed(2));
+
+        $(stockChange).html(stockData.ChangePrice.toFixed(2));
+
+        $(stockRem).attr("id", stockData.CompanyName);
+        $(stockRem).attr("title", "Remove " + stockData.CompanyName);
+        $(stockRem).addClass("remove");
+        $(stockRem).attr("href", "");
+        $(stockRem).html("X");
+        $(stockRem).click(function () {
+            FreshFace.removeStock(stockData.CompanyName);
+        });
+        $(stockExtra).append(stockRem);
+
+        $(stockRow).append(stockName);
+        $(stockRow).append(stockPrice);
+        $(stockRow).append(stockChange);
+        $(stockRow).append(stockExtra);
+
+        $("#stocks").append(stockRow);
     }
 
 };
@@ -94,38 +202,7 @@ $(document).ready(function () {
                 return;
             }
 
-            var stockRow = document.createElement("tr");
-            var stockName = document.createElement("td");
-            var stockLink = document.createElement("a");
-            var stockPrice = document.createElement("td");
-            var stockChange = document.createElement("td");
-            var stockExtra = document.createElement("td");
-            var stockRem = document.createElement("a");
-
-            $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + data.CompanyName);
-            $(stockLink).html(data.CompanyName);
-            $(stockName).append(stockLink);
-
-            $(stockPrice).html(data.CurrentPrice.toFixed(2));
-
-            $(stockChange).html(data.ChangePrice.toFixed(2));
-
-            $(stockRem).attr("id", data.CompanyName);
-            $(stockRem).attr("title", "Remove " + data.CompanyName);
-            $(stockRem).addClass("remove");
-            $(stockRem).attr("href", "");
-            $(stockRem).html("X");
-            $(stockRem).click(function () {
-                FreshFace.removeStock(data.CompanyName);
-            });
-            $(stockExtra).append(stockRem);
-
-            $(stockRow).append(stockName);
-            $(stockRow).append(stockPrice);
-            $(stockRow).append(stockChange);
-            $(stockRow).append(stockExtra);
-
-            $("#stocks").append(stockRow);
+            FreshFace.appendStock(data);
         });
     }
 });
