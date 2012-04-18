@@ -5,14 +5,16 @@
 
 <!-- Start Row -->
 
-<div id="myModal" class="reveal-modal">
+<div id="myModal" class="reveal-modal pagelinks">
+     <p>@Resources.Strings.EnterFriend</p>
      <form name="add_friend" action="" method="get">
         <input type="text" class="friend_email" />
         <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
     </form> 
 </div>
 
-<div id="photoModal" class="reveal-modal">
+<div id="photoModal" class="reveal-modal pagelinks">
+     <p>@Resources.Strings.EnterPhoto</p>
      <form id="photoForm" name="photoForm" action="" method="post">
         <!--<input id="source" name="source" type="file" />-->
         <!--<input type="submit" value="@Resources.Strings.UploadPhoto" />-->
@@ -71,7 +73,7 @@
             @Resources.Strings.MyStatus<input class="status" type="text" /> <a class="post" href="">@Resources.Strings.Post</a>
         </span>
         <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
-        <div class="ff-feed-parent">
+        <div class="ff-feed-parent normlinks">
             
             <!-- Template for feed items:
             <article class="ff-feed-item">
@@ -93,7 +95,7 @@
         <h4>@Resources.Strings.MyStocks</h4>
         <div>
 
-            <table id="stocks">
+            <table id="stocks" class="normlinks">
             <tr>
                 <th>@Resources.Strings.StockName</th><th>@Resources.Strings.StockPrice</th><th>@Resources.Strings.StockChange</th>
                 <th> </th>

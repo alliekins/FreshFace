@@ -163,60 +163,60 @@ body
    Links in the news feed
 ----------------------------------------- */
 
-.ff-feed-parent a p
+.normlinks a p
 {
     color: inherit;
 }
 
-.ff-feed-parent a h1
+.normlinks a h1
 {
     color: inherit;
 }
 
-.ff-feed-parent a h2
+.normlinks a h2
 {
     color: inherit;
 }
 
-.ff-feed-parent a h3
+.normlinks a h3
 {
     color: inherit;
 }
 
-.ff-feed-parent a h4
+.normlinks a h4
 {
     color: inherit;
 }
 
-.ff-feed-parent a h5
+.normlinks a h5
 {
     color: inherit;
 }
 
-.ff-feed-parent a h6
+.normlinks a h6
 {
     color: inherit;
 }
 
-.ff-feed-parent a
+.normlinks a
 {
     color: #3366CC !important;
     text-decoration: none;
 }
 
-.ff-feed-parent a:link
+.normlinks a:link
 {
 }
 
-.ff-feed-parent a:visited
+.normlinks a:visited
 {
 }
 
-.ff-feed-parent a:active
+.normlinks a:active
 {
 }
 
-.ff-feed-parent a:hover
+.normlinks a:hover
 {
     text-decoration: underline;
 }

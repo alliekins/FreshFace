@@ -79,6 +79,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter friend&apos;s email address below:.
+        /// </summary>
+        internal static string EnterFriend {
+            get {
+                return ResourceManager.GetString("EnterFriend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter picture URL below:.
+        /// </summary>
+        internal static string EnterPhoto {
+            get {
+                return ResourceManager.GetString("EnterPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string Error {

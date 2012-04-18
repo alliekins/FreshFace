@@ -189,4 +189,10 @@
   <data name="AddStock" xml:space="preserve">
     <value>Add Stock</value>
   </data>
+  <data name="EnterFriend" xml:space="preserve">
+    <value>Enter friend's email address below:</value>
+  </data>
+  <data name="EnterPhoto" xml:space="preserve">
+    <value>Enter picture URL below:</value>
+  </data>
 </root>
