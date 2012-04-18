@@ -5,6 +5,13 @@
 
 <!-- Start Row -->
 
+<div id="myModal" class="reveal-modal">
+     <form name="add_friend" action="" method="get">
+        <input type="text" class="friend_email" />
+        <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
+    </form> 
+</div>
+
 <div class="row">
 
     <div class="three columns sidebar">
@@ -103,7 +110,7 @@ window.fbAsyncInit = function () {
         status     : true, 
         cookie     : true,
         xfbml      : true,
-        oauth      : true,
+        oauth      : true
     });
     FB.Event.subscribe('auth.statusChange', function (response) {
         if (!response.authResponse) {
@@ -130,6 +137,9 @@ window.fbAsyncInit = function () {
             }
         });
     }
+    var addFriend = function(username) {
+        FB.ui({ method: 'friends.add', id: username, display: 'popup' });
+    }
     $(".post").click(function (event) {
         Debug.log("Posting to FB: " + $(".status").val());
         postStatus($(".status").val());
@@ -143,6 +153,10 @@ window.fbAsyncInit = function () {
         if (name.length >= 3 && name.length <= 6) {
             FreshFace.addStock(name.toUpperCase());
         }
+    });
+    $(".addFriend").click(function (event) {
+        var friend = $(".friend_email").val();
+        addFriend(friend);
     });
     $(".status").keyup(function (event) {
         // On enter key
@@ -186,11 +200,11 @@ window.fbAsyncInit = function () {
                     var tLink = undefined;
                     var title = document.createElement("h6");
                     var story = document.createElement("p");
-                    var photo = undefined
+                    var photo = undefined;
 
-                    article.class = "ff-feed-item";
-                    title.class = "ff-feed-from";
-                    story.class = "ff-feed-story";
+                    $(article).addClass("ff-feed-item");
+                    $(title).addClass("ff-feed-from");
+                    $(story).addClass("ff-feed-story");
 
                     var titleText = "";
                     if (post.name) {
@@ -200,7 +214,7 @@ window.fbAsyncInit = function () {
                     } else {
                         titleText = post.caption;
                     }
-                    if (post.picture && post.type === "photo"){
+                    if (post.picture && (post.type === "photo" || post.type === "video")){
                         photo = "<img src=\"" + post.picture + "\"/>";
                     }
 
