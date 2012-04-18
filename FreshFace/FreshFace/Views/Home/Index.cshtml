@@ -145,9 +145,6 @@ window.fbAsyncInit = function () {
         postStatus($(".status").val());
         event.preventDefault();
     });
-    $(".remove").click(function (event) {
-        FreshFace.removeStock(this.id);
-    });
     $(".addStock").click(function (event) {
         var name = $(".stockname").val();
         if (name.length >= 3 && name.length <= 6) {
