@@ -14,11 +14,11 @@
 var FreshFace = {
 
     /**
-    * Log out of session on server.
-    *
-    * @method logOff
-    *
-    */
+     * Log out of session on server.
+     *
+     * @method logOff
+     *
+     */
     logOff: function () {
         $.post('../Account/LogOff', function (resp) {
             // Logging off is always successful, no need to check response
@@ -27,12 +27,12 @@ var FreshFace = {
     },
 
     /**
-    * Log into a session on server, given FB data.
-    *
-    * @method logOn
-    * @param (Object) data the data to send to server
-    *
-    */
+     * Log into a session on server, given FB data.
+     *
+     * @method logOn
+     * @param (Object) data the data to send to server
+     *
+     */
     logOn: function (data) {
         $.post("../Account/LogOn", data, function (resp) {
             if (resp.Success) {
@@ -42,11 +42,11 @@ var FreshFace = {
     },
 
     /**
-    * Removes the given stock.
-    *
-    * @method removeStock
-    *
-    */
+     * Removes the given stock.
+     *
+     * @method removeStock
+     *
+     */
     removeStock: function (name) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
@@ -58,11 +58,11 @@ var FreshFace = {
     },
 
     /**
-    * Removes the given stock.
-    *
-    * @method removeStock
-    *
-    */
+     * Removes the given stock.
+     *
+     * @method removeStock
+     *
+     */
     addStock: function (name) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
@@ -93,11 +93,39 @@ $(document).ready(function () {
                 Debug.log("ERROR: returned data from getting stocks was empty string.");
                 return;
             }
-            $("#stocks").append("<tr><td><a href=\"http://finance.yahoo.com/q?s=" + data.CompanyName + "\">"
-            + data.CompanyName + "</a></td><td>" + data.CurrentPrice.toFixed(2) + "</td><td> "
-             + data.ChangePrice.toFixed(2) + "</td><td><a id=\"" + data.CompanyName
-             + "\" title=\"Remove " + data.CompanyName + "\" class=\"remove\" href=\"\">X</a></td></tr>");
 
+            var stockRow = document.createElement("tr");
+            var stockName = document.createElement("td");
+            var stockLink = document.createElement("a");
+            var stockPrice = document.createElement("td");
+            var stockChange = document.createElement("td");
+            var stockExtra = document.createElement("td");
+            var stockRem = document.createElement("a");
+
+            $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + data.CompanyName);
+            $(stockLink).html(data.CompanyName);
+            $(stockName).append(stockLink);
+
+            $(stockPrice).html(data.CurrentPrice.toFixed(2));
+
+            $(stockChange).html(data.ChangePrice.toFixed(2));
+
+            $(stockRem).attr("id", data.CompanyName);
+            $(stockRem).attr("title", "Remove " + data.CompanyName);
+            $(stockRem).addClass("remove");
+            $(stockRem).attr("href", "");
+            $(stockRem).html("X");
+            $(stockRem).click(function () {
+                FreshFace.removeStock(data.CompanyName);
+            });
+            $(stockExtra).append(stockRem);
+
+            $(stockRow).append(stockName);
+            $(stockRow).append(stockPrice);
+            $(stockRow).append(stockChange);
+            $(stockRow).append(stockExtra);
+
+            $("#stocks").append(stockRow);
         });
     }
 });
