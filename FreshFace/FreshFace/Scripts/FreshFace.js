@@ -70,7 +70,7 @@ var FreshFace = {
         localStorage.setItem("MyStocks", JSON.stringify(stocks));
     },
 
-    generatePost: function (post) {
+    generatePost: function (post, type) {
         // A post should have:
         // post.from.name
         // post.name
@@ -78,6 +78,10 @@ var FreshFace = {
         // A post may have:
         // post.story
         // post.link
+
+        if (typeof type !== "undefined") {
+            post.type = type;
+        }
 
         var article = document.createElement("article");
         var tLink = undefined;
@@ -131,14 +135,14 @@ var FreshFace = {
         return article;
     },
 
-    prependPost: function (feedPar, postData) {
-        var article = FreshFace.generatePost(postData);
+    prependPost: function (feedPar, postData, type) {
+        var article = FreshFace.generatePost(postData, type);
 
         $(feedPar).prepend(article);
     },
 
-    appendPost: function (feedPar, postData) {
-        var article = FreshFace.generatePost(postData);
+    appendPost: function (feedPar, postData, type) {
+        var article = FreshFace.generatePost(postData, type);
 
         $(feedPar).append(article);
     },

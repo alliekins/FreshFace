@@ -12,6 +12,15 @@
     </form> 
 </div>
 
+<div id="photoModal" class="reveal-modal">
+     <form id="photoForm" name="photoForm" action="" method="post">
+        <!--<input id="source" name="source" type="file" />-->
+        <!--<input type="submit" value="@Resources.Strings.UploadPhoto" />-->
+        <input type="text" class="photo_url" />
+        <a class="addPhoto" href="">@Resources.Strings.UploadPhoto</a>
+    </form> 
+</div>
+
 <div class="row">
 
     <div class="three columns sidebar">
@@ -110,7 +119,9 @@ window.fbAsyncInit = function () {
         status     : true, 
         cookie     : true,
         xfbml      : true,
-        oauth      : true
+        oauth      : true,
+        fileUpload : true,
+        uploadFile : true
     });
     FB.Event.subscribe('auth.statusChange', function (response) {
         if (!response.authResponse) {
@@ -153,7 +164,6 @@ window.fbAsyncInit = function () {
     $(".post").click(function (event) {
         Debug.log("Posting to FB: " + $(".status").val());
         postStatus($(".status").val());
-        event.preventDefault();
     });
     $(".addStock").click(function (event) {
         var name = $(".stockname").val();
@@ -164,6 +174,29 @@ window.fbAsyncInit = function () {
     $(".addFriend").click(function (event) {
         var friend = $(".friend_email").val();
         addFriend(friend);
+        $("#myModal").hide();
+    });
+    $(".addPhoto").click(function (event) {
+        //var album = $(".photo_album").val();
+        var photo = $(".photo_url").val();
+        var data = {
+            url: photo
+        };
+        //Debug.log($("#photoForm").serialize());
+        FB.api("/me/photos", "post", data, function (resp) {
+            Debug.log("Posted photo, resp:");
+            Debug.log(resp);
+
+            FB.api('/' + resp.id, function (postData) {
+                Debug.log("And the data is...");
+                Debug.log(postData);
+
+                FreshFace.prependPost($(".ff-feed-parent"), postData, "photo");
+
+                $("#photoModal").trigger("reveal:close");
+            });
+        });
+        event.preventDefault();
     });
     $(".status").keyup(function (event) {
         // On enter key
@@ -177,10 +210,25 @@ window.fbAsyncInit = function () {
         if (logResp.status === 'connected') {
             // Do stuff that we need to be logged in to do
             Debug.log("Logged in!  Can do stuff now.");
+            Debug.log(logResp);
 
             FB.api('/me', function (apiResp) {
                 var uName = apiResp.name;
                 Debug.log("User name: " + uName);
+                Debug.log(apiResp);
+
+                var fb_url = "https://graph.facebook.com/";
+                fb_url += apiResp.id;
+                var photoUrl = fb_url + "/albums";
+                photoUrl += "?access_token=" + logResp.authResponse.accessToken;
+                photoUrl += "&app_id=" + "@ViewBag.AppID";
+                photoUrl += "&method=post";
+                photoUrl += "&sdk=joey";
+                photoUrl += "&pretty=0";
+                $("#photoForm").attr("action", photoUrl);
+                //$("#photoForm").ajaxForm(function (photoResp) {
+                //    Debug.log(photoResp);
+                //});
                 $(".ff-name").html(uName);
             });
             FB.api('/me/picture', function (apiResp) {
