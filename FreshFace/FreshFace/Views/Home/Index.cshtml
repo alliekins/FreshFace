@@ -164,6 +164,7 @@ window.fbAsyncInit = function () {
     $(".post").click(function (event) {
         Debug.log("Posting to FB: " + $(".status").val());
         postStatus($(".status").val());
+        event.preventDefault();
     });
     $(".addStock").click(function (event) {
         var name = $(".stockname").val();
