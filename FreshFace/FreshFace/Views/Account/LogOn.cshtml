@@ -28,11 +28,7 @@
                     var data = {
                         UserID: response.authResponse.userID
                     };
-                    $.post("../Account/LogOn", data, function (resp) {
-                        if (resp.Success) {
-                            window.location.href = '../Home/Index';
-                        }
-                    });
+                    FreshFace.logOn(data);
                 } 
                 else {
                     if (typeof console !== "undefined") {

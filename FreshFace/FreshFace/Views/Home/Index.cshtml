@@ -40,7 +40,7 @@
     <section class="seven columns">
         <h2>My News</h2>
         <article>
-            <h3>News Article - by Brian Wyant</h3>
+            <h3>News Article - by <span class="ff ff-name">--</span></h3>
             <div>This is my content!  I hope you like it.</div>
         </article>
     </section>
@@ -65,7 +65,6 @@
 <div id="fb-root"></div>
 <script>
     window.fbAsyncInit = function () {
-        console.log("Init...");
         FB.init({
             appId      : "@ViewBag.AppID",
             status     : true, 
@@ -75,10 +74,23 @@
         });
         $(".logout").click(function (event) {
             FB.logout(function (response) {
-                $.post('../Account/LogOff', function (resp) {
-                    window.location.href = '../Account/LogOn';
-                });
+                FreshFace.logOff();
             });
+        });
+        FB.getLoginStatus(function (logResp) {
+            if (logResp.status === 'connected') {
+                // Do stuff that we need to be logged in to do
+                //Debug.alert("Logged in!  Can do stuff now.");
+
+                FB.api('/me', function (apiResp) {
+                    var uName = apiResp.name;
+                    Debug.log(uName);
+                    $(".ff-name").html(uName);
+                });
+            } else {
+                //Debug.alert("Logging out, FB has decided we're done.");
+                FreshFace.logOff();
+            }
         });
     };
     (function(d){
@@ -88,4 +100,3 @@
         d.getElementsByTagName('head')[0].appendChild(js);
     }(document));
 </script>
-<script src="@Url.Content("~/Scripts/fb_calendar.js")" type="text/javascript"></script>
