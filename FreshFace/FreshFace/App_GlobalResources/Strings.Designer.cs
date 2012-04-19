@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter friend&apos;s email address below:.
+        ///   Looks up a localized string similar to Enter friend&apos;s username or id below:.
         /// </summary>
         internal static string EnterFriend {
             get {

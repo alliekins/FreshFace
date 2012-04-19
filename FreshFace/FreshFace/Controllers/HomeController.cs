@@ -16,8 +16,8 @@ namespace FreshFace.Controllers
 
             if (Request.IsAuthenticated)
             {
-                ViewBag.Message = "Welcome to FreshFace!  More to come!";
-
+                if (!Request.Path.Contains("Index"))
+                    Response.Redirect(@Url.Content("~/Home/Index"), true);
                 return View();
             }
             else
