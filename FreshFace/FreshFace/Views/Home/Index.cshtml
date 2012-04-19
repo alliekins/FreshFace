@@ -9,6 +9,16 @@
 
     <div class="three columns sidebar">
 
+        <!-- Self Picture -->
+
+        <div class="row">
+            <!-- Hiding profile pic; can't think 
+                    of a sensible way to display -->
+            <div class="hide four columns centered ff-profile-pic"></div>
+        </div>
+
+        <!-- End Self Picture -->
+
         <!-- Calendar -->
 
         <section class="row">
@@ -39,10 +49,19 @@
 
     <section class="seven columns">
         <h2>My News</h2>
-        <article>
+        <div class="ff-feed-parent">
             <h3>News Article - by <span class="ff ff-name">--</span></h3>
-            <div>This is my content!  I hope you like it.</div>
-        </article>
+            
+            <!-- Template for feed items:
+            <article class="ff-feed-item">
+                <h6 class="ff-feed-from">Brian Wyant</h6>:
+                <p class="ff-feed-story">
+                    Lots of text!
+                </p>
+            </article>
+            <!-- End Template -->
+
+        </div>
     </section>
 
     <!-- End News Feed -->
@@ -64,39 +83,68 @@
 
 <div id="fb-root"></div>
 <script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId      : "@ViewBag.AppID",
-            status     : true, 
-            cookie     : true,
-            xfbml      : true,
-            oauth      : true,
+window.fbAsyncInit = function () {
+    FB.init({
+        appId      : "@ViewBag.AppID",
+        status     : true, 
+        cookie     : true,
+        xfbml      : true,
+        oauth      : true,
+    });
+    $(".logout").click(function (event) {
+        FB.logout(function (response) {
+            FreshFace.logOff();
         });
-        $(".logout").click(function (event) {
-            FB.logout(function (response) {
-                FreshFace.logOff();
-            });
-        });
-        FB.getLoginStatus(function (logResp) {
-            if (logResp.status === 'connected') {
-                // Do stuff that we need to be logged in to do
-                //Debug.alert("Logged in!  Can do stuff now.");
+    });
+    FB.getLoginStatus(function (logResp) {
+        if (logResp.status === 'connected') {
+            // Do stuff that we need to be logged in to do
+            Debug.log("Logged in!  Can do stuff now.");
 
-                FB.api('/me', function (apiResp) {
-                    var uName = apiResp.name;
-                    Debug.log(uName);
-                    $(".ff-name").html(uName);
+            FB.api('/me', function (apiResp) {
+                var uName = apiResp.name;
+                Debug.log("User name: " + uName);
+                $(".ff-name").html(uName);
+            });
+            FB.api('/me/picture', function (apiResp) {
+                Debug.log("Profile pic url: " + apiResp);
+                var img = '<img class="centered" src="' + apiResp + '"></img>';
+                $(".ff-profile-pic").html(img);
+            });
+            FB.api('/me/feed', function (apiResp) {
+                var feedPar = $(".ff-feed-parent");
+                Debug.log("User's feed: " + apiResp);
+                $(apiResp.data).each(function (index, post) {
+                    // A post should have:
+                        // post.from.name
+                        // post.story
+                        // and others!
+
+                    var article = document.createElement("article");
+                    var from = document.createElement("h6");
+                    var story = document.createElement("p");
+
+                    article.class = "ff-feed-item";
+                    from.class = "ff-feed-from";
+                    story.class = "ff-feed-story";
+
+                    $(from).html("By " + post.from.name + ":");
+                    $(story).html(post.story);
+
+                    $(article).append(from).append(story);
+                    $(feedPar).append(article);
                 });
-            } else {
-                //Debug.alert("Logging out, FB has decided we're done.");
-                FreshFace.logOff();
-            }
-        });
-    };
-    (function(d){
-        var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        d.getElementsByTagName('head')[0].appendChild(js);
-    }(document));
+            });
+        } else {
+            Debug.log("Logging out, FB has decided we're done.");
+            FreshFace.logOff();
+        }
+    });
+};
+(function(d){
+    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
 </script>
