@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Friend.
         /// </summary>
         internal static string AddFriend {
@@ -219,15 +228,6 @@ namespace Resources {
         internal static string MyStocks {
             get {
                 return ResourceManager.GetString("MyStocks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nav.
-        /// </summary>
-        internal static string Nav {
-            get {
-                return ResourceManager.GetString("Nav", resourceCulture);
             }
         }
         

@@ -18,9 +18,9 @@ body
     background: url('img/back.png') ;
 }
 
-.container
+.main
 {
-    padding-top: 48px;
+    padding-top: 75px;
 }
 
 #zurBar
@@ -67,10 +67,6 @@ body
     {
         display: inherit;
     }
-    .container
-    {
-        padding-top: 75px;
-    }
 }
 
 /* -----------------------------------------
@@ -80,6 +76,15 @@ body
 .vcenter
 {
     margin-top: 15px;
+}
+
+/* -----------------------------------------
+   Format the mabile nav button
+----------------------------------------- */
+
+#mobileNav
+{
+    margin-right: 20px;
 }
 
 /* -----------------------------------------
@@ -224,6 +229,11 @@ body
 /* -----------------------------------------
    Format the avatar and logo
 ----------------------------------------- */
+
+.logo
+{
+    float: left;
+}
 
 .logo table
 {
