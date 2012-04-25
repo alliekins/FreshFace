@@ -79,12 +79,57 @@ body
 }
 
 /* -----------------------------------------
-   Format the mabile nav button
+   Format the mabile nav button and dropdown links
 ----------------------------------------- */
 
 #mobileNav
 {
+    padding-top: 0px;
     margin-right: 20px;
+    display: block;
+    width: 120px;
+}
+
+/* hide dropdown links */
+#mobileNav ul
+{
+    display: none;
+}
+
+/* display dropdown links */
+#mobileNav li:hover ul
+{
+    display: block;
+}
+
+#mobileNav ul a
+{
+    padding: 8px 5px 8px 5px;
+    border-right: 1px solid #00A5FF;
+    border-bottom: 1px solid #00A5FF;
+    border-left: 1px solid #00A5FF;
+    display: block;
+    background-color: #222222;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#mobileNav ul a:link
+{
+}
+
+#mobileNav ul a:visited
+{
+}
+
+#mobileNav ul a:active
+{
+}
+
+#mobileNav ul a:hover
+{
+    background-color: #2E2E2E;
+    text-decoration: underline;
 }
 
 /* -----------------------------------------
@@ -113,6 +158,7 @@ body
     color: #444444;
     background-color: #F2F2F2;
     font-weight: bold;
+    font-size: 13px;
 }
 
 .pagelinks a:link
@@ -162,7 +208,6 @@ body
 {
     text-decoration: underline;
 }
-
 
 /* -----------------------------------------
    Links in the news feed

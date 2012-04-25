@@ -61,13 +61,18 @@
                         @if (Request.IsAuthenticated)
                         {
                             <span class="hide-on-phones">
-                                <a href="">@Resources.Strings.MyCalendar</a>
-                                <a href="">@Resources.Strings.MyStocks</a>
-                                <a href="#" data-reveal-id="myModal">@Resources.Strings.AddFriend</a>
-                                <a href="#" data-reveal-id="photoModal">@Resources.Strings.UploadPhoto</a>
-                                <a class="logout" href="">@Resources.Strings.Logout</a>
+                                @Html.Partial("_NavLinksPartial")
                             </span>
-                            <a href="#" id="mobileNav" data-reveal-id="navModal" class="small nice button show-on-phones">@Resources.Strings.Actions</a>
+                            <ul id="mobileNav" data-reveal-id="navModal">
+                                <li>
+                                    <a href="#" class="small nice button show-on-phones">@Resources.Strings.Actions</a>
+                                    <ul>
+                                        <li>
+                                            @Html.Partial("_NavLinksPartial")
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         }
                     </strong>
                 </div>
