@@ -79,11 +79,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username/ID.
+        /// </summary>
+        internal static string AddFriendPlaceHolder {
+            get {
+                return ResourceManager.GetString("AddFriendPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Stock.
         /// </summary>
         internal static string AddStock {
             get {
                 return ResourceManager.GetString("AddStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock name.
+        /// </summary>
+        internal static string AddStockPlaceholder {
+            get {
+                return ResourceManager.GetString("AddStockPlaceholder", resourceCulture);
             }
         }
         
@@ -214,15 +232,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My status:.
-        /// </summary>
-        internal static string MyStatus {
-            get {
-                return ResourceManager.GetString("MyStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to My Stocks.
         /// </summary>
         internal static string MyStocks {
@@ -246,6 +255,15 @@ namespace Resources {
         internal static string Post {
             get {
                 return ResourceManager.GetString("Post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share what&apos;s new....
+        /// </summary>
+        internal static string PostPlaceholder {
+            get {
+                return ResourceManager.GetString("PostPlaceholder", resourceCulture);
             }
         }
         
@@ -282,6 +300,15 @@ namespace Resources {
         internal static string UploadPhoto {
             get {
                 return ResourceManager.GetString("UploadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picture URL.
+        /// </summary>
+        internal static string UploadPhotoPlaceholder {
+            get {
+                return ResourceManager.GetString("UploadPhotoPlaceholder", resourceCulture);
             }
         }
         

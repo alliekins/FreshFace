@@ -5,20 +5,18 @@
 
 <!-- Start Row -->
 
-<div id="myModal" class="reveal-modal pagelinks">
+<div id="myModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterFriend</p>
      <form name="add_friend" action="" method="get">
-        <input type="text" class="friend_email" />
+        <input type="text" class="friend_email" placeholder="@Resources.Strings.AddFriendPlaceHolder" />
         <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
     </form> 
 </div>
 
-<div id="photoModal" class="reveal-modal pagelinks">
+<div id="photoModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterPhoto</p>
      <form id="photoForm" name="photoForm" action="" method="post">
-        <!--<input id="source" name="source" type="file" />-->
-        <!--<input type="submit" value="@Resources.Strings.UploadPhoto" />-->
-        <input type="text" class="photo_url" />
+        <input type="text" class="photo_url" placeholder="@Resources.Strings.UploadPhotoPlaceholder" />
         <a class="addPhoto" href="">@Resources.Strings.UploadPhoto</a>
     </form> 
 </div>
@@ -26,16 +24,6 @@
 <div class="row">
 
     <div class="three columns hide-on-phones">
-
-        <!-- Self Picture -->
-
-        <div class="row">
-            <!-- Hiding profile pic; can't think 
-                    of a sensible way to display -->
-            <div class="hide four columns centered ff-profile-pic"></div>
-        </div>
-
-        <!-- End Self Picture -->
 
         <!-- Calendar -->
 
@@ -45,23 +33,6 @@
         </section>
 
         <!-- End Calendar -->
-        
-
-
-        <!-- FB Controls -->
-
-        <!-- Actions are moved to the header bar
-        <section class="row">
-            <h4>@Resources.Strings.MyActions</h4>
-            <div class="pagelinks">
-                <div class="row"><a class="btn" href="">@Resources.Strings.AddFriend</a></div>
-                <div class="row"><a class="btn" href="">@Resources.Strings.UploadPhoto</a></div>
-                <div class="row"><a class="btn logout" href="">@Resources.Strings.Logout</a></div>
-            </div>
-        </section>
-        -->
-
-        <!-- End FB Controls -->
 
     </div>
 
@@ -70,7 +41,7 @@
     <section class="six columns">
         <h2>@Resources.Strings.MyNews</h2>
         <span class="pagelinks">
-            @Resources.Strings.MyStatus<input class="status" type="text" /> <a class="post" href="">@Resources.Strings.Post</a>
+            <input class="status" type="text" placeholder="@Resources.Strings.PostPlaceholder" /> <a class="post" href="">@Resources.Strings.Post</a>
         </span>
         <h3>@Resources.Strings.NewsBy<span class="ff ff-name">--</span></h3>
         <div class="ff-feed-parent normlinks">
@@ -102,7 +73,7 @@
             </tr>
             </table> 
             <span class="pagelinks">
-                <input class="stockname" type="text" /> <a class="addStock" href="">@Resources.Strings.AddStock</a>
+                <input class="stockname" type="text" placeholder="@Resources.Strings.AddStockPlaceholder" /> <a class="addStock" href="">@Resources.Strings.AddStock</a>
             </span>
         </div>
     </section>

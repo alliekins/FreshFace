@@ -168,8 +168,8 @@
   <data name="MyNews" xml:space="preserve">
     <value>My News</value>
   </data>
-  <data name="MyStatus" xml:space="preserve">
-    <value>My status:</value>
+  <data name="PostPlaceholder" xml:space="preserve">
+    <value>Share what's new...</value>
   </data>
   <data name="Post" xml:space="preserve">
     <value>Post</value>
@@ -194,5 +194,14 @@
   </data>
   <data name="EnterPhoto" xml:space="preserve">
     <value>Enter picture URL below:</value>
+  </data>
+  <data name="AddFriendPlaceHolder" xml:space="preserve">
+    <value>Username/ID</value>
+  </data>
+  <data name="AddStockPlaceholder" xml:space="preserve">
+    <value>Stock name</value>
+  </data>
+  <data name="UploadPhotoPlaceholder" xml:space="preserve">
+    <value>Picture URL</value>
   </data>
 </root>

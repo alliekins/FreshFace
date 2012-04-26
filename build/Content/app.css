@@ -44,31 +44,10 @@ body
     height: 35px;
 }
 
-
-/* -----------------------------------------
-   Main Page
------------------------------------------ */
-/* use the foundation css classes like "show-on-desktops, hide-on-phones, etc."
-.sidebar 
+.reveal-modal
 {
-    display: none;
+    top: 75px !important;
 }
-
-@media only screen and (min-width: 880px)
-{
-    .sidebar 
-    {
-        display: inherit;
-    }
-}
-
-@media only screen and (min-width: 770px)
-{
-    .side-right 
-    {
-        display: inherit;
-    }
-}*/
 
 /* -----------------------------------------
    Used to verically center links on the top-right side of the header
