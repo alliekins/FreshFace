@@ -48,6 +48,7 @@ body
 /* -----------------------------------------
    Main Page
 ----------------------------------------- */
+/* use the foundation css classes like "show-on-desktops, hide-on-phones, etc."
 .sidebar 
 {
     display: none;
@@ -67,7 +68,7 @@ body
     {
         display: inherit;
     }
-}
+}*/
 
 /* -----------------------------------------
    Used to verically center links on the top-right side of the header
@@ -86,7 +87,6 @@ body
 {
     padding-top: 0px;
     margin-right: 20px;
-    display: block;
     width: 120px;
 }
 
