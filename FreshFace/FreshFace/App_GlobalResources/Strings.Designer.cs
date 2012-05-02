@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stock Price.
+        /// </summary>
+        internal static string BoughtPrice {
+            get {
+                return ResourceManager.GetString("BoughtPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter friend&apos;s username or id below:.
         /// </summary>
         internal static string EnterFriend {
@@ -120,6 +129,15 @@ namespace Resources {
         internal static string EnterPhoto {
             get {
                 return ResourceManager.GetString("EnterPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the stock information below:.
+        /// </summary>
+        internal static string EnterStock {
+            get {
+                return ResourceManager.GetString("EnterStock", resourceCulture);
             }
         }
         
@@ -250,6 +268,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of Shares.
+        /// </summary>
+        internal static string NumShares {
+            get {
+                return ResourceManager.GetString("NumShares", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post.
         /// </summary>
         internal static string Post {
@@ -291,6 +318,15 @@ namespace Resources {
         internal static string StockPrice {
             get {
                 return ResourceManager.GetString("StockPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock Symbol.
+        /// </summary>
+        internal static string Symbol {
+            get {
+                return ResourceManager.GetString("Symbol", resourceCulture);
             }
         }
         
