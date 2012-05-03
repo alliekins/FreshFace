@@ -111,7 +111,7 @@ var FreshFace = {
             $(tLink).append(title);
         }
 
-        $(title).html(titleText);
+        $(title).text(titleText);
 
         var storyText = "";
         if (post.story) {
@@ -121,7 +121,7 @@ var FreshFace = {
         } else if (post.description) {
             storyText = post.description;
         }
-        $(story).html(storyText);
+        $(story).text(storyText);
 
         if (tLink) {
             $(article).append(tLink).append(story);
