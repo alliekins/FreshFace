@@ -112,11 +112,11 @@ var FreshFace = {
     },
 
     createStock: function (name, shares, price) {
-        var stock = new Object();
-        stock.name = name;
-        stock.shares = shares;
-        stock.price = price;
-        return stock;
+        return {
+            name: name,
+            shares: shares,
+            price: price
+        };
     },
     generatePost: function (post, type) {
         // A post should have:
@@ -319,6 +319,11 @@ $(document).ready(function () {
         stocks = [FreshFace.createStock("GOOG", 1, 20.00), FreshFace.createStock("MSFT", 1, 20.00), FreshFace.createStock("AMZN", 1, 20.00)];
         stockStr = JSON.stringify(stocks);
         localStorage.setItem("MyStocks", stockStr);
+    } else if (typeof localStorage.getItem("MyStocks")[0] === "string") {
+        // If it's using the old version with just stock names, override it with defaults
+        stocks = [FreshFace.createStock("GOOG", 1, 20.00), FreshFace.createStock("MSFT", 1, 20.00), FreshFace.createStock("AMZN", 1, 20.00)];
+        stockStr = JSON.stringify(stocks);
+        localStorage.setItem("MyStocks", stockStr);
     } else {
         var stockStr = localStorage.getItem("MyStocks");
         stocks = JSON.parse(stockStr);
@@ -352,6 +357,7 @@ $(document).ready(function () {
     });
 });
 
+/*
 $(window).scroll(function () {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
         console.log("Bottom of page!");
@@ -359,3 +365,4 @@ $(window).scroll(function () {
     console.log("Scrolling");
 });
 console.log("Scrolling");
+*/
