@@ -25,5 +25,21 @@ namespace FreshFace.Controllers
                 return RedirectToAction("LogOn", "Account");
             }
         }
+
+        public ActionResult MyStocks()
+        {
+            // Default ID that Sam setup
+            ViewBag.AppID = FBModel.GetAppID(HttpContext);
+            if (Request.IsAuthenticated)
+            {
+                if (!Request.Path.Contains("MyStocks"))
+                    Response.Redirect(@Url.Content("~/Home/MyStocks"), true);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
+        }
     }
 }

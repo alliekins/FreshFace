@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Friend.
         /// </summary>
         internal static string AddFriend {
@@ -70,11 +79,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username/ID.
+        /// </summary>
+        internal static string AddFriendPlaceHolder {
+            get {
+                return ResourceManager.GetString("AddFriendPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Stock.
         /// </summary>
         internal static string AddStock {
             get {
                 return ResourceManager.GetString("AddStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock name.
+        /// </summary>
+        internal static string AddStockPlaceholder {
+            get {
+                return ResourceManager.GetString("AddStockPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock Price.
+        /// </summary>
+        internal static string BoughtPrice {
+            get {
+                return ResourceManager.GetString("BoughtPrice", resourceCulture);
             }
         }
         
@@ -93,6 +129,15 @@ namespace Resources {
         internal static string EnterPhoto {
             get {
                 return ResourceManager.GetString("EnterPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the stock information below:.
+        /// </summary>
+        internal static string EnterStock {
+            get {
+                return ResourceManager.GetString("EnterStock", resourceCulture);
             }
         }
         
@@ -205,29 +250,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My status:.
-        /// </summary>
-        internal static string MyStatus {
-            get {
-                return ResourceManager.GetString("MyStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to My Stocks.
         /// </summary>
         internal static string MyStocks {
             get {
                 return ResourceManager.GetString("MyStocks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nav.
-        /// </summary>
-        internal static string Nav {
-            get {
-                return ResourceManager.GetString("Nav", resourceCulture);
             }
         }
         
@@ -241,11 +268,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of Shares.
+        /// </summary>
+        internal static string NumShares {
+            get {
+                return ResourceManager.GetString("NumShares", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post.
         /// </summary>
         internal static string Post {
             get {
                 return ResourceManager.GetString("Post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share what&apos;s new....
+        /// </summary>
+        internal static string PostPlaceholder {
+            get {
+                return ResourceManager.GetString("PostPlaceholder", resourceCulture);
             }
         }
         
@@ -277,11 +322,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stock Symbol.
+        /// </summary>
+        internal static string Symbol {
+            get {
+                return ResourceManager.GetString("Symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload Photo.
         /// </summary>
         internal static string UploadPhoto {
             get {
                 return ResourceManager.GetString("UploadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picture URL.
+        /// </summary>
+        internal static string UploadPhotoPlaceholder {
+            get {
+                return ResourceManager.GetString("UploadPhotoPlaceholder", resourceCulture);
             }
         }
         

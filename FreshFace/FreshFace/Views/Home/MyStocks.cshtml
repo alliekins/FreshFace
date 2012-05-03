@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = @Resources.Strings.FreshFaceHome;
+    Layout = "~/Views/Shared/_GridLayout.cshtml";
+}
+
+<!-- Start Row -->
+
+<div id="myModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterFriend</p>
+     <form name="add_friend" action="" method="get">
+        <input type="text" class="friend_email" placeholder="@Resources.Strings.AddFriendPlaceHolder" />
+        <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
+    </form> 
+</div>
+
+<div id="photoModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterPhoto</p>
+     <form id="photoForm" name="photoForm" action="" method="post">
+        <input type="text" class="photo_url" placeholder="@Resources.Strings.UploadPhotoPlaceholder" />
+        <a class="addPhoto" href="">@Resources.Strings.UploadPhoto</a>
+    </form> 
+</div>
+
+<div id="stockModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterStock</p>
+     <form id="stockForm" name="stockForm" action="" method="post">
+        <input type="text" id="symbol" class="required" placeholder="@Resources.Strings.Symbol" />
+        <input type="text" id="numShares" class="required" placeholder="@Resources.Strings.NumShares" />
+        <input type="text" id="price" class="required" placeholder="@Resources.Strings.BoughtPrice" />
+        <a class="addStocks" href="">@Resources.Strings.AddStock</a>
+    </form> 
+</div>
+
+<div id="editModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterStock</p>
+     <form id="editForm" name="stockForm" action="" method="post">
+        <input type="text" id="esymbol" disabled="disabled" />
+        <input type="text" id="enumShares" class="required" placeholder="@Resources.Strings.NumShares" />
+        <input type="text" id="eprice" class="required" placeholder="@Resources.Strings.BoughtPrice" />
+        <a class="editStocks" href="">Edit Stock</a>
+    </form> 
+</div>
+
+<div class="row">
+    <!-- Stock Ticker -->
+
+    <section class="six columns">
+        <h4>@Resources.Strings.MyStocks</h4>
+        <div>
+
+            <table id="stockTable" class="normlinks">
+            <tr>
+                <th>@Resources.Strings.StockName</th><th>Current Price</th><th>Today's Change</th><th>Number of Shares</th><th>Amount Paid Per Share</th><th>Your Net Value</th><th></th>
+                <th> </th>
+            </tr>
+            </table> 
+            <span class="pagelinks">
+                <a class="addStock" href="#" data-reveal-id="stockModal">@Resources.Strings.AddStock</a>
+            </span>
+        </div>
+    </section>
+
+    <!-- End Stock Ticker -->
+</div>
+
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "@ViewBag.AppID",
+            status: true,
+            cookie: true,
+            xfbml: true,
+            oauth: true,
+            fileUpload: true,
+            uploadFile: true
+        });
+        FB.Event.subscribe('auth.statusChange', function (response) {
+            if (!response.authResponse) {
+                Debug.log("FB has likely timed us out, log out.");
+                FreshFace.logOff();
+            }
+        });
+        $(".logout").click(function (event) {
+            FB.logout(function (response) {
+                FreshFace.logOff();
+            });
+            event.preventDefault();
+        });
+        var addFriend = function (username) {
+            FB.ui({ method: 'friends.add', id: username, display: 'popup' });
+        }
+        $(".addStocks").click(function (event) {
+            var name = $("#symbol").val();
+            var shares = parseInt($("#numShares").val());
+            var price = parseFloat($("#price").val());
+            if (name.length >= 3 && name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+                FreshFace.addStock(name.toUpperCase(), shares, price);
+            } else {
+                alert(typeof (name) + typeof (shares) + typeof (price));
+            }
+
+            $("#stockModal").trigger("reveal:close");
+            event.preventDefault();
+        });
+        $(".editStocks").click(function (event) {
+            var name = $("#esymbol").val();
+            var shares = parseInt($("#enumShares").val());
+            var price = parseFloat($("#eprice").val());
+            if (name.length >= 3 && name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+                FreshFace.addStock(name.toUpperCase(), shares, price);
+            } else {
+                alert(typeof (name) + typeof (shares) + typeof (price));
+            }
+
+            $("#editModal").trigger("reveal:close");
+            event.preventDefault();
+        });
+        $(".addFriend").click(function (event) {
+            var friend = $(".friend_email").val();
+            addFriend(friend);
+            $("#myModal").hide();
+        });
+        $(".addPhoto").click(function (event) {
+            //var album = $(".photo_album").val();
+            var photo = $(".photo_url").val();
+            var data = {
+                url: photo
+            };
+            //Debug.log($("#photoForm").serialize());
+            FB.api("/me/photos", "post", data, function (resp) {
+                Debug.log("Posted photo, resp:");
+                Debug.log(resp);
+
+                FB.api('/' + resp.id, function (postData) {
+                    Debug.log("And the data is...");
+                    Debug.log(postData);
+
+                    FreshFace.prependPost($(".ff-feed-parent"), postData, "photo");
+
+                    $("#photoModal").trigger("reveal:close");
+                });
+            });
+            event.preventDefault();
+        });
+        FB.getLoginStatus(function (logResp) {
+            if (logResp.status === 'connected') {
+                // Do stuff that we need to be logged in to do
+                Debug.log("Logged in!  Can do stuff now.");
+                Debug.log(logResp);
+
+                FB.api('/me', function (apiResp) {
+                    var uName = apiResp.name;
+                    Debug.log("User name: " + uName);
+                    Debug.log(apiResp);
+
+                    var fb_url = "https://graph.facebook.com/";
+                    fb_url += apiResp.id;
+                    var photoUrl = fb_url + "/albums";
+                    photoUrl += "?access_token=" + logResp.authResponse.accessToken;
+                    photoUrl += "&app_id=" + "@ViewBag.AppID";
+                    photoUrl += "&method=post";
+                    photoUrl += "&sdk=joey";
+                    photoUrl += "&pretty=0";
+                    $("#photoForm").attr("action", photoUrl);
+                    //$("#photoForm").ajaxForm(function (photoResp) {
+                    //    Debug.log(photoResp);
+                    //});
+                    $(".ff-name").html(uName);
+                });
+                FB.api('/me/picture', function (apiResp) {
+                    Debug.log("Profile pic url: " + apiResp);
+                    var img = '<img class="centered" src="' + apiResp + '"></img>';
+                    $(".ff-profile-pic").html(img);
+                });
+            } else {
+                Debug.log("Logging out, FB has decided we're done.");
+                FreshFace.logOff();
+            }
+        });
+    };
+    (function (d) {
+        var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
+    } (document));
+</script>
+

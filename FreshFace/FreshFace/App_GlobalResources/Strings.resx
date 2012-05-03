@@ -168,8 +168,8 @@
   <data name="MyNews" xml:space="preserve">
     <value>My News</value>
   </data>
-  <data name="MyStatus" xml:space="preserve">
-    <value>My status:</value>
+  <data name="PostPlaceholder" xml:space="preserve">
+    <value>Share what's new...</value>
   </data>
   <data name="Post" xml:space="preserve">
     <value>Post</value>
@@ -183,8 +183,8 @@
   <data name="StockChange" xml:space="preserve">
     <value>Change</value>
   </data>
-  <data name="Nav" xml:space="preserve">
-    <value>Nav</value>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
   </data>
   <data name="AddStock" xml:space="preserve">
     <value>Add Stock</value>
@@ -194,5 +194,26 @@
   </data>
   <data name="EnterPhoto" xml:space="preserve">
     <value>Enter picture URL below:</value>
+  </data>
+  <data name="AddFriendPlaceHolder" xml:space="preserve">
+    <value>Username/ID</value>
+  </data>
+  <data name="AddStockPlaceholder" xml:space="preserve">
+    <value>Stock name</value>
+  </data>
+  <data name="UploadPhotoPlaceholder" xml:space="preserve">
+    <value>Picture URL</value>
+  </data>
+  <data name="BoughtPrice" xml:space="preserve">
+    <value>Stock Price</value>
+  </data>
+  <data name="EnterStock" xml:space="preserve">
+    <value>Enter the stock information below:</value>
+  </data>
+  <data name="NumShares" xml:space="preserve">
+    <value>Number of Shares</value>
+  </data>
+  <data name="Symbol" xml:space="preserve">
+    <value>Stock Symbol</value>
   </data>
 </root>
