@@ -21,7 +21,47 @@
     </form> 
 </div>
 
-<!-- End Row -->
+<div id="stockModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterStock</p>
+     <form id="stockForm" name="stockForm" action="" method="post">
+        <input type="text" id="symbol" class="required" placeholder="@Resources.Strings.Symbol" />
+        <input type="text" id="numShares" class="required" placeholder="@Resources.Strings.NumShares" />
+        <input type="text" id="price" class="required" placeholder="@Resources.Strings.BoughtPrice" />
+        <a class="addStocks" href="">@Resources.Strings.AddStock</a>
+    </form> 
+</div>
+
+<div id="editModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterStock</p>
+     <form id="editForm" name="stockForm" action="" method="post">
+        <input type="text" id="esymbol" disabled="disabled" />
+        <input type="text" id="enumShares" class="required" placeholder="@Resources.Strings.NumShares" />
+        <input type="text" id="eprice" class="required" placeholder="@Resources.Strings.BoughtPrice" />
+        <a class="editStocks" href="">Edit Stock</a>
+    </form> 
+</div>
+
+<div class="row">
+    <!-- Stock Ticker -->
+
+    <section class="six columns">
+        <h4>@Resources.Strings.MyStocks</h4>
+        <div>
+
+            <table id="stockTable" class="normlinks">
+            <tr>
+                <th>@Resources.Strings.StockName</th><th>Current Price</th><th>Today's Change</th><th>Number of Shares</th><th>Amount Paid Per Share</th><th>Your Net Value</th><th></th>
+                <th> </th>
+            </tr>
+            </table> 
+            <span class="pagelinks">
+                <a class="addStock" href="#" data-reveal-id="stockModal">@Resources.Strings.AddStock</a>
+            </span>
+        </div>
+    </section>
+
+    <!-- End Stock Ticker -->
+</div>
 
 <div id="fb-root"></div>
 <script>
@@ -46,10 +86,36 @@
                 FreshFace.logOff();
             });
             event.preventDefault();
-        }
+        });
         var addFriend = function (username) {
             FB.ui({ method: 'friends.add', id: username, display: 'popup' });
         }
+        $(".addStocks").click(function (event) {
+            var name = $("#symbol").val();
+            var shares = parseInt($("#numShares").val());
+            var price = parseFloat($("#price").val());
+            if (name.length >= 3 && name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+                FreshFace.addStock(name.toUpperCase(), shares, price);
+            } else {
+                alert(typeof (name) + typeof (shares) + typeof (price));
+            }
+
+            $("#stockModal").trigger("reveal:close");
+            event.preventDefault();
+        });
+        $(".editStocks").click(function (event) {
+            var name = $("#esymbol").val();
+            var shares = parseInt($("#enumShares").val());
+            var price = parseFloat($("#eprice").val());
+            if (name.length >= 3 && name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+                FreshFace.addStock(name.toUpperCase(), shares, price);
+            } else {
+                alert(typeof (name) + typeof (shares) + typeof (price));
+            }
+
+            $("#editModal").trigger("reveal:close");
+            event.preventDefault();
+        });
         $(".addFriend").click(function (event) {
             var friend = $(".friend_email").val();
             addFriend(friend);
@@ -107,17 +173,6 @@
                     var img = '<img class="centered" src="' + apiResp + '"></img>';
                     $(".ff-profile-pic").html(img);
                 });
-                FB.api('/me/home', { limit: 10 }, function (apiResp) {
-                    var feedPar = $(".ff-feed-parent");
-                    Debug.log("User's feed: " + apiResp);
-                    $(apiResp.data).each(function (index, post) {
-                        //if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
-                        //    return;
-                        //}
-
-                        FreshFace.appendPost(feedPar, post);
-                    });
-                });
             } else {
                 Debug.log("Logging out, FB has decided we're done.");
                 FreshFace.logOff();
@@ -131,3 +186,4 @@
         d.getElementsByTagName('head')[0].appendChild(js);
     } (document));
 </script>
+

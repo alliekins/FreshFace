@@ -24,9 +24,9 @@
 <div id="stockModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterStock</p>
      <form id="stockForm" name="stockForm" action="" method="post">
-        <input type="text" class="symbol" placeholder="@Resources.Strings.Symbol" />
-        <input type="text" class="numShares" placeholder="@Resources.Strings.NumShares" />
-        <input type="text" class="price" placeholder="@Resources.Strings.BoughtPrice" />
+        <input type="text" id="symbol" class="required" placeholder="@Resources.Strings.Symbol" />
+        <input type="text" id="numShares" class="required" placeholder="@Resources.Strings.NumShares" />
+        <input type="text" id="price" class="required" placeholder="@Resources.Strings.BoughtPrice" />
         <a class="addStocks" href="">@Resources.Strings.AddStock</a>
     </form> 
 </div>
@@ -150,14 +150,15 @@
             event.preventDefault();
         });
         $(".addStocks").click(function (event) {
-
-            var name = $(".symbol").val();
-            var shares = $(".numShares").val();
-            var price = $(".price").val();
-            if (name.length >= 3 && name.length <= 6) {
-            FreshFace.addStock(name.toUpperCase(), shares, price);
+            var name = $("#symbol").val();
+            var shares = parseInt($("#numShares").val());
+            var price = parseFloat($("#price").val());
+            if (name.length >= 3 && name.length <= 6 && typeof(name)==="string" && typeof(shares)==="number" && typeof(price)==="number" ) {
+                FreshFace.addStock(name.toUpperCase(), shares, price);
+            } else {
+                alert(typeof(name)+typeof(shares)+typeof(price));
             }
-            
+
             $("#stockModal").trigger("reveal:close");
             event.preventDefault();
         });
