@@ -34,14 +34,13 @@
 <meta charset=utf-8> 
 <meta name="viewport" content="width=620"> 
 <title>HTML5 Demo: Web Socket</title> 
-<link rel="stylesheet" href="css/html5demos.css"> 
+<link rel="stylesheet" href="../Content/shoutOut.css"> 
 <script src="../Scripts/shout.js"></script></head> 
 <body> 
 <section id="wrapper"> 
     <header> 
       <h2>Web Socket</h2> 
     </header> 
- 
 <style> 
 #chat { width: 97%; }
 .them { font-weight: bold; }
@@ -66,8 +65,11 @@
     <input type="text" id="chat" placeholder="type and press enter to chat" /> 
   </form> 
   <p id="status">Not connected</p> 
+  <p>Users connected: <span id="connected">0</span></p> 
+  <p>To test, open two windows with Web Socket support, type a message above and press return.</p> 
+  <p>The server side code is available here: <a href="http://github.com/remy/html5demos/tree/master/server/">node-web-socket &amp; server</a> (note that it runs on <a href="http://nodejs.org/" title="node.js">nodejs</a>)</p> 
   <ul id="log"></ul> 
-</article> 
+</article>  
 <script>
     // let's invite Firefox to the party.
     if (window.MozWebSocket) {
