@@ -1,0 +1,312 @@
+﻿@{
+    ViewBag.Title = @Resources.Strings.ShoutOut;
+    Layout = "~/Views/Shared/_GridLayout.cshtml";
+}
+
+<div id="myModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterFriend</p>
+     <form name="add_friend" action="" method="get">
+        <input type="text" class="friend_email" placeholder="@Resources.Strings.AddFriendPlaceHolder" />
+        <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
+    </form> 
+</div>
+
+<div id="photoModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterPhoto</p>
+     <form id="photoForm" name="photoForm" action="" method="post">
+        <input type="text" class="photo_url" placeholder="@Resources.Strings.UploadPhotoPlaceholder" />
+        <a class="addPhoto" href="">@Resources.Strings.UploadPhoto</a>
+    </form> 
+</div>
+
+<div id="stockModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterStock</p>
+     <form id="stockForm" name="stockForm" action="" method="post">
+        <input type="text" id="symbol" class="required" placeholder="@Resources.Strings.Symbol" />
+        <input type="text" id="numShares" class="required" placeholder="@Resources.Strings.NumShares" />
+        <input type="text" id="price" class="required" placeholder="@Resources.Strings.BoughtPrice" />
+        <a class="addStocks" href="">@Resources.Strings.AddStock</a>
+    </form> 
+</div>
+
+<html lang="en"> 
+<head> 
+<meta charset=utf-8> 
+<meta name="viewport" content="width=620"> 
+<title>HTML5 Demo: Web Socket</title> 
+<link rel="stylesheet" href="css/html5demos.css"> 
+<script src="../Scripts/shout.js"></script></head> 
+<body> 
+<section id="wrapper"> 
+    <header> 
+      <h2>Web Socket</h2> 
+    </header> 
+ 
+<style> 
+#chat { width: 97%; }
+.them { font-weight: bold; }
+.them:before { content: 'them '; color: #bbb; font-size: 14px; }
+.you { font-style: italic; }
+.you:before { content: 'you '; color: #bbb; font-size: 14px; font-weight: bold; }
+#log {
+  overflow: auto;
+  max-height: 300px;
+  list-style: none;
+  padding: 0;
+/*  margin: 0;*/
+}
+#log li {
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 10px 0;
+}
+</style> 
+<article> 
+  <form> 
+    <input type="text" id="chat" placeholder="type and press enter to chat" /> 
+  </form> 
+  <p id="status">Not connected</p> 
+  <ul id="log"></ul> 
+</article> 
+<script>
+    // let's invite Firefox to the party.
+    if (window.MozWebSocket) {
+        window.WebSocket = window.MozWebSocket;
+    }
+
+    function openConnection() {
+        // uses global 'conn' object
+        if (conn.readyState === undefined || conn.readyState > 1) {
+            conn = new WebSocket('ws://node.remysharp.com:8001');
+            conn.onopen = function () {
+                state.className = 'success';
+                state.innerHTML = 'Socket open';
+            };
+
+            conn.onmessage = function (event) {
+                // console.log(event.data);
+                var message = event.data; //JSON.parse(event.data);
+                if (!(/^\d+$/).test(message)) {
+                    log.innerHTML = '<li class="them">' + message.replace(/[<>&]/g, function (m) { return entities[m]; }) + '</li>' + log.innerHTML;
+                } else {
+                    connected.innerHTML = message;
+                }
+            };
+
+            conn.onclose = function (event) {
+                state.className = 'fail';
+                state.innerHTML = 'Socket closed';
+            };
+        }
+    }
+
+    var connected = document.getElementById('connected'),
+    log = document.getElementById('log'),
+    chat = document.getElementById('chat'),
+    form = chat.form,
+    conn = {},
+    state = document.getElementById('status'),
+    entities = {
+        '<': '&lt;',
+        '>': '&gt;',
+        '&': '&amp;'
+    };
+
+    if (window.WebSocket === undefined) {
+        state.innerHTML = 'Sockets not supported';
+        state.className = 'fail';
+    } else {
+        state.onclick = function () {
+            if (conn.readyState !== 1) {
+                conn.close();
+                setTimeout(function () {
+                    openConnection();
+                }, 250);
+            }
+        };
+
+        addEvent(form, 'submit', function (event) {
+            event.preventDefault();
+
+            // if we're connected
+            if (conn.readyState === 1) {
+                conn.send(JSON.stringify(chat.value));
+                log.innerHTML = '<li class="you">' + chat.value.replace(/[<>&]/g, function (m) { return entities[m]; }) + '</li>' + log.innerHTML;
+
+                chat.value = '';
+            }
+        });
+
+        openConnection();
+    }
+ 
+</script>
+<script>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+<script>
+    try {
+        var pageTracker = _gat._getTracker("UA-1656750-18");
+        pageTracker._trackPageview();
+    } catch (err) { }</script> 
+</body> 
+</html> 
+
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "@ViewBag.AppID",
+            status: true,
+            cookie: true,
+            xfbml: true,
+            oauth: true,
+            fileUpload: true,
+            uploadFile: true
+        });
+        FB.Event.subscribe('auth.statusChange', function (response) {
+            if (!response.authResponse) {
+                Debug.log("FB has likely timed us out, log out.");
+                FreshFace.logOff();
+            }
+        });
+        $(".logout").click(function (event) {
+            FB.logout(function (response) {
+                FreshFace.logOff();
+            });
+            event.preventDefault();
+        });
+        var postStatus = function (msg) {
+            $(".status").val("");
+            var data = {
+                message: msg
+            };
+            FB.api('/me/feed', 'post', data, function (resp) {
+                if (!resp || resp.error) {
+                    Debug.log("FB post error.");
+                } else {
+                    Debug.log("FB responded to status post.");
+                    Debug.log(resp);
+                    var _index = resp.id.indexOf("_");
+                    var postId = resp.id.substr(_index + 1);
+
+                    FB.api('/' + postId, function (postData) {
+                        Debug.log("And the data is...");
+                        Debug.log(postData);
+
+                        FreshFace.prependPost($(".ff-feed-parent"), postData);
+                    });
+                }
+            });
+        }
+        var addFriend = function (username) {
+            FB.ui({ method: 'friends.add', id: username, display: 'popup' });
+        }
+        $(".post").click(function (event) {
+            Debug.log("Posting to FB: " + $(".status").val());
+            postStatus($(".status").val());
+            event.preventDefault();
+        });
+        $(".addStocks").click(function (event) {
+            var name = $("#symbol").val();
+            var shares = parseInt($("#numShares").val());
+            var price = parseFloat($("#price").val());
+            if (name.length >= 3 && name.length <= 6 && typeof (name) === "string" && typeof (shares) === "number" && typeof (price) === "number") {
+                FreshFace.addStock(name.toUpperCase(), shares, price);
+            } else {
+                alert(typeof (name) + typeof (shares) + typeof (price));
+            }
+
+            $("#stockModal").trigger("reveal:close");
+            event.preventDefault();
+        });
+        $(".addFriend").click(function (event) {
+            var friend = $(".friend_email").val();
+            addFriend(friend);
+            $("#myModal").hide();
+        });
+        $(".addPhoto").click(function (event) {
+            //var album = $(".photo_album").val();
+            var photo = $(".photo_url").val();
+            var data = {
+                url: photo
+            };
+            //Debug.log($("#photoForm").serialize());
+            FB.api("/me/photos", "post", data, function (resp) {
+                Debug.log("Posted photo, resp:");
+                Debug.log(resp);
+
+                FB.api('/' + resp.id, function (postData) {
+                    Debug.log("And the data is...");
+                    Debug.log(postData);
+
+                    FreshFace.prependPost($(".ff-feed-parent"), postData, "photo");
+
+                    $("#photoModal").trigger("reveal:close");
+                });
+            });
+            event.preventDefault();
+        });
+        $(".status").keyup(function (event) {
+            // On enter key
+            if (event.keyCode == 13) {
+                Debug.log($(this));
+                Debug.log($(this).val());
+                postStatus($(this).val());
+            }
+        });
+        FB.getLoginStatus(function (logResp) {
+            if (logResp.status === 'connected') {
+                // Do stuff that we need to be logged in to do
+                Debug.log("Logged in!  Can do stuff now.");
+                Debug.log(logResp);
+
+                FB.api('/me', function (apiResp) {
+                    var uName = apiResp.name;
+                    Debug.log("User name: " + uName);
+                    Debug.log(apiResp);
+
+                    var fb_url = "https://graph.facebook.com/";
+                    fb_url += apiResp.id;
+                    var photoUrl = fb_url + "/albums";
+                    photoUrl += "?access_token=" + logResp.authResponse.accessToken;
+                    photoUrl += "&app_id=" + "@ViewBag.AppID";
+                    photoUrl += "&method=post";
+                    photoUrl += "&sdk=joey";
+                    photoUrl += "&pretty=0";
+                    $("#photoForm").attr("action", photoUrl);
+                    //$("#photoForm").ajaxForm(function (photoResp) {
+                    //    Debug.log(photoResp);
+                    //});
+                    $(".ff-name").html(uName);
+                });
+                FB.api('/me/picture', function (apiResp) {
+                    Debug.log("Profile pic url: " + apiResp);
+                    var img = '<img class="centered" src="' + apiResp + '"></img>';
+                    $(".ff-profile-pic").html(img);
+                });
+                FB.api('/me/home', { limit: 10 }, function (apiResp) {
+                    var feedPar = $(".ff-feed-parent");
+                    Debug.log("User's feed: " + apiResp);
+                    $(apiResp.data).each(function (index, post) {
+                        //if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
+                        //    return;
+                        //}
+
+                        FreshFace.appendPost(feedPar, post);
+                    });
+                });
+            } else {
+                Debug.log("Logging out, FB has decided we're done.");
+                FreshFace.logOff();
+            }
+        });
+    };
+    (function (d) {
+        var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
+    } (document));
+</script>

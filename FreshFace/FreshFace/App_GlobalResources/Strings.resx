@@ -216,4 +216,7 @@
   <data name="Symbol" xml:space="preserve">
     <value>Stock Symbol</value>
   </data>
+  <data name="ShoutOut" xml:space="preserve">
+    <value>Shout Out</value>
+  </data>
 </root>
