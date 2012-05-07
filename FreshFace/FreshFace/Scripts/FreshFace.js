@@ -62,10 +62,10 @@ var FreshFace = {
         }
         localStorage.setItem("MyStocks", JSON.stringify(stocks));
 
-        
+
         $("#" + name + "row").remove();
-       // $("#stockTable").remove();
-        
+        // $("#stockTable").remove();
+
     },
 
     /**
@@ -211,6 +211,11 @@ var FreshFace = {
         $(stockPrice).html(stockData.CurrentPrice.toFixed(2));
 
         $(stockChange).html(stockData.ChangePrice.toFixed(2));
+        if (stockData.ChangePrice.toFixed(2) > 0) {
+            $(stockChange).attr("style", "color: green");
+        } else if (stockData.ChangePrice.toFixed(2) < 0) {
+            $(stockChange).attr("style", "color: red");
+        }
 
         $(stockRow).attr("id", stockData.CompanyName + "row");
         $(stockRem).attr("id", stockData.CompanyName);
@@ -263,11 +268,23 @@ var FreshFace = {
         $(stockPrice).html(stockData.CurrentPrice.toFixed(2));
 
         $(stockChange).html(stockData.ChangePrice.toFixed(2));
+        $(stockChange).html(netValue);
+        if (stockData.ChangePrice.toFixed(2) > 0) {
+            $(stockChange).attr("style", "color: green");
+        } else if (stockData.ChangePrice.toFixed(2) < 0) {
+            $(stockChange).attr("style", "color: red");
+        }
         $(stockShares).html(stocks[i].shares);
         $(stockPaid).html(stocks[i].price.toFixed(2));
-        var netValue = ((stockData.CurrentPrice.toFixed(2) * stocks[1].shares) -
+        var netValue = ((stockData.CurrentPrice.toFixed(2) * stocks[i].shares) -
         (stocks[i].shares * stocks[i].price)).toFixed(2);
+
         $(stockValue).html(netValue);
+        if (netValue > 0) {
+            $(stockValue).attr("style","color: green");
+        } else if (netValue < 0) {
+            $(stockValue).attr("style", "color: red");
+        }
 
         $(stockRow).attr("id", stockData.CompanyName + "row");
         $(stockEdit).attr("id", stockData.CompanyName);
@@ -319,7 +336,7 @@ $(document).ready(function () {
         stocks = [FreshFace.createStock("GOOG", 1, 20.00), FreshFace.createStock("MSFT", 1, 20.00), FreshFace.createStock("AMZN", 1, 20.00)];
         stockStr = JSON.stringify(stocks);
         localStorage.setItem("MyStocks", stockStr);
-    } else if (typeof localStorage.getItem("MyStocks")[0] === "string") {
+    } else if (typeof JSON.parse(localStorage.getItem("MyStocks"))[0].shares === "undefined") {
         // If it's using the old version with just stock names, override it with defaults
         stocks = [FreshFace.createStock("GOOG", 1, 20.00), FreshFace.createStock("MSFT", 1, 20.00), FreshFace.createStock("AMZN", 1, 20.00)];
         stockStr = JSON.stringify(stocks);
