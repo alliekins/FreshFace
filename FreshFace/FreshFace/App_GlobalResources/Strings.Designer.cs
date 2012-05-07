@@ -115,6 +115,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Price.
+        /// </summary>
+        internal static string CurrentPrice {
+            get {
+                return ResourceManager.GetString("CurrentPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Stock.
+        /// </summary>
+        internal static string EditStock {
+            get {
+                return ResourceManager.GetString("EditStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter friend&apos;s username or id below:.
         /// </summary>
         internal static string EnterFriend {
@@ -259,6 +277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Net Value.
+        /// </summary>
+        internal static string NetValue {
+            get {
+                return ResourceManager.GetString("NetValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to News Article - by .
         /// </summary>
         internal static string NewsBy {
@@ -277,6 +304,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount Paid Per Share.
+        /// </summary>
+        internal static string PaidShare {
+            get {
+                return ResourceManager.GetString("PaidShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post.
         /// </summary>
         internal static string Post {
@@ -291,6 +327,15 @@ namespace Resources {
         internal static string PostPlaceholder {
             get {
                 return ResourceManager.GetString("PostPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shout Out.
+        /// </summary>
+        internal static string ShoutOut {
+            get {
+                return ResourceManager.GetString("ShoutOut", resourceCulture);
             }
         }
         
@@ -327,6 +372,15 @@ namespace Resources {
         internal static string Symbol {
             get {
                 return ResourceManager.GetString("Symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today&apos;s Change.
+        /// </summary>
+        internal static string TodayChange {
+            get {
+                return ResourceManager.GetString("TodayChange", resourceCulture);
             }
         }
         
