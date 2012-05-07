@@ -41,5 +41,21 @@ namespace FreshFace.Controllers
                 return RedirectToAction("LogOn", "Account");
             }
         }
+
+        public ActionResult ShoutOut()
+        {
+            // Default ID that Sam setup
+            ViewBag.AppID = FBModel.GetAppID(HttpContext);
+            if (Request.IsAuthenticated)
+            {
+                if (!Request.Path.Contains("ShoutOut"))
+                    Response.Redirect(@Url.Content("~/Home/ShoutOut"), true);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
+        }
     }
 }
