@@ -281,7 +281,7 @@ var FreshFace = {
 
         $(stockValue).html(netValue);
         if (netValue > 0) {
-            $(stockValue).attr("style","color: green");
+            $(stockValue).attr("style", "color: green");
         } else if (netValue < 0) {
             $(stockValue).attr("style", "color: red");
         }
@@ -300,7 +300,6 @@ var FreshFace = {
             FreshFace.editStock(i);
             event.preventDefault();
         });
-
 
 
         $(stockRem).attr("id", stockData.CompanyName);
