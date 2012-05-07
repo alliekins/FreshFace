@@ -204,6 +204,13 @@ var FreshFace = {
         var stockExtra = document.createElement("td");
         var stockRem = document.createElement("a");
 
+        var colVal = $(stockRow).css("background-color");
+        $(stockRow).hover(function () {
+            $(stockRow).css("background-color", "#94D9FF");
+        }, function () {
+            $(stockRow).css("background-color", colVal);
+        });
+
         $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
         $(stockLink).html(stockData.CompanyName);
         $(stockName).append(stockLink);
@@ -261,6 +268,13 @@ var FreshFace = {
         var stockExtra = document.createElement("td");
         var stockRem = document.createElement("a");
 
+        var colVal = $(stockRow).css("background-color");
+        $(stockRow).hover(function () {
+            $(stockRow).css("background-color", "#94D9FF");
+        }, function () {
+            $(stockRow).css("background-color", colVal);
+        });
+
         $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
         $(stockLink).html(stockData.CompanyName);
         $(stockName).append(stockLink);
@@ -288,7 +302,7 @@ var FreshFace = {
 
         $(stockRow).attr("id", stockData.CompanyName + "row");
         $(stockEdit).attr("id", stockData.CompanyName);
-        $(stockEdit).attr("title", "Remove " + stockData.CompanyName);
+        $(stockEdit).attr("title", "Edit " + stockData.CompanyName);
         $(stockEdit).addClass("remove");
         $(stockEdit).attr("href", "#");
         $(stockEdit).attr("data-reveal-id", "editModal");
