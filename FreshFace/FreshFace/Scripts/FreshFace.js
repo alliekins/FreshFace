@@ -77,25 +77,23 @@ var FreshFace = {
     addStock: function (name, shares, price) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
-        localStorage.setItem("MyStocks", JSON.stringify(stocks));
 
-        var index = -1;
         for (var i = 0; i < stocks.length; i++) {
             if (stocks[i].name === name) {
-                index = i;
+                stocks.splice(i, 1);
                 break;
             }
         }
 
-        if (index != -1) {
-            FreshFace.removeStock(name);
-            stockStr = localStorage.getItem("MyStocks");
-            stocks = JSON.parse(stockStr);
-            localStorage.setItem("MyStocks", JSON.stringify(stocks));
+        if (isNaN(shares)) {
+            shares = 0;
+        }
+        if (isNaN(price)) {
+            price = 0;
         }
 
-
         stocks.push(FreshFace.createStock(name, shares, price));
+        localStorage.setItem("MyStocks", JSON.stringify(stocks));
 
         var url = "../Stock/Details/" + name;
         $.get("../Stock/Details/" + name, function (data) {
@@ -107,7 +105,6 @@ var FreshFace = {
             FreshFace.appendStock(data);
             FreshFace.appendStockTable(data);
         });
-        localStorage.setItem("MyStocks", JSON.stringify(stocks));
 
     },
 
@@ -118,6 +115,7 @@ var FreshFace = {
             price: price
         };
     },
+
     generatePost: function (post, type) {
         // A post should have:
         // post.from.name
