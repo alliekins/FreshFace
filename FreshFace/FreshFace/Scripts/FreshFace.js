@@ -81,6 +81,7 @@ var FreshFace = {
         for (var i = 0; i < stocks.length; i++) {
             if (stocks[i].name === name) {
                 stocks.splice(i, 1);
+                FreshFace.removeStock(name);
                 break;
             }
         }
@@ -95,17 +96,23 @@ var FreshFace = {
         stocks.push(FreshFace.createStock(name, shares, price));
         localStorage.setItem("MyStocks", JSON.stringify(stocks));
 
-        var url = "../Stock/Details/" + name;
-        $.get("../Stock/Details/" + name, function (data) {
-            if (data === "") {
-                Debug.log("ERROR: returned data from getting stocks was empty string.");
-                return;
+        $.ajax({
+            url: "../Stock/Details/" + name,
+            context: { name: name },
+            type: 'GET',
+            success: function (data) {
+                if (data === "") {
+                    Debug.log("ERROR: returned data from getting stocks was empty string.");
+                    return;
+                }
+                FreshFace.appendStock(data);
+                FreshFace.appendStockTable(data);
+            },
+            error: function (data) {
+                FreshFace.removeStock(name);
+                alert("Error: Invalid Stock Name");
             }
-
-            FreshFace.appendStock(data);
-            FreshFace.appendStockTable(data);
         });
-
     },
 
     createStock: function (name, shares, price) {
