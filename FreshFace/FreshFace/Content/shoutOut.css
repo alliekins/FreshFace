@@ -33,6 +33,7 @@ header,
 article > *,
 footer > * {
   margin: 20px;
+  margin-top: 40px;
 }
 
 footer > * {
