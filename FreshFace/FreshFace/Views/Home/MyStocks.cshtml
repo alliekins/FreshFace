@@ -103,6 +103,25 @@
             $("#stockModal").trigger("reveal:close");
             event.preventDefault();
         });
+        var onStockKey = function (event) {
+            // On enter key
+            if (event.keyCode == 13) {
+                var name = $("#symbol").val();
+                var shares = parseInt($("#numShares").val());
+                var price = parseFloat($("#price").val());
+                if (name.length >= 3 && name.length <= 6 && typeof (name) === "string" && typeof (shares) === "number" && typeof (price) === "number") {
+                    FreshFace.addStock(name.toUpperCase(), shares, price);
+                } else {
+                    alert(typeof (name) + typeof (shares) + typeof (price));
+                }
+
+                $("#stockModal").trigger("reveal:close");
+                event.preventDefault();
+            }
+        };
+        $("#symbol").keyup(onStockKey);
+        $("#numShares").keyup(onStockKey);
+        $("#price").keyup(onStockKey);
         $(".editStocks").click(function (event) {
             var name = $("#esymbol").val();
             var shares = parseInt($("#enumShares").val());
