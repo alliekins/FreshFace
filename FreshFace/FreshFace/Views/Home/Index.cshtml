@@ -153,10 +153,10 @@
             var name = $("#symbol").val();
             var shares = parseInt($("#numShares").val());
             var price = parseFloat($("#price").val());
-            if (name.length >= 3 && name.length <= 6 && typeof(name)==="string" && typeof(shares)==="number" && typeof(price)==="number" ) {
+            if (name.length >= 3 && name.length <= 6 && typeof (name) === "string" && typeof (shares) === "number" && typeof (price) === "number") {
                 FreshFace.addStock(name.toUpperCase(), shares, price);
             } else {
-                alert(typeof(name)+typeof(shares)+typeof(price));
+                alert(typeof (name) + typeof (shares) + typeof (price));
             }
 
             $("#stockModal").trigger("reveal:close");
@@ -231,12 +231,42 @@
                     var feedPar = $(".ff-feed-parent");
                     Debug.log("User's feed: " + apiResp);
                     $(apiResp.data).each(function (index, post) {
-                        //if (index >= 10) { // TODO: this is not the optimal way to limit the number of news articles...
-                        //    return;
-                        //}
-
                         FreshFace.appendPost(feedPar, post);
                     });
+
+                    var checkForNewPosts = function () {
+                        Debug.log("Checking for new posts");
+                        var oldFirst = $(".ff-feed-item")[0];
+
+                        FB.api('/me/home', { limit: 10 }, function (newPosts) {
+                            var postsToAdd = [];
+
+                            $(newPosts.data).each(function (index, newPost) {
+                                var newPostId = "fb-item-" + newPost.id;
+
+                                // If we've hit the old first post, we're good
+                                if ($(oldFirst).hasClass(newPostId)) {
+                                    return false;
+                                }
+
+                                // But if this is a duplicate, just ignore it
+                                if ($("." + newPostId).length > 0) {
+                                    return true;
+                                }
+
+                                postsToAdd.push(FreshFace.generatePost(newPost));
+                            });
+
+                            for (var i = postsToAdd.length - 1; i >= 0; i--) {
+                                $(feedPar).prepend(postsToAdd[i]);
+                            }
+                        });
+
+
+                        setTimeout(checkForNewPosts, 5000);
+                    };
+
+                    setTimeout(checkForNewPosts, 5000);
                 });
             } else {
                 Debug.log("Logging out, FB has decided we're done.");

@@ -136,6 +136,7 @@ var FreshFace = {
         var photo = "";
 
         $(article).addClass("ff-feed-item");
+        $(article).addClass("fb-item-" + post.id);
         $(title).addClass("ff-feed-from");
         $(story).addClass("ff-feed-story");
 
