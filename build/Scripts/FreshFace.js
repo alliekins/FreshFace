@@ -50,11 +50,22 @@ var FreshFace = {
     removeStock: function (name) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
-        var index = stocks.indexOf(name);
+        var index = -1;
+        for (var i = 0; i < stocks.length; i++) {
+            if (stocks[i].name === name) {
+                index = i;
+                break;
+            }
+        }
         if (index != -1) {
             stocks.splice(index, 1);
         }
         localStorage.setItem("MyStocks", JSON.stringify(stocks));
+
+
+        $("#" + name + "row").remove();
+        // $("#stockTable").remove();
+
     },
 
     /**
@@ -63,11 +74,54 @@ var FreshFace = {
     * @method removeStock
     *
     */
-    addStock: function (name) {
+    addStock: function (name, shares, price) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
-        stocks.push(name);
+
+        for (var i = 0; i < stocks.length; i++) {
+            if (stocks[i].name === name) {
+                stocks.splice(i, 1);
+                FreshFace.removeStock(name);
+                break;
+            }
+            $("#" + name + "row").hide();
+        }
+
+        if (isNaN(shares)) {
+            shares = 0;
+        }
+        if (isNaN(price)) {
+            price = 0;
+        }
+
+        stocks.push(FreshFace.createStock(name, shares, price));
         localStorage.setItem("MyStocks", JSON.stringify(stocks));
+
+        $.ajax({
+            url: "../Stock/Details/" + name,
+            context: { name: name },
+            type: 'GET',
+            success: function (data) {
+                if (data === "") {
+                    Debug.log("ERROR: returned data from getting stocks was empty string.");
+                    return;
+                }
+                FreshFace.appendStock(data);
+                FreshFace.appendStockTable(data);
+            },
+            error: function (data) {
+                FreshFace.removeStock(name);
+                alert("Error: Invalid Stock Name");
+            }
+        });
+    },
+
+    createStock: function (name, shares, price) {
+        return {
+            name: name,
+            shares: shares,
+            price: price
+        };
     },
 
     generatePost: function (post, type) {
@@ -90,6 +144,7 @@ var FreshFace = {
         var photo = "";
 
         $(article).addClass("ff-feed-item");
+        $(article).addClass("fb-item-" + post.id);
         $(title).addClass("ff-feed-from");
         $(story).addClass("ff-feed-story");
 
@@ -156,6 +211,13 @@ var FreshFace = {
         var stockExtra = document.createElement("td");
         var stockRem = document.createElement("a");
 
+        var colVal = $(stockRow).css("background-color");
+        $(stockRow).hover(function () {
+            $(stockRow).css("background-color", "#94D9FF");
+        }, function () {
+            $(stockRow).css("background-color", colVal);
+        });
+
         $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
         $(stockLink).html(stockData.CompanyName);
         $(stockName).append(stockLink);
@@ -163,14 +225,23 @@ var FreshFace = {
         $(stockPrice).html(stockData.CurrentPrice.toFixed(2));
 
         $(stockChange).html(stockData.ChangePrice.toFixed(2));
+        if (stockData.ChangePrice.toFixed(2) > 0) {
+            $(stockChange).attr("style", "color: green");
+        } else if (stockData.ChangePrice.toFixed(2) < 0) {
+            $(stockChange).attr("style", "color: red");
+        }
 
+        $(stockRow).attr("id", stockData.CompanyName + "row");
+        $(stockPrice).attr("id", stockData.CompanyName + "price");
+        $(stockChange).attr("id", stockData.CompanyName + "change");
         $(stockRem).attr("id", stockData.CompanyName);
         $(stockRem).attr("title", "Remove " + stockData.CompanyName);
         $(stockRem).addClass("remove");
         $(stockRem).attr("href", "");
         $(stockRem).html("X");
         $(stockRem).click(function () {
-            FreshFace.removeStock(stockData.CompanyName);
+            FreshFace.removeStock(stockData.CompanyName, stockRow);
+            event.preventDefault();
         });
         $(stockExtra).append(stockRem);
 
@@ -180,16 +251,120 @@ var FreshFace = {
         $(stockRow).append(stockExtra);
 
         $("#stocks").append(stockRow);
+    },
+
+    appendStockTable: function (stockData) {
+        var stockStr = localStorage.getItem("MyStocks");
+        var stocks = JSON.parse(stockStr);
+        var index = -1;
+        for (var i = 0; i < stocks.length; i++) {
+            if (stocks[i].name === stockData.CompanyName) {
+                index = i;
+                break;
+            }
+        }
+
+        var stockRow = document.createElement("tr");
+        var stockName = document.createElement("td");
+        var stockLink = document.createElement("a");
+        var stockPrice = document.createElement("td");
+        var stockChange = document.createElement("td");
+        var stockShares = document.createElement("td");
+        var stockPaid = document.createElement("td");
+        var stockValue = document.createElement("td");
+        var stockEdit = document.createElement("a");
+        var stockEd = document.createElement("td");
+        var stockExtra = document.createElement("td");
+        var stockRem = document.createElement("a");
+
+        var colVal = $(stockRow).css("background-color");
+        $(stockRow).hover(function () {
+            $(stockRow).css("background-color", "#94D9FF");
+        }, function () {
+            $(stockRow).css("background-color", colVal);
+        });
+
+        $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
+        $(stockLink).html(stockData.CompanyName);
+        $(stockName).append(stockLink);
+
+        $(stockPrice).html(stockData.CurrentPrice.toFixed(2));
+
+        $(stockChange).html(stockData.ChangePrice.toFixed(2));
+        $(stockChange).html(netValue);
+        if (stockData.ChangePrice.toFixed(2) > 0) {
+            $(stockChange).attr("style", "color: green");
+        } else if (stockData.ChangePrice.toFixed(2) < 0) {
+            $(stockChange).attr("style", "color: red");
+        }
+        $(stockShares).html(stocks[i].shares);
+        $(stockPaid).html(stocks[i].price.toFixed(2));
+        var netValue = ((stockData.CurrentPrice.toFixed(2) * stocks[i].shares) -
+        (stocks[i].shares * stocks[i].price)).toFixed(2);
+
+        $(stockValue).html(netValue);
+        if (netValue > 0) {
+            $(stockValue).attr("style", "color: green");
+        } else if (netValue < 0) {
+            $(stockValue).attr("style", "color: red");
+        }
+
+        $(stockRow).attr("id", stockData.CompanyName + "row");
+        $(stockPrice).attr("id", stockData.CompanyName + "price");
+        $(stockChange).attr("id", stockData.CompanyName + "change");
+        $(stockPaid).attr("id", stockData.CompanyName + "paid");
+        $(stockShares).attr("id", stockData.CompanyName + "shares");
+        $(stockValue).attr("id", stockData.CompanyName + "value");
+        $(stockRow).attr("id", stockData.CompanyName + "row");
+        $(stockEdit).attr("id", stockData.CompanyName);
+        $(stockEdit).attr("title", "Edit " + stockData.CompanyName);
+        $(stockEdit).addClass("remove");
+        $(stockEdit).attr("href", "#");
+        $(stockEdit).attr("data-reveal-id", "editModal");
+        $(stockEdit).html("Edit");
+        $(stockEdit).click(function (event) {
+            $("#esymbol").val(stockData.CompanyName);
+            $("#enumShares").val(stocks[i].shares);
+            $("#eprice").val(stocks[i].price);
+            event.preventDefault();
+        });
+
+
+        $(stockRem).attr("id", stockData.CompanyName);
+        $(stockRem).attr("title", "Remove " + stockData.CompanyName);
+        $(stockRem).addClass("remove");
+        $(stockRem).attr("href", "");
+        $(stockRem).html("X");
+        $(stockRem).click(function () {
+            FreshFace.removeStock(stockData.CompanyName);
+            event.preventDefault();
+        });
+        $(stockExtra).append(stockRem);
+        $(stockEd).append(stockEdit);
+        $(stockRow).append(stockName);
+        $(stockRow).append(stockPrice);
+        $(stockRow).append(stockChange);
+        $(stockRow).append(stockShares);
+        $(stockRow).append(stockPaid);
+        $(stockRow).append(stockValue);
+        $(stockRow).append(stockEd);
+        $(stockRow).append(stockExtra);
+
+        $("#stockTable").append(stockRow);
     }
 
 };
 
 $(document).ready(function () {
-
     var stocks = [];
     if (localStorage.getItem("MyStocks") === null ||
-        typeof localStorage.getItem("MyStocks") === "undefined") {
-        stocks = ["GOOG", "MSFT", "AAPL", "AMZN"];
+            typeof localStorage.getItem("MyStocks") === "undefined") {
+        stocks = [FreshFace.createStock("GOOG", 1, 20.00), FreshFace.createStock("MSFT", 1, 20.00), FreshFace.createStock("AMZN", 1, 20.00)];
+        stockStr = JSON.stringify(stocks);
+        localStorage.setItem("MyStocks", stockStr);
+    } else if (typeof JSON.parse(localStorage.getItem("MyStocks"))[0].shares === "undefined") {
+        // If it's using the old version with just stock names, override it with defaults
+        stocks = [FreshFace.createStock("GOOG", 1, 20.00), FreshFace.createStock("MSFT", 1, 20.00), FreshFace.createStock("AMZN", 1, 20.00)];
         stockStr = JSON.stringify(stocks);
         localStorage.setItem("MyStocks", stockStr);
     } else {
@@ -199,16 +374,51 @@ $(document).ready(function () {
 
     for (var i = 0; i < stocks.length; i++) {
 
-        var url = "../Stock/Details/" + stocks[i];
-        $.get("../Stock/Details/" + stocks[i], function (data) {
+        var url = "../Stock/Details/" + stocks[i].name;
+        $.get("../Stock/Details/" + stocks[i].name, function (data) {
             if (data === "") {
                 Debug.log("ERROR: returned data from getting stocks was empty string.");
                 return;
             }
-
             FreshFace.appendStock(data);
+            FreshFace.appendStockTable(data);
         });
+
     }
+
+    //AJAX UPDATE
+    self.setInterval(function () {
+        for (var i = 0; i < stocks.length; i++) {
+
+            var url = "../Stock/Details/" + stocks[i].name;
+            $.get("../Stock/Details/" + stocks[i].name, function (data) {
+                if (data === "") {
+                    Debug.log("ERROR: returned data from getting stocks was empty string.");
+                    return;
+                }
+                $("#" + data.CompanyName + "price").html(data.CurrentPrice.toFixed(2));
+                $("#" + data.CompanyName + "change").html(data.ChangePrice.toFixed(2));
+                if (data.ChangePrice.toFixed(2) > 0) {
+                    $("#" + data.CompanyName + "change").attr("style", "color: green");
+                } else if (data.ChangePrice.toFixed(2) < 0) {
+                    $("#" + data.CompanyName + "change").attr("style", "color: red");
+                }
+
+                var shares = parseFloat($("#" + data.CompanyName + "shares").html());
+                var paid = parseFloat($("#" + data.CompanyName + "paid").html());
+                var netValue = ((data.CurrentPrice * shares) -
+                (shares * paid)).toFixed(2);
+
+                $("#" + data.CompanyName + "value").html(netValue);
+                if (netValue > 0) {
+                    $("#" + data.CompanyName + "value").attr("style", "color: green");
+                } else if (netValue < 0) {
+                    $("#" + data.CompanyName + "value").attr("style", "color: red");
+                }
+            });
+
+        }
+    }, 5000);
 });
 
 // Turns calendars into FullCalendars
@@ -223,3 +433,13 @@ $(document).ready(function () {
         }
     });
 });
+
+/*
+$(window).scroll(function () {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        console.log("Bottom of page!");
+    }
+    console.log("Scrolling");
+});
+console.log("Scrolling");
+*/

@@ -1,0 +1,21 @@
+﻿
+
+FB.api('/me', function (apiResp) {
+    var uName = apiResp.name;
+    Debug.log("User name: " + uName);
+    Debug.log(apiResp);
+
+    var fb_url = "https://graph.facebook.com/";
+    fb_url += apiResp.id;
+    var photoUrl = fb_url + "/albums";
+    photoUrl += "?access_token=" + logResp.authResponse.accessToken;
+    photoUrl += "&app_id=" + "@ViewBag.AppID";
+    photoUrl += "&method=post";
+    photoUrl += "&sdk=joey";
+    photoUrl += "&pretty=0";
+    $("#photoForm").attr("action", photoUrl);
+    //$("#photoForm").ajaxForm(function (photoResp) {
+    //    Debug.log(photoResp);
+    //});
+    $(".ff-name").html(uName);
+});
