@@ -5,17 +5,19 @@
 
 <!-- Start Row -->
 
-<div id="myModal" class="reveal-modal medium pagelinks">
-     <p>@Resources.Strings.EnterFriend</p>
-     <form name="add_friend" action="" method="get">
-        <input type="text" class="friend_email" placeholder="@Resources.Strings.AddFriendPlaceHolder" />
+<div id="friendModal" class="reveal-modal medium pagelinks">
+    <p>@Resources.Strings.EnterFriend</p>
+    <form id="friendForm">
+        <input type="text" class="dummy hide" />
+        <input type="text" id="friend" class="required" placeholder="@Resources.Strings.AddFriendPlaceHolder" />
         <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
-    </form> 
+    </form>
 </div>
 
 <div id="photoModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterPhoto</p>
-     <form id="photoForm" name="photoForm" action="" method="post">
+     <form id="photoForm" name="photoForm">
+        <input type="text" class="dummy hide" />
         <input type="text" class="photo_url" placeholder="@Resources.Strings.UploadPhotoPlaceholder" />
         <a class="addPhoto" href="">@Resources.Strings.UploadPhoto</a>
     </form> 
@@ -23,12 +25,12 @@
 
 <div id="stockModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterStock</p>
-     <form id="stockForm" name="stockForm" action="" method="post">
+    <form id="stockForm">
         <input type="text" id="symbol" class="required" placeholder="@Resources.Strings.Symbol" />
-        <input type="text" id="numShares" class="required" placeholder="@Resources.Strings.NumShares" />
-        <input type="text" id="price" class="required" placeholder="@Resources.Strings.BoughtPrice" />
+        <input type="text" id="numShares" placeholder="@Resources.Strings.NumShares" />
+        <input type="text" id="price" placeholder="@Resources.Strings.BoughtPrice" />
         <a class="addStocks" href="">@Resources.Strings.AddStock</a>
-    </form> 
+    </form>
 </div>
 
 <div class="row">
@@ -97,6 +99,8 @@
 <div id="fb-root"></div>
 <script>
     window.fbAsyncInit = function () {
+
+        // Initialization & Auth Stuff - Common
         FB.init({
             appId: "@ViewBag.AppID",
             status: true,
@@ -118,6 +122,9 @@
             });
             event.preventDefault();
         });
+        // Initialization & Auth Stuff
+
+        // Posting Status - /Home/Index Only
         var postStatus = function (msg) {
             $(".status").val("");
             var data = {
@@ -141,14 +148,20 @@
                 }
             });
         }
-        var addFriend = function (username) {
-            FB.ui({ method: 'friends.add', id: username, display: 'popup' });
-        }
         $(".post").click(function (event) {
             Debug.log("Posting to FB: " + $(".status").val());
             postStatus($(".status").val());
             event.preventDefault();
         });
+        $(".status").keyup(function (event) {
+            // On enter key
+            if (event.keyCode == 13) {
+                postStatus($(this).val());
+            }
+        });
+        // Posting Status
+
+        // Adding Stock - Common Modal
         var addStock = function (event) {
             var name = $("#symbol").val();
             var shares = parseInt($("#numShares").val());
@@ -174,11 +187,31 @@
         $("#symbol").keyup(onStockKey);
         $("#numShares").keyup(onStockKey);
         $("#price").keyup(onStockKey);
+        // Adding Stock
+
+        // Adding Friend - Common Modal
+        var fbAddFriend = function (username) {
+            FB.ui({ method: 'friends.add', id: username, display: 'popup' });
+        }
+        var addFriend = function (event) {
+            event.preventDefault();
+            $("#friendModal").trigger("reveal:close");
+            var friend = $("#friend").val();
+            fbAddFriend(friend);
+        };
         $(".addFriend").click(function (event) {
-            var friend = $(".friend_email").val();
-            addFriend(friend);
-            $("#myModal").hide();
+            addFriend(event);
         });
+        var onFriendKey = function (event) {
+            // On enter key
+            if (event.keyCode == 13) {
+                addFriend(event);
+            }
+        };
+        $("#friend").keyup(onFriendKey);
+        // Adding Friend
+
+        // Adding Photo - Common Modal
         $(".addPhoto").click(function (event) {
             //var album = $(".photo_album").val();
             var photo = $(".photo_url").val();
@@ -201,14 +234,9 @@
             });
             event.preventDefault();
         });
-        $(".status").keyup(function (event) {
-            // On enter key
-            if (event.keyCode == 13) {
-                Debug.log($(this));
-                Debug.log($(this).val());
-                postStatus($(this).val());
-            }
-        });
+        // Adding Photo
+
+        // Logic for page - gets Photo, feed, etc
         FB.getLoginStatus(function (logResp) {
             if (logResp.status === 'connected') {
                 // Do stuff that we need to be logged in to do

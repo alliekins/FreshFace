@@ -7,7 +7,7 @@
 
 <div id="myModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterFriend</p>
-     <form name="add_friend" action="" method="get">
+     <form name="add_friend" action="" method="post">
         <input type="text" class="friend_email" placeholder="@Resources.Strings.AddFriendPlaceHolder" />
         <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
     </form> 
@@ -90,6 +90,21 @@
         var addFriend = function (username) {
             FB.ui({ method: 'friends.add', id: username, display: 'popup' });
         }
+        $(".addFriend").click(function (event) {
+            var friend = $(".friend_email").val();
+            addFriend(friend);
+            $("#myModal").trigger("reveal:close");
+            event.preventDefault();
+        });
+        $("#friend-field").keyup(function (event) {
+            if (event.keyCode === 13) {
+                Debug.log("Adding friend");
+                var friend = $("#friend-field").val();
+                addFriend(friend);
+                $("#myModal").trigger("reveal:close");
+                event.preventDefault();
+            }
+        });
         var addStock = function (event) {
             var name = $("#symbol").val();
             var shares = parseInt($("#numShares").val());
@@ -127,11 +142,6 @@
 
             $("#editModal").trigger("reveal:close");
             event.preventDefault();
-        });
-        $(".addFriend").click(function (event) {
-            var friend = $(".friend_email").val();
-            addFriend(friend);
-            $("#myModal").hide();
         });
         $(".addPhoto").click(function (event) {
             //var album = $(".photo_album").val();
