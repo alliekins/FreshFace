@@ -1,118 +1,10 @@
-﻿@{
-    Layout = null;
+﻿
+@{
+    ViewBag.Title = @Resources.Strings.FreshFaceHome;
+    Layout = "~/Views/Shared/_GridLayout.cshtml";
 }
 
-<head>
-		<meta charset="utf-8"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>@ViewBag.Title</title>
-		
-        <!-- Viewport stuff for mobile devices -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="@Url.Content("~/Content/img/favicon.ico")" type="image/x-icon" />
-		
-        <!-- Stuff from Foundation Grid -->
-		<link href="@Url.Content("~/Content/presentation.css")" rel="stylesheet" />
-		<link href="@Url.Content("~/Content/foundation.css")" rel="stylesheet" />
-		<link href="@Url.Content("~/Content/app.css")" rel="stylesheet" /> 
-
-        
-	    <!--[if lt IE 9]>
-		    <link rel="stylesheet" href="/Content/ie.css">
-	    <![endif]-->
-
-        <!-- End stuff from Foundation Grid -->
-        
-        <script src="@Url.Content("~/Scripts/jquery-1.7.2.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/json.js")" type="text/javascript"></script>
-		<script src="@Url.Content("~/Scripts/Debug.js")" type="text/javascript"></script>
-		<script src="@Url.Content("~/Scripts/FreshFace.js")" type="text/javascript"></script>
-
-		<!-- 
-			This script enables structural HTML5 elements in old IE.
-			http://code.google.com/p/html5shim/
-		-->
-		<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-	</head>
-	
-	<body lang="en">
-		
-        <header id="zurBar" class="container">
-            <nav class="row">
-                <div class="four columns logo">
-                    <table>
-                    <tr>
-                        <td><a href="@Url.Content("~/Home/Index")" class="ff-profile-pic ilblock prof-header"></a></td>
-                        <td><h1 class="ilblock  navlinks"><a href="@Url.Content("~/Home/Index")">@Resources.Strings.FreshFace</a></h1></td>
-                    </tr>
-                    </table>
-                </div>
-                <div class="eight columns vcenter">
-                    <strong class="right navlinks">
-                        @if (Request.IsAuthenticated)
-                        {
-                            <span class="hide-on-phones">
-                                @Html.Partial("_NavLinksPartial")
-                            </span>
-                            <ul id="mobileNav" data-reveal-id="navModal" class="show-on-phones">
-                                <li>
-                                    <a href="#" class="small nice button">@Resources.Strings.Actions</a>
-                                    <ul>
-                                        <li>
-                                            @Html.Partial("_NavLinksPartial")
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        }
-                    </strong>
-                </div>
-            </nav>
-        </header>
-
-<div id="myModal" class="reveal-modal medium pagelinks">
-     <p>@Resources.Strings.EnterFriend</p>
-     <form name="add_friend" action="" method="get">
-        <input type="text" class="friend_email" placeholder="@Resources.Strings.AddFriendPlaceHolder" />
-        <a class="addFriend" href="">@Resources.Strings.AddFriend</a>
-    </form> 
-</div>
-
-<div id="photoModal" class="reveal-modal medium pagelinks">
-     <p>@Resources.Strings.EnterPhoto</p>
-     <form id="photoForm" name="photoForm" action="" method="post">
-        <input type="text" class="photo_url" placeholder="@Resources.Strings.UploadPhotoPlaceholder" />
-        <a class="addPhoto" href="">@Resources.Strings.UploadPhoto</a>
-    </form> 
-</div>
-
-<div id="stockModal" class="reveal-modal medium pagelinks">
-     <p>@Resources.Strings.EnterStock</p>
-     <form id="stockForm" name="stockForm" action="" method="post">
-        <input type="text" id="symbol" class="required" placeholder="@Resources.Strings.Symbol" />
-        <input type="text" id="numShares" class="required" placeholder="@Resources.Strings.NumShares" />
-        <input type="text" id="price" class="required" placeholder="@Resources.Strings.BoughtPrice" />
-        <a class="addStocks" href="">@Resources.Strings.AddStock</a>
-    </form> 
-</div>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset=utf-8>
-<meta name="viewport" content="width=620">
-<title>HTML5 Demo: Web Socket</title>
-<link rel="stylesheet" href="../Content/shoutOut.css">
-<script src="../Scripts/shout.js"></script></head>
-<body>
-<section id="wrapper">
-    <header>
-      <h1>Web Socket</h1>
-    </header>
+@Html.Partial("_ModalHTMLPartial")
 
 <style>
 #chat { width: 97%; }
@@ -133,222 +25,29 @@
   padding: 10px 0;
 }
 </style>
-<article>
-  <form>
-    <input type="text" id="chat" placeholder="type and press enter to chat" />
-  </form>
-  <p id="status">Not connected</p>
-  <p>Users connected: <span id="connected">0</span></p>
-  <ul id="log"></ul>
-</article>
 
+<div class="row">
+    <div class="twelve columns">
+        <article>
+          <form>
+            <input type="text" id="chat" placeholder="type and press enter to chat" />
+            <input type="text" class="dummy hide" />
+          </form>
+          <p id="status">Not connected</p>
+          <p>Users connected: <span id="connected">0</span></p>
+          <ul id="log"></ul>
+        </article>
+    </div>
+</div>
 
 <div id="fb-root"></div>
-<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: "@ViewBag.AppID",
-            status: true,
-            cookie: true,
-            xfbml: true,
-            oauth: true,
-            fileUpload: true,
-            uploadFile: true
-        });
-        FB.Event.subscribe('auth.statusChange', function (response) {
-            if (!response.authResponse) {
-                Debug.log("FB has likely timed us out, log out.");
-                FreshFace.logOff();
-            }
-        });
-        $(".logout").click(function (event) {
-            FB.logout(function (response) {
-                FreshFace.logOff();
-            });
-            event.preventDefault();
-        });
-        var postStatus = function (msg) {
-            $(".status").val("");
-            var data = {
-                message: msg
-            };
-            FB.api('/me/feed', 'post', data, function (resp) {
-                if (!resp || resp.error) {
-                    Debug.log("FB post error.");
-                } else {
-                    Debug.log("FB responded to status post.");
-                    Debug.log(resp);
-                    var _index = resp.id.indexOf("_");
-                    var postId = resp.id.substr(_index + 1);
-
-                    FB.api('/' + postId, function (postData) {
-                        Debug.log("And the data is...");
-                        Debug.log(postData);
-
-                        FreshFace.prependPost($(".ff-feed-parent"), postData);
-                    });
-                }
-            });
-        }
-        var addFriend = function (username) {
-            FB.ui({ method: 'friends.add', id: username, display: 'popup' });
-        }
-        $(".post").click(function (event) {
-            Debug.log("Posting to FB: " + $(".status").val());
-            postStatus($(".status").val());
-            event.preventDefault();
-        });
-        $(".addStocks").click(function (event) {
-            var name = $("#symbol").val();
-            var shares = parseInt($("#numShares").val());
-            var price = parseFloat($("#price").val());
-            if (name.length <= 6 && typeof (name) === "string" && typeof (shares) === "number" && typeof (price) === "number") {
-                FreshFace.addStock(name.toUpperCase(), shares, price);
-            } else {
-                alert("Error: Invalid Entry");
-            }
-
-            $("#stockModal").trigger("reveal:close");
-            event.preventDefault();
-        });
-        var onStockKey = function (event) {
-            // On enter key
-            if (event.keyCode == 13) {
-                var name = $("#symbol").val();
-                var shares = parseInt($("#numShares").val());
-                var price = parseFloat($("#price").val());
-                if (name.length <= 6 && typeof (name) === "string" && typeof (shares) === "number" && typeof (price) === "number") {
-                    FreshFace.addStock(name.toUpperCase(), shares, price);
-                } else {
-                    alert("Error: Invalid Entry");
-                }
-
-                $("#stockModal").trigger("reveal:close");
-                event.preventDefault();
-            }
-        };
-        $("#symbol").keyup(onStockKey);
-        $("#numShares").keyup(onStockKey);
-        $("#price").keyup(onStockKey);
-        $(".addFriend").click(function (event) {
-            var friend = $(".friend_email").val();
-            addFriend(friend);
-            $("#myModal").hide();
-        });
-        $(".addPhoto").click(function (event) {
-            //var album = $(".photo_album").val();
-            var photo = $(".photo_url").val();
-            var data = {
-                url: photo
-            };
-            //Debug.log($("#photoForm").serialize());
-            FB.api("/me/photos", "post", data, function (resp) {
-                Debug.log("Posted photo, resp:");
-                Debug.log(resp);
-
-                FB.api('/' + resp.id, function (postData) {
-                    Debug.log("And the data is...");
-                    Debug.log(postData);
-
-                    FreshFace.prependPost($(".ff-feed-parent"), postData, "photo");
-
-                    $("#photoModal").trigger("reveal:close");
-                });
-            });
-            event.preventDefault();
-        });
-        $(".status").keyup(function (event) {
-            // On enter key
-            if (event.keyCode == 13) {
-                Debug.log($(this));
-                Debug.log($(this).val());
-                postStatus($(this).val());
-            }
-        });
-        FB.getLoginStatus(function (logResp) {
-            if (logResp.status === 'connected') {
-                // Do stuff that we need to be logged in to do
-                Debug.log("Logged in!  Can do stuff now.");
-                Debug.log(logResp);
-
-                FB.api('/me', function (apiResp) {
-                    var uName = apiResp.name;
-                    Debug.log("User name: " + uName);
-                    Debug.log(apiResp);
-
-                    var fb_url = "https://graph.facebook.com/";
-                    fb_url += apiResp.id;
-                    var photoUrl = fb_url + "/albums";
-                    photoUrl += "?access_token=" + logResp.authResponse.accessToken;
-                    photoUrl += "&app_id=" + "@ViewBag.AppID";
-                    photoUrl += "&method=post";
-                    photoUrl += "&sdk=joey";
-                    photoUrl += "&pretty=0";
-                    $("#photoForm").attr("action", photoUrl);
-                    //$("#photoForm").ajaxForm(function (photoResp) {
-                    //    Debug.log(photoResp);
-                    //});
-                    $(".ff-name").html(uName);
-                });
-                FB.api('/me/picture', function (apiResp) {
-                    Debug.log("Profile pic url: " + apiResp);
-                    var img = '<img class="centered" src="' + apiResp + '"></img>';
-                    $(".ff-profile-pic").html(img);
-                });
-                FB.api('/me/home', { limit: 10 }, function (apiResp) {
-                    var feedPar = $(".ff-feed-parent");
-                    Debug.log("User's feed: " + apiResp);
-                    $(apiResp.data).each(function (index, post) {
-                        FreshFace.appendPost(feedPar, post);
-                    });
-
-                    var checkForNewPosts = function () {
-                        Debug.log("Checking for new posts");
-                        var oldFirst = $(".ff-feed-item")[0];
-
-                        FB.api('/me/home', { limit: 10 }, function (newPosts) {
-                            var postsToAdd = [];
-
-                            $(newPosts.data).each(function (index, newPost) {
-                                var newPostId = "fb-item-" + newPost.id;
-
-                                // If we've hit the old first post, we're good
-                                if ($(oldFirst).hasClass(newPostId)) {
-                                    return false;
-                                }
-
-                                // But if this is a duplicate, just ignore it
-                                if ($("." + newPostId).length > 0) {
-                                    return true;
-                                }
-
-                                postsToAdd.push(FreshFace.generatePost(newPost));
-                            });
-
-                            for (var i = postsToAdd.length - 1; i >= 0; i--) {
-                                $(feedPar).prepend(postsToAdd[i]);
-                            }
-                        });
-
-
-                        setTimeout(checkForNewPosts, 5000);
-                    };
-
-                    setTimeout(checkForNewPosts, 5000);
-                });
-            } else {
-                Debug.log("Logging out, FB has decided we're done.");
-                FreshFace.logOff();
-            }
-        });
-    };
-    (function (d) {
-        var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        d.getElementsByTagName('head')[0].appendChild(js);
-    } (document));
-</script>
+@section fb_init {
+    @RenderPage("~/Views/Shared/_FBLoggedIn.cshtml", 
+        new {
+            fb_ready = "~/Views/Home/_ShoutOut_fb_ready.cshtml",
+            fb_onauth = "~/Views/Home/_ShoutOut_fb_onauth.cshtml"
+        })
+}
 
 
 <script>
@@ -357,74 +56,88 @@
         window.WebSocket = window.MozWebSocket;
     }
 
-    function openConnection() {
-        // uses global 'conn' object
-        if (conn.readyState === undefined || conn.readyState > 1) {
-            conn = new WebSocket('ws://node.remysharp.com:8001');
-            conn.onopen = function () {
-                state.className = 'success';
-                state.innerHTML = 'Socket open';
-            };
-
-            conn.onmessage = function (event) {
-                // console.log(event.data);
-                var message = event.data; //JSON.parse(event.data);
-                if (!(/^\d+$/).test(message)) {
-                    log.innerHTML = '<li class="them">' + message.replace(/[<>&]/g, function (m) { return entities[m]; }) + '</li>' + log.innerHTML;
-                } else {
-                    connected.innerHTML = message;
-                }
-            };
-
-            conn.onclose = function (event) {
-                state.className = 'fail';
-                state.innerHTML = 'Socket closed';
-            };
-        }
-    }
-
-    var connected = document.getElementById('connected'),
-    log = document.getElementById('log'),
-    chat = document.getElementById('chat'),
-    form = chat.form,
+    var log = document.getElementById('log'),
     conn = {},
-    state = document.getElementById('status'),
     entities = {
         '<': '<',
         '>': '>',
         '&': '&'
     };
 
+    var openConnection = function () {
+        Debug.log("Opening Connection");
+
+        // uses global 'conn' object
+        if (conn.readyState === undefined || conn.readyState > 1) {
+            conn = new WebSocket('ws://node.remysharp.com:8001');
+            conn.onopen = function () {
+                Debug.log("Opened!");
+                $("#status").html('Socket open');
+                $("#status").toggleClass('success', true);
+                $("#status").toggleClass('fail', false);
+            };
+
+            conn.onmessage = function (event) {
+                Debug.log("Received message: ");
+                Debug.log(event.data);
+                var message = event.data; //JSON.parse(event.data);
+                if (!(/^\d+$/).test(message)) {
+                    $("#log").prepend('<li class="them">' + message.replace(/[<>&]/g, function (m) { return entities[m]; }) + '</li>');
+                } else {
+                    $("#connected").html(message);
+                }
+            };
+
+            conn.onclose = function (event) {
+                $("#status").html('Socket closed');
+                $("#status").toggleClass('success', false);
+                $("#status").toggleClass('fail', true);
+            };
+        }
+
+        Debug.log("Connection logic setup");
+    };
+
     if (window.WebSocket === undefined) {
-        state.innerHTML = 'Sockets not supported';
-        state.className = 'fail';
+        $("#status").html('Sockets not supported');
+        $("#status").toggleClass('success', false);
+        $("#status").toggleClass('fail', true);
     } else {
-        state.onclick = function () {
+
+        var onStatusClick = function (event) {
             if (conn.readyState !== 1) {
                 conn.close();
                 setTimeout(function () {
                     openConnection();
                 }, 250);
             }
+
         };
 
-        addEvent(form, 'submit', function (event) {
-            event.preventDefault();
+        var onChatKey = function (event) {
+            // On enter key
+            if (event.keyCode == 13) {
+                Debug.log("Pressed key: " + event.keyCode);
+                if (event.keyCode == 13) {
+                    Debug.log("Sending message");
+                    event.preventDefault();
 
-            // if we're connected
-            if (conn.readyState === 1) {
-                conn.send(JSON.stringify(chat.value));
-                log.innerHTML = '<li class="you">' + chat.value.replace(/[<>&]/g, function (m) { return entities[m]; }) + '</li>' + log.innerHTML;
-
-                chat.value = '';
+                    // if we're connected
+                    if (conn.readyState === 1) {
+                        conn.send(JSON.stringify($("#chat").val()));
+                        $("#log").prepend('<li class="you">' + $("#chat").val().replace(/[<>&]/g, function (m) { return entities[m]; }) + '</li>');
+                        $("#chat").val("");
+                    }
+                }
             }
+        };
+
+        $(document).ready(function () {
+            $("#status").click(onStatusClick);
+            $("#chat").keyup(onChatKey);
         });
 
         openConnection();
     }
 
 </script>
-</a>
-</section>
-</body>
-</html>
