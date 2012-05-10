@@ -144,7 +144,7 @@
         // Adding Stock
 
         // Editing Stocks - /Home/MyStocks only
-        $(".editStocks").click(function (event) {
+        var editStock = function (event) {
             var name = $("#esymbol").val();
             var shares = parseInt($("#enumShares").val());
             var price = parseFloat($("#eprice").val());
@@ -156,7 +156,16 @@
 
             $("#editModal").trigger("reveal:close");
             event.preventDefault();
-        });
+        };
+        $(".editStocks").click(editStock);
+        var onEditKey = function (event) {
+            // On enter key
+            if (event.keyCode == 13) {
+                editStock(event);
+            }
+        };
+        $("#enumShares").keyup(onEditKey);
+        $("#eprice").keyup(onEditKey);
         // Editing Stocks
 
         // Adding Photo - Common Modal

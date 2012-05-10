@@ -83,6 +83,7 @@ var FreshFace = {
                 stocks.splice(i, 1);
                 break;
             }
+            $("#" + name + "row").hide();
         }
 
         if (isNaN(shares)) {
@@ -314,11 +315,10 @@ var FreshFace = {
         $(stockEdit).attr("href", "#");
         $(stockEdit).attr("data-reveal-id", "editModal");
         $(stockEdit).html("Edit");
-        $(stockEdit).click(function () {
+        $(stockEdit).click(function (event) {
             $("#esymbol").val(stockData.CompanyName);
             $("#enumShares").val(stocks[i].shares);
             $("#eprice").val(stocks[i].price);
-            FreshFace.editStock(i);
             event.preventDefault();
         });
 
