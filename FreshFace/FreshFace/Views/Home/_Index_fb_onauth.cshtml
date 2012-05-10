@@ -1,0 +1,66 @@
+﻿
+FB.api('/me', function (apiResp) {
+    var uName = apiResp.name;
+    Debug.log("User name: " + uName);
+    Debug.log(apiResp);
+
+    var fb_url = "https://graph.facebook.com/";
+    fb_url += apiResp.id;
+    var photoUrl = fb_url + "/albums";
+    photoUrl += "?access_token=" + logResp.authResponse.accessToken;
+    photoUrl += "&app_id=" + "@ViewBag.AppID";
+    photoUrl += "&method=post";
+    photoUrl += "&sdk=joey";
+    photoUrl += "&pretty=0";
+    $("#photoForm").attr("action", photoUrl);
+    //$("#photoForm").ajaxForm(function (photoResp) {
+    //    Debug.log(photoResp);
+    //});
+    $(".ff-name").html(uName);
+});
+FB.api('/me/picture', function (apiResp) {
+    Debug.log("Profile pic url: " + apiResp);
+    var img = '<img class="centered" src="' + apiResp + '"></img>';
+    $(".ff-profile-pic").html(img);
+});
+FB.api('/me/home', { limit: 10 }, function (apiResp) {
+    var feedPar = $(".ff-feed-parent");
+    Debug.log("User's feed: " + apiResp);
+    $(apiResp.data).each(function (index, post) {
+        FreshFace.appendPost(feedPar, post);
+    });
+
+    var checkForNewPosts = function () {
+        Debug.log("Checking for new posts");
+        var oldFirst = $(".ff-feed-item")[0];
+
+        FB.api('/me/home', { limit: 10 }, function (newPosts) {
+            var postsToAdd = [];
+
+            $(newPosts.data).each(function (index, newPost) {
+                var newPostId = "fb-item-" + newPost.id;
+
+                // If we've hit the old first post, we're good
+                if ($(oldFirst).hasClass(newPostId)) {
+                    return false;
+                }
+
+                // But if this is a duplicate, just ignore it
+                if ($("." + newPostId).length > 0) {
+                    return true;
+                }
+
+                postsToAdd.push(FreshFace.generatePost(newPost));
+            });
+
+            for (var i = postsToAdd.length - 1; i >= 0; i--) {
+                $(feedPar).prepend(postsToAdd[i]);
+            }
+        });
+
+
+        setTimeout(checkForNewPosts, 5000);
+    };
+
+    setTimeout(checkForNewPosts, 5000);
+});

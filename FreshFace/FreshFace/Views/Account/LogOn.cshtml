@@ -14,40 +14,19 @@
         </p>
 
         <div id="fb-root"></div>
-        <script>
-          window.fbAsyncInit = function() {
-            FB.init({
-              appId      : "@ViewBag.AppID",
-              status     : true, 
-              cookie     : true,
-              xfbml      : true,
-              oauth      : true
-            });
-            FB.Event.subscribe('auth.statusChange', function (response) {
-                if (response.authResponse) {
-                    var data = {
-                        UserID: response.authResponse.userID
-                    };
-                    FreshFace.logOn(data);
-                } 
-                else {
-                    Debug.log("Logging out");
-                }
-            });
-          };
-          (function(d){
-             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-             js = d.createElement('script'); js.id = id; js.async = true;
-             js.src = "//connect.facebook.net/en_US/all.js";
-             d.getElementsByTagName('head')[0].appendChild(js);
-           }(document));
-        </script>
+        @section fb_init 
+            @RenderPage("~/Views/Shared/_FBLoggedOut.cshtml")
+        }
+        @section fb_ready {
+            <!-- Nothing to do once we're ready -->
+        }
+        @section fb_onauth {
+            <!-- Logon page will never be validly authenticated -->
+        }
         <div class="fb-login-button" 
             scope="user_events,friends_events,read_stream,create_event,publish_stream,user_photos,read_friendlists,manage_friendlists">
             @Resources.Strings.LoginWithFacebook
         </div>
-
-        <br />
 
     </div>
 </div>
