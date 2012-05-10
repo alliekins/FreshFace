@@ -19,8 +19,3 @@ FB.api('/me', function (apiResp) {
     //});
     $(".ff-name").html(uName);
 });
-FB.api('/me/picture', function (apiResp) {
-    Debug.log("Profile pic url: " + apiResp);
-    var img = '<img class="centered" src="' + apiResp + '"></img>';
-    $(".ff-profile-pic").html(img);
-});

@@ -38,6 +38,12 @@
                 Debug.log("Logged in!  Can do stuff now.");
                 Debug.log(logResp);
                 
+                FB.api('/me/picture', function (apiResp) {
+                    Debug.log("Profile pic url: " + apiResp);
+                    var img = '<img class="centered" src="' + apiResp + '"></img>';
+                    $(".ff-profile-pic").html(img);
+                });
+
                 @Html.Partial((String)Page.fb_onauth)
 
             } else {

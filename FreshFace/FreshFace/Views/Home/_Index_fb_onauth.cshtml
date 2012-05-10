@@ -18,11 +18,6 @@ FB.api('/me', function (apiResp) {
     //});
     $(".ff-name").html(uName);
 });
-FB.api('/me/picture', function (apiResp) {
-    Debug.log("Profile pic url: " + apiResp);
-    var img = '<img class="centered" src="' + apiResp + '"></img>';
-    $(".ff-profile-pic").html(img);
-});
 FB.api('/me/home', { limit: 10 }, function (apiResp) {
     var feedPar = $(".ff-feed-parent");
     Debug.log("User's feed: " + apiResp);
