@@ -9,8 +9,6 @@
         oauth      : true
     });
 
-    @RenderSection("fb_ready")
-
     FB.Event.subscribe('auth.statusChange', function (response) {
         if (response.authResponse) {
             var data = {

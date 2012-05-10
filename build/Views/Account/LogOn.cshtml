@@ -14,14 +14,8 @@
         </p>
 
         <div id="fb-root"></div>
-        @section fb_init 
+        @section fb_init {
             @RenderPage("~/Views/Shared/_FBLoggedOut.cshtml")
-        }
-        @section fb_ready {
-            <!-- Nothing to do once we're ready -->
-        }
-        @section fb_onauth {
-            <!-- Logon page will never be validly authenticated -->
         }
         <div class="fb-login-button" 
             scope="user_events,friends_events,read_stream,create_event,publish_stream,user_photos,read_friendlists,manage_friendlists">
