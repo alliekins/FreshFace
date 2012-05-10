@@ -65,6 +65,27 @@
     <!-- End Stock Ticker -->
 </div>
 
+<div class="row">
+    <!-- Stock Information -->
+
+    <section class="eight columns">
+        <h4>More Information</h4>
+        <div>
+        <!--
+            <table id="stockInfo" class="normlinks">
+            <tr>
+                <th style="font-size:large">@Resources.Strings.StockName</th>
+                <th style="font-size:large">$500.52</th>
+            </tr>
+            </table> 
+            -->
+        </div>
+    </section>
+
+      <!-- End Stock Information -->
+</div>
+
+
 <div id="fb-root"></div>
 <script>
     window.fbAsyncInit = function () {
@@ -120,10 +141,10 @@
             var name = $("#symbol").val();
             var shares = parseInt($("#numShares").val());
             var price = parseFloat($("#price").val());
-            if (name.length >= 3 && name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+            if (name.length <= 6 && typeof (name) === "string" && typeof (shares) === "number" && typeof (price) === "number") {
                 FreshFace.addStock(name.toUpperCase(), shares, price);
             } else {
-                alert(typeof (name) + typeof (shares) + typeof (price));
+                alert("Error: Invalid Entry");
             }
 
             $("#stockModal").trigger("reveal:close");
@@ -148,10 +169,10 @@
             var name = $("#esymbol").val();
             var shares = parseInt($("#enumShares").val());
             var price = parseFloat($("#eprice").val());
-            if (name.length >= 3 && name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+            if (name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
                 FreshFace.addStock(name.toUpperCase(), shares, price);
             } else {
-                alert(typeof (name) + typeof (shares) + typeof (price));
+                alert("Error: Invalid Entry");
             }
 
             $("#editModal").trigger("reveal:close");

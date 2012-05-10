@@ -166,10 +166,10 @@
             var name = $("#symbol").val();
             var shares = parseInt($("#numShares").val());
             var price = parseFloat($("#price").val());
-            if (name.length >= 3 && name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+            if (name.length <= 6 && typeof (name) === "string" && typeof (shares) === "number" && typeof (price) === "number") {
                 FreshFace.addStock(name.toUpperCase(), shares, price);
             } else {
-                alert(typeof (name) + typeof (shares) + typeof (price));
+                alert("Error: Invalid Entry");
             }
 
             $("#stockModal").trigger("reveal:close");
