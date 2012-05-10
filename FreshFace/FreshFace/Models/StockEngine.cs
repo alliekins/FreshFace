@@ -74,7 +74,7 @@ public class StockEngine
     get { return _Symbol; }
     set
     {
-      if (String.IsNullOrEmpty(value) || value.Length < 3 || value.Length > 5)
+      if (String.IsNullOrEmpty(value) || value.Length > 5)
         throw new ArgumentException("The stock symbol must be a valid 3-5 character string.");
 
       _Symbol = value;

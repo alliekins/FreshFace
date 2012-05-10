@@ -204,4 +204,34 @@
   <data name="UploadPhotoPlaceholder" xml:space="preserve">
     <value>Picture URL</value>
   </data>
+  <data name="BoughtPrice" xml:space="preserve">
+    <value>Stock Price</value>
+  </data>
+  <data name="EnterStock" xml:space="preserve">
+    <value>Enter the stock information below:</value>
+  </data>
+  <data name="NumShares" xml:space="preserve">
+    <value>Number of Shares</value>
+  </data>
+  <data name="Symbol" xml:space="preserve">
+    <value>Stock Symbol</value>
+  </data>
+  <data name="ShoutOut" xml:space="preserve">
+    <value>Shout Out</value>
+  </data>
+  <data name="CurrentPrice" xml:space="preserve">
+    <value>Current Price</value>
+  </data>
+  <data name="EditStock" xml:space="preserve">
+    <value>Edit Stock</value>
+  </data>
+  <data name="NetValue" xml:space="preserve">
+    <value>Your Net Value</value>
+  </data>
+  <data name="PaidShare" xml:space="preserve">
+    <value>Amount Paid Per Share</value>
+  </data>
+  <data name="TodayChange" xml:space="preserve">
+    <value>Today's Change</value>
+  </data>
 </root>

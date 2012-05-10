@@ -156,6 +156,14 @@
     <Content Include="Views\Shared\_NavLinksPartial.cshtml" />
     <Content Include="Views\Home\MyStocks.cshtml" />
     <Content Include="Views\Home\ShoutOut.cshtml" />
+    <Content Include="Views\Shared\_ModalJSPartial.cshtml" />
+    <Content Include="Views\Shared\_ModalHTMLPartial.cshtml" />
+    <Content Include="Views\Shared\_FBLoggedOut.cshtml" />
+    <Content Include="Views\Shared\_FBLoggedIn.cshtml" />
+    <Content Include="Views\Home\_Index_fb_ready.cshtml" />
+    <Content Include="Views\Home\_Index_fb_onauth.cshtml" />
+    <Content Include="Views\Home\_MyStocks_fb_ready.cshtml" />
+    <Content Include="Views\Home\_MyStocks_fb_onauth.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />

@@ -1,0 +1,37 @@
+﻿
+// Posting Status - /Home/Index Only
+var postStatus = function (msg) {
+    $(".status").val("");
+    var data = {
+        message: msg
+    };
+    FB.api('/me/feed', 'post', data, function (resp) {
+        if (!resp || resp.error) {
+            Debug.log("FB post error.");
+        } else {
+            Debug.log("FB responded to status post.");
+            Debug.log(resp);
+            var _index = resp.id.indexOf("_");
+            var postId = resp.id.substr(_index + 1);
+
+            FB.api('/' + postId, function (postData) {
+                Debug.log("And the data is...");
+                Debug.log(postData);
+
+                FreshFace.prependPost($(".ff-feed-parent"), postData);
+            });
+        }
+    });
+}
+$(".post").click(function (event) {
+    Debug.log("Posting to FB: " + $(".status").val());
+    postStatus($(".status").val());
+    event.preventDefault();
+});
+$(".status").keyup(function (event) {
+    // On enter key
+    if (event.keyCode == 13) {
+        postStatus($(this).val());
+    }
+});
+// Posting Status

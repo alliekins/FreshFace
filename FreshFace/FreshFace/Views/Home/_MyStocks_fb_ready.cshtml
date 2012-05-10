@@ -1,0 +1,25 @@
+﻿
+// Editing Stocks - /Home/MyStocks only
+var editStock = function (event) {
+    var name = $("#esymbol").val();
+    var shares = parseInt($("#enumShares").val());
+    var price = parseFloat($("#eprice").val());
+    if (name.length <= 6 && typeof (name) == "string" && typeof (shares) == "number" && typeof (price) == "number") {
+        FreshFace.addStock(name.toUpperCase(), shares, price);
+    } else {
+        alert("Error: Invalid Entry");
+    }
+
+    $("#editModal").trigger("reveal:close");
+    event.preventDefault();
+};
+$(".editStocks").click(editStock);
+var onEditKey = function (event) {
+    // On enter key
+    if (event.keyCode == 13) {
+        editStock(event);
+    }
+};
+$("#enumShares").keyup(onEditKey);
+$("#eprice").keyup(onEditKey);
+// Editing Stocks
