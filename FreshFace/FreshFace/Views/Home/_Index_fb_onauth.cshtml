@@ -31,7 +31,7 @@ FB.api('/me', function (apiResp) {
     //});
     $(".ff-name").html(uName);
 });
-FB.api('/me/home', { limit: 10 }, function (apiResp) {
+FB.api('/me/home', { limit: 15 }, function (apiResp) {
     var feedPar = $(".ff-feed-parent");
     Debug.log("User's feed: " + apiResp);
     $(apiResp.data).each(function (index, post) {
