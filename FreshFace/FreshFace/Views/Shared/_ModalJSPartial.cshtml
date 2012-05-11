@@ -13,9 +13,8 @@ var addStock = function (event) {
     $("#stockModal").trigger("reveal:close");
     event.preventDefault();
 };
-$(".addStocks").click(function (event) {
-    addStock(event);
-});
+$(".addStocks").click(addStock);
+
 var onStockKey = function (event) {
     // On enter key
     if (event.keyCode == 13) {
@@ -37,9 +36,8 @@ var addFriend = function (event) {
     var friend = $("#friend").val();
     fbAddFriend(friend);
 };
-$(".addFriend").click(function (event) {
-    addFriend(event);
-});
+$(".addFriend").click(addFriend);
+
 var onFriendKey = function (event) {
     // On enter key
     if (event.keyCode == 13) {
@@ -50,7 +48,7 @@ $("#friend").keyup(onFriendKey);
 // Adding Friend
 
 // Adding Photo - Common Modal
-$(".addPhoto").click(function (event) {
+var addPhoto = function (event) {
     //var album = $(".photo_album").val();
     var photo = $(".photo_url").val();
     var data = {
@@ -71,5 +69,14 @@ $(".addPhoto").click(function (event) {
         });
     });
     event.preventDefault();
-});
+};
+$(".addPhoto").click(addPhoto);
+
+var onPhotoKey = function (event) {
+    if (event.keyCode == 13) {
+        Debug.log("Publishing photo");
+        addPhoto(event);
+    }
+};
+$("#photo_url").keyup(onPhotoKey);
 // Adding Photo
