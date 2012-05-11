@@ -1,0 +1,52 @@
+/* -----------------------------------------
+   Formatting for full size calendar
+----------------------------------------- */
+
+.fc-header-title h2
+{
+}
+
+.fc-header td
+{
+}
+
+.fc-header h2
+{
+}
+
+.fc-header-center
+{
+    padding: 0px;
+}
+
+.fc-header-left span
+{
+    float: left;
+}
+
+.fc-header-right span
+{
+    float: right;
+}
+
+.fc-button-content div
+{
+}
+
+.fc-widget-header
+{
+}
+
+.fc-widget-content 
+{
+}
+
+.fc-widget-content:hover
+{
+    background-color: #00A5FF;
+}
+
+.fc-other-month
+{
+    background-color: #e2e2e2;   
+}

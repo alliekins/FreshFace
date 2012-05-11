@@ -1,0 +1,70 @@
+/* -----------------------------------------
+   Making FullCalendar Small
+----------------------------------------- */
+
+.fc-header-title h2
+{
+    font-size: 1em;
+    line-height: 1em;
+}
+
+.fc-header td
+{
+    vertical-align: baseline;
+}
+
+.fc-header h2
+{
+    line-height: inherit;
+    margin: 0 auto;
+}
+
+.fc-header-center
+{
+    padding: 0px;
+}
+
+.fc-header-left span
+{
+    line-height: inherit;
+    float: left;
+}
+
+.fc-header-right span
+{
+    float: right;
+}
+
+.fc-button-content div
+{
+    padding: 0px;
+}
+
+.fc-widget-header
+{
+    padding: 2px;
+    min-width: 26px;
+    max-width: 26px;
+    text-align: center;
+}
+
+.fc-widget-content 
+{
+    padding: 2px;
+    font-size: 1em;
+    line-height: 1em;
+    min-width: 26px;
+    max-width: 26px;
+    min-height: 26px;
+    max-height: 26px;
+}
+
+.fc-widget-content:hover
+{
+    background-color: #00A5FF;
+}
+
+.fc-other-month
+{
+    background-color: #e2e2e2;   
+}

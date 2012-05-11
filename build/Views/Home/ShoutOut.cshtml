@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = @Resources.Strings.FreshFaceHome;
+    ViewBag.Title = @Resources.Strings.ShoutOut;
     Layout = "~/Views/Shared/_GridLayout.cshtml";
 }
 
@@ -30,7 +30,7 @@
     <div class="twelve columns">
         <article>
           <form>
-            <input type="text" id="chat" placeholder="type and press enter to chat" />
+            <input type="text" id="chat" placeholder="@Resources.Strings.TypeForChat" />
             <input type="text" class="dummy hide" />
           </form>
           <p id="status">Not connected</p>

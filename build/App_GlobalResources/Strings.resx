@@ -234,4 +234,7 @@
   <data name="TodayChange" xml:space="preserve">
     <value>Today's Change</value>
   </data>
+  <data name="TypeForChat" xml:space="preserve">
+    <value>type and press enter to chat</value>
+  </data>
 </root>

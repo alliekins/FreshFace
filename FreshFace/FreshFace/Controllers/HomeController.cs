@@ -11,45 +11,32 @@ namespace FreshFace.Controllers
     {
         public ActionResult Index()
         {
-            // Default ID that Sam setup
-            ViewBag.AppID = FBModel.GetAppID(HttpContext);
-
-            if (Request.IsAuthenticated)
-            {
-                if (!Request.Path.Contains("Index"))
-                    Response.Redirect(@Url.Content("~/Home/Index"), true);
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("LogOn", "Account");
-            }
+            return PageRedirectHelp("Index");
         }
 
         public ActionResult MyStocks()
         {
-            // Default ID that Sam setup
-            ViewBag.AppID = FBModel.GetAppID(HttpContext);
-            if (Request.IsAuthenticated)
-            {
-                if (!Request.Path.Contains("MyStocks"))
-                    Response.Redirect(@Url.Content("~/Home/MyStocks"), true);
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("LogOn", "Account");
-            }
+            return PageRedirectHelp("MyStocks");
+        }
+
+        public ActionResult MyCalendar()
+        {
+            return PageRedirectHelp("MyCalendar");
         }
 
         public ActionResult ShoutOut()
+        {
+            return PageRedirectHelp("ShoutOut");
+        }
+
+        private ActionResult PageRedirectHelp(string pageName)
         {
             // Default ID that Sam setup
             ViewBag.AppID = FBModel.GetAppID(HttpContext);
             if (Request.IsAuthenticated)
             {
-                if (!Request.Path.Contains("ShoutOut"))
-                    Response.Redirect(@Url.Content("~/Home/ShoutOut"), true);
+                if (!Request.Path.Contains(pageName))
+                    Response.Redirect(@Url.Content("~/Home/" + pageName), true);
                 return View();
             }
             else
