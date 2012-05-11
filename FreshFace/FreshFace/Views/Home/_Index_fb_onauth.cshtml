@@ -1,4 +1,17 @@
 ﻿
+var getQueryVariable = function (variable, query) {
+    if (typeof query === "undefined") {
+        query = window.location.search.substring(1);
+    }
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            return unescape(pair[1]);
+        }
+    }
+};
+
 FB.api('/me', function (apiResp) {
     var uName = apiResp.name;
     Debug.log("User name: " + uName);
@@ -24,6 +37,7 @@ FB.api('/me/home', { limit: 10 }, function (apiResp) {
     $(apiResp.data).each(function (index, post) {
         FreshFace.appendPost(feedPar, post);
     });
+    FreshFace.next = getQueryVariable("until", apiResp.paging.next);
 
     var checkForNewPosts = function () {
         Debug.log("Checking for new posts");
@@ -59,3 +73,24 @@ FB.api('/me/home', { limit: 10 }, function (apiResp) {
 
     setTimeout(checkForNewPosts, 5000);
 });
+
+// Load more when user hits bottom of screen
+$(window).scroll(function () {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        Debug.log("Bottom of page");
+        if (typeof FreshFace.next !== "undefined") {
+            Debug.log("Bottom of page, loading more content.");
+            
+            FB.api('/me/home', { limit: 10, until: FreshFace.next }, function (apiResp) {
+                var feedPar = $(".ff-feed-parent");
+                Debug.log("Next 10 posts data:");
+                Debug.log(apiResp);
+                $(apiResp.data).each(function (index, post) {
+                    FreshFace.appendPost(feedPar, post);
+                });
+                FreshFace.next = getQueryVariable("until", apiResp.paging.next);
+            });
+        }
+    }
+});
+
