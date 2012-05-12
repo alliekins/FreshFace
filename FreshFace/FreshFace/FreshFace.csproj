@@ -81,6 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app.css" />
+    <Content Include="Content\normalcal.css" />
+    <Content Include="Content\smallcal.css" />
     <Content Include="Content\foundation.css" />
     <Content Include="Content\ie.css" />
     <Content Include="Content\img\back.png" />
@@ -167,6 +169,9 @@
     <Content Include="Views\Home\_MyStocks_fb_onauth.cshtml" />
     <Content Include="Views\Home\_ShoutOut_fb_ready.cshtml" />
     <Content Include="Views\Home\_ShoutOut_fb_onauth.cshtml" />
+    <Content Include="Views\Home\MyCalendar.cshtml" />
+    <Content Include="Views\Home\_MyCalendar_fb_onauth.cshtml" />
+    <Content Include="Views\Home\_MyCalendar_fb_ready.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />

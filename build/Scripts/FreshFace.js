@@ -433,13 +433,3 @@ $(document).ready(function () {
         }
     });
 });
-
-/*
-$(window).scroll(function () {
-    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-        console.log("Bottom of page!");
-    }
-    console.log("Scrolling");
-});
-console.log("Scrolling");
-*/

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = @Resources.Strings.MyCalendar;
+    Layout = "~/Views/Shared/_GridLayout.cshtml";
+}
+
+@Html.Partial("_ModalHTMLPartial")
+
+<div class="row">
+
+    <div class="twelve columns">
+
+        <div class="calendar"></div>
+
+    </div>
+
+</div>
+
+<div id="fb-root"></div>
+@section fb_init {
+    @RenderPage("~/Views/Shared/_FBLoggedIn.cshtml", 
+        new {
+            fb_ready = "~/Views/Home/_MyStocks_fb_ready.cshtml",
+            fb_onauth = "~/Views/Home/_MyStocks_fb_onauth.cshtml"
+        })
+}
