@@ -5,6 +5,9 @@
 
 @Html.Partial("_ModalHTMLPartial")
 
+<script src="http://widgets.FreeStockCharts.com/script/bfcGlobalLib.js" type="text/javascript"></script> 
+<script src="@Url.Content("~/Scripts/FCSChartWidget3.js")" type="text/javascript"></script>
+
 <div id="editModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterStock</p>
      <form id="editForm" name="stockForm" action="" method="post">
@@ -39,21 +42,32 @@
     <!-- End Stock Ticker -->
 </div>
 
-<div class="row">
+<div class="row" style="height: 500px;">
     <!-- Stock Information -->
 
-    <section class="twelve columns">
-        <hr />
+    <section class="twelve columns" style="height: 500px;">
+        <hr >
         <h4>More Information</h4>
-        <div>
-        <!--
-            <table id="stockInfo" class="normlinks">
-            <tr>
-                <th style="font-size:large">@Resources.Strings.StockName</th>
-                <th style="font-size:large">$500.52</th>
-            </tr>
-            </table> 
-            -->
+        <div id='miTitle' style="font-weight:bold;"><p id ='sname'></p></div>
+        <div id='moreInfo1' style="float: left; width:50%;"><p id='lastprice'>Last Price: </p><p id='change'>Change: </p><p id ='changeper'>Change Percent: </p><p id='marketcap'>Market Cap: </p></div>
+        <div id='moreInfo2' style="float: right; width:50%;"><p id='changeytd'>ChangeYTD: </p><p id='high'>High: </p><p id ='low'>Low: </p><p id='open'>Open: </p></div>
+        <div id='bfcHostDiv' style="height: 500px;">
+        <script language=javascript>
+            var chart = new BFCChart("bfcChart", 501, 625, 400);
+            chart.targetElement = 'bfcHostDiv';
+            chart.createChart();
+
+            self.setTimeout(function () {
+                chart.showToolBar_set(false);
+                chart.showChangeSymbol_set(false);
+                var split = (window.location + "").split("#");
+                if (split[1]) {
+                    chart.changeSymbol(split[1]);
+                    FreshFace.makeRequest(split[1]);
+                }
+            }, 3000);
+            
+        </script>
         </div>
     </section>
 

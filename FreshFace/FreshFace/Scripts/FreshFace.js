@@ -11,6 +11,8 @@
 *
 */
 
+var chart;
+
 var FreshFace = {
 
     /**
@@ -218,7 +220,7 @@ var FreshFace = {
             $(stockRow).css("background-color", colVal);
         });
 
-        $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
+        $(stockLink).attr("href", "MyStocks#" + stockData.CompanyName);
         $(stockLink).html(stockData.CompanyName);
         $(stockName).append(stockLink);
 
@@ -253,6 +255,32 @@ var FreshFace = {
         $("#stocks").append(stockRow);
     },
 
+    makeRequest: function (name) {
+        //Abort any open requests
+        if (this.xhr) { this.xhr.abort(); }
+        //Start a new request
+        this.xhr = $.ajax({
+            data: { symbol: name },
+            url: "http://dev.markitondemand.com/Api/Quote/jsonp",
+            dataType: "jsonp",
+            success: function (data) {
+                $("#sname").text(data.Data.Name + " (" + data.Data.Symbol + ")");
+                $("#lastprice").text("Last Price: " + data.Data.LastPrice);
+                $("#change").text("Change: " + data.Data.Change.toFixed(2));
+                $("#changeper").text("Change Percent: " + data.Data.ChangePercent.toFixed(2));
+                $("#marketcap").text("Market Cap: " + data.Data.MarketCap);
+                $("#changeytd").text("Change YTD: " + data.Data.ChangeYTD);
+                $("#high").text("High: " + data.Data.High);
+                $("#low").text("Low: " + data.Data.Low);
+                $("#open").text("Open: " + data.Data.Open);
+            },
+            error: function (data) {
+                alert("Error ");
+            },
+            context: this
+        });
+    },
+
     appendStockTable: function (stockData) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
@@ -284,9 +312,13 @@ var FreshFace = {
             $(stockRow).css("background-color", colVal);
         });
 
-        $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
+        $(stockLink).attr("href", "#");
         $(stockLink).html(stockData.CompanyName);
         $(stockName).append(stockLink);
+        $(stockLink).click(function (event) {
+            chart.changeSymbol(stockData.CompanyName);
+            FreshFace.makeRequest(stockData.CompanyName);
+        });
 
         $(stockPrice).html(stockData.CurrentPrice.toFixed(2));
 
@@ -371,6 +403,8 @@ $(document).ready(function () {
         var stockStr = localStorage.getItem("MyStocks");
         stocks = JSON.parse(stockStr);
     }
+
+    $("#bfcChart").attr("style", "height: 400px;");
 
     for (var i = 0; i < stocks.length; i++) {
 
