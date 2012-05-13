@@ -115,6 +115,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change:.
+        /// </summary>
+        internal static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Percent:.
+        /// </summary>
+        internal static string ChangePercent {
+            get {
+                return ResourceManager.GetString("ChangePercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ChangeYTD:.
+        /// </summary>
+        internal static string ChangeYTD {
+            get {
+                return ResourceManager.GetString("ChangeYTD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Price.
         /// </summary>
         internal static string CurrentPrice {
@@ -196,6 +223,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to High:.
+        /// </summary>
+        internal static string High {
+            get {
+                return ResourceManager.GetString("High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Price:.
+        /// </summary>
+        internal static string LastPrice {
+            get {
+                return ResourceManager.GetString("LastPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login with Facebook.
         /// </summary>
         internal static string LoginWithFacebook {
@@ -219,6 +264,33 @@ namespace Resources {
         internal static string Logout {
             get {
                 return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low:.
+        /// </summary>
+        internal static string Low {
+            get {
+                return ResourceManager.GetString("Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Market Cap:.
+        /// </summary>
+        internal static string MarketCap {
+            get {
+                return ResourceManager.GetString("MarketCap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More Information.
+        /// </summary>
+        internal static string MoreInformation {
+            get {
+                return ResourceManager.GetString("MoreInformation", resourceCulture);
             }
         }
         
@@ -300,6 +372,15 @@ namespace Resources {
         internal static string NumShares {
             get {
                 return ResourceManager.GetString("NumShares", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open:.
+        /// </summary>
+        internal static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
             }
         }
         

@@ -237,4 +237,31 @@
   <data name="TypeForChat" xml:space="preserve">
     <value>type and press enter to chat</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change:</value>
+  </data>
+  <data name="ChangePercent" xml:space="preserve">
+    <value>Change Percent:</value>
+  </data>
+  <data name="ChangeYTD" xml:space="preserve">
+    <value>ChangeYTD:</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High:</value>
+  </data>
+  <data name="LastPrice" xml:space="preserve">
+    <value>Last Price:</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low:</value>
+  </data>
+  <data name="MarketCap" xml:space="preserve">
+    <value>Market Cap:</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>More Information</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open:</value>
+  </data>
 </root>
