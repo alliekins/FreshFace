@@ -159,10 +159,10 @@ var FreshFace = {
             titleText = post.caption;
         }
         if (post.picture && (post.type === "photo" || post.type === "video")) {
-            photo = "<img src=\"" + post.picture + "\"/>";
+            photo = "<a href=\"" + post.link + "\"><img src=\"" + post.picture + "\"/></a>";
         }
 
-        if (post.link) {
+        if (post.link && !(post.picture && (post.type === "photo" || post.type === "video")) {
             tLink = document.createElement("a");
             tLink.href = post.link;
             $(tLink).append(title);
