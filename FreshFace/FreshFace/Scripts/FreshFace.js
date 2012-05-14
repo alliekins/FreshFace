@@ -36,9 +36,11 @@ var FreshFace = {
     *
     */
     logOn: function (data) {
+        
         $.post("../Account/LogOn", data, function (resp) {
             if (resp.Success) {
                 window.location.href = '../Home/Index';
+                
             }
         });
     },
@@ -134,7 +136,7 @@ var FreshFace = {
         // A post may have:
         // post.story
         // post.link
-
+        
         if (typeof type !== "undefined") {
             post.type = type;
         }
@@ -162,7 +164,7 @@ var FreshFace = {
             photo = "<a href=\"" + post.link + "\"><img src=\"" + post.picture + "\"/></a>";
         }
 
-        if (post.link && !(post.picture && (post.type === "photo" || post.type === "video")) {
+        if (post.link && !(post.picture && (post.type === "photo" || post.type === "video"))) {
             tLink = document.createElement("a");
             tLink.href = post.link;
             $(tLink).append(title);
@@ -383,11 +385,23 @@ var FreshFace = {
         $(stockRow).append(stockExtra);
 
         $("#stockTable").append(stockRow);
-    }
+    },addevent: function(){
+        var x = [{
+            id: "141005479366610",
+            title: "Test34",
+            start_time: new Date(2012, 05, 25, 12, 00, 00, 00),
+            allDay: true,
+            color:red
+        }];
+    $('#calendar').fullCalendar('addEventSource', x);
+          
+      }
+
 
 };
 
 $(document).ready(function () {
+
     var stocks = [];
     if (localStorage.getItem("MyStocks") === null ||
             typeof localStorage.getItem("MyStocks") === "undefined") {
@@ -458,12 +472,115 @@ $(document).ready(function () {
 // Turns calendars into FullCalendars
 // http://arshaw.com/fullcalendar/docs/usage/
 $(document).ready(function () {
-    $(".calendar").fullCalendar({
-        editable: false,
-        header: {
-            left: 'title',
-            center: '',
-            right: 'next,prev today'
-        }
+   // alert(logResp.authResponse.accessToken);
+   // alert(authResponse.accessToken);
+   // alert(accessToken);
+    
+    //if (logResp.authResponse.accessToken == "") {
+        
+   // } else {
+       // FB.api('/me/events', function (apiResp) {
+           
+           // Debug.log("User's feed: " + apiResp);
+           // $(apiResp.data).each(function (index, post) {
+        //        alert(apiResp.data);
+                //FreshFace.appendPost(feedPar, post);
+    //     });
+
+   /* FB.api('/me', function (apiResp) {
+        var uName = apiResp.name;
+        Debug.log("User name: " + uName);
+        Debug.log(apiResp);
+
+        var fb_url = "https://graph.facebook.com/";
+        fb_url += apiResp.id;
+        var photoUrl = fb_url + "/events";
+        photoUrl += "?access_token=" + logResp.authResponse.accessToken;
+        photoUrl += "&app_id=" + "@ViewBag.AppID";
+        photoUrl += "&method=get";
+        photoUrl += "&sdk=joey";
+     
+        //$("#photoForm").ajaxForm(function (photoResp) {
+        //    Debug.log(photoResp);
+        //});
+        $(".ff-name").html(uName);
+    });*/
+    setTimeout(function () {
+    var myEvents;
+    var y;
+    if (FB != undefined) {
+        var x = $.get("https://graph.facebook.com/me/events?access_token=" + FB.getAccessToken(), function (data) {
     });
+        setTimeout(function () {
+            y = JSON.parse(x.responseText);
+            myEvents = new Array(y.data.length);
+            for (var i = 0; i < y.data.length; i++) {
+                var e = new Object();
+                e.id = y.data[i].id;
+                e.start = y.data[i].start_time;
+                e.title = y.data[i].name;//"{id:" + y.data[i].id + ",start:" + y.data[i].start_time + ",title:" + y.data[i].name + "}";
+                if (y.data[i].end_time != undefined) {
+                    e.end = y.data[i].end_time;
+                }
+                switch(i%10)
+                {
+                    case 0:
+                        e.color = "yellow";
+                        break;
+                    case 1:
+                        e.color = "lightcoral";
+                        break;
+                    case 2:
+                        e.color = "lemonchiffon";
+                        break;
+                    case 3:
+                        e.color = "goldenrod";
+                        break;
+                    case 4:
+                        e.color = "lightpink";
+                        break;
+                    case 5:
+                        e.color = "steelblue";
+                        break;
+                    case 6:
+                        e.color = "seagreen";
+                        break;
+                    case 7:
+                        e.color = "darkorchid";
+                        break;
+                    case 8:
+                        e.color = "tomato";
+                        break;
+                    case 9:
+                        e.color = "thistle";
+                        break;
+                    default:
+                        e.color = "yellow";
+                }
+                
+                myEvents[i] = e;
+            }
+
+
+
+
+            $(".calendar").fullCalendar({
+                editable: false,
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'next,prev today'
+                },
+                events: myEvents
+            });
+        }, 1000);
+          
+        
+    }
+  
+}, 1000);
+        
+
+    
+    
 });
