@@ -28,6 +28,16 @@
 {
     float: right;
 }
+.fc-header-right
+{
+    vertical-algin:middle;
+}
+
+.fc-state-hover
+{
+    background-color: #D8D8D8;
+    cursor: pointer;
+}
 
 .fc-button-content div
 {
@@ -44,6 +54,7 @@
 .fc-widget-content:hover
 {
     background-color: #00A5FF;
+    cursor: pointer;
 }
 
 .fc-other-month
