@@ -9,7 +9,7 @@
 
     <div class="twelve columns">
 
-        <div class="calendar"></div>
+        <div id="calendar" class="calendar"></div>
 
     </div>
 
@@ -19,7 +19,7 @@
 @section fb_init {
     @RenderPage("~/Views/Shared/_FBLoggedIn.cshtml", 
         new {
-            fb_ready = "~/Views/Home/_MyStocks_fb_ready.cshtml",
-            fb_onauth = "~/Views/Home/_MyStocks_fb_onauth.cshtml"
+            fb_ready = "~/Views/Home/_MyCalendar_fb_ready.cshtml",
+            fb_onauth = "~/Views/Home/_MyCalendar_fb_onauth.cshtml"
         })
 }
