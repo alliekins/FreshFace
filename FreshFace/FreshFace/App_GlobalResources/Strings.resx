@@ -264,4 +264,19 @@
   <data name="Open" xml:space="preserve">
     <value>Open:</value>
   </data>
+  <data name="AddEvent" xml:space="preserve">
+    <value>Add Event</value>
+  </data>
+  <data name="EnterEvent" xml:space="preserve">
+    <value>Enter a new Event</value>
+  </data>
+  <data name="EventEndPlaceholder" xml:space="preserve">
+    <value>End time mm/dd/yyyy 12:00:00</value>
+  </data>
+  <data name="EventStartPlaceholder" xml:space="preserve">
+    <value>Start time mm/dd/yyyy 12:00:00</value>
+  </data>
+  <data name="EventTitlePlaceholder" xml:space="preserve">
+    <value>Title</value>
+  </data>
 </root>

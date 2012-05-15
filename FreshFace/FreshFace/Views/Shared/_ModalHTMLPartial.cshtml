@@ -17,6 +17,17 @@
     </form> 
 </div>
 
+<div id="eventModal" class="reveal-modal medium pagelinks">
+     <p>@Resources.Strings.EnterEvent</p>
+     <form id="eventForm" name="eventForm">
+        <input type="text" class="dummy hide" />
+        <input type="text" id="event_title" class="event_title" placeholder="@Resources.Strings.EventTitlePlaceholder" />
+        <input type="datetime" id="event_start" class="event_start" placeholder="@Resources.Strings.EventStartPlaceholder" />
+        <input type="datetime" id="event_end" class="event_end" placeholder="@Resources.Strings.EventEndPlaceholder" />
+        <a class="addEvent" href="">@Resources.Strings.AddEvent</a>
+    </form> 
+</div>
+
 <div id="stockModal" class="reveal-modal medium pagelinks">
      <p>@Resources.Strings.EnterStock</p>
     <form id="stockForm">

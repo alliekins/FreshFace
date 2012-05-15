@@ -80,3 +80,43 @@ var onPhotoKey = function (event) {
 };
 $("#photo_url").keyup(onPhotoKey);
 // Adding Photo
+
+
+
+var addEvent = function (event) {
+    
+    var etitle = $(".event_title").val();
+    var estart = $(".event_start").val();
+    var eend = $(".event_end").val();
+    var data = {
+        "access_token": FB.getAccessToken(),
+        "name": etitle,
+        "start_time": estart,
+        "end_time":eend,
+        "location":"",
+        "description":"",
+        "privacy":"OPEN"
+    };
+
+
+
+    //Debug.log($("#photoForm").serialize());
+    FB.api("/me/events", "post", data, function (resp) {
+       // Debug.log("Posted photo, resp:");
+     //   Debug.log(resp);
+
+        $("#photoModal").trigger("reveal:close");
+    });
+    event.preventDefault();
+};
+$(".addEvent").click(addEvent);
+
+var onEventKey = function (event) {
+    if (event.keyCode == 13) {
+        Debug.log("Publishing photo");
+        addEvent(event);
+    }
+};
+$("#event_end").keyup(onEventKey);
+
+
