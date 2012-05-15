@@ -74,6 +74,8 @@ FB.api('/me/home', { limit: 15 }, function (apiResp) {
     setTimeout(checkForNewPosts, 5000);
 });
 
+@Html.Partial("_FetchEvents")
+
 // Load more when user hits bottom of screen
 $(window).scroll(function () {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {

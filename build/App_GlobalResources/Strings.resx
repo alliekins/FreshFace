@@ -154,7 +154,7 @@
     <value>My Stocks</value>
   </data>
   <data name="NewsBy" xml:space="preserve">
-    <value>News Article - by </value>
+    <value>News Feed - </value>
   </data>
   <data name="UploadPhoto" xml:space="preserve">
     <value>Upload Photo</value>
@@ -236,5 +236,47 @@
   </data>
   <data name="TypeForChat" xml:space="preserve">
     <value>type and press enter to chat</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change:</value>
+  </data>
+  <data name="ChangePercent" xml:space="preserve">
+    <value>Change Percent:</value>
+  </data>
+  <data name="ChangeYTD" xml:space="preserve">
+    <value>ChangeYTD:</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High:</value>
+  </data>
+  <data name="LastPrice" xml:space="preserve">
+    <value>Last Price:</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low:</value>
+  </data>
+  <data name="MarketCap" xml:space="preserve">
+    <value>Market Cap:</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>More Information</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open:</value>
+  </data>
+  <data name="AddEvent" xml:space="preserve">
+    <value>Add Event</value>
+  </data>
+  <data name="EnterEvent" xml:space="preserve">
+    <value>Enter a new Event</value>
+  </data>
+  <data name="EventEndPlaceholder" xml:space="preserve">
+    <value>End time mm/dd/yyyy 12:00:00</value>
+  </data>
+  <data name="EventStartPlaceholder" xml:space="preserve">
+    <value>Start time mm/dd/yyyy 12:00:00</value>
+  </data>
+  <data name="EventTitlePlaceholder" xml:space="preserve">
+    <value>Title</value>
   </data>
 </root>

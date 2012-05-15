@@ -23,13 +23,14 @@
 		<link href="@Url.Content("~/Content/foundation.css")" rel="stylesheet" />
 		<link href="@Url.Content("~/Content/app.css")" rel="stylesheet" /> 
 
-        <!-- Only make calendar small on Index page -->
         @if (Request.Path.Contains("Index"))
         {
+            <!-- Only make calendar small on Index page -->
             <link href="@Url.Content("~/Content/smallcal.css")" rel="stylesheet" />
         }
         else
         {
+            <!-- Keep calendar normal sized -->
             <link href="@Url.Content("~/Content/normalcal.css")" rel="stylesheet" />
         }
         

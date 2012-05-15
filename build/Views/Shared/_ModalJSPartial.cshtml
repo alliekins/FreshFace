@@ -80,3 +80,120 @@ var onPhotoKey = function (event) {
 };
 $("#photo_url").keyup(onPhotoKey);
 // Adding Photo
+
+
+
+var addEvent = function (event) {
+    
+    var etitle = $(".event_title").val();
+    var estart = $(".event_start").val();
+    var eend = $(".event_end").val();
+    var data = {
+        "access_token": FB.getAccessToken(),
+        "name":etitle,
+        "start_time":estart,
+        "end_time":eend,
+        "location":"",
+        "description":"",
+        "privacy":"OPEN"
+    };
+
+
+
+    //Debug.log($("#photoForm").serialize());
+    FB.api("/me/events", "post", data, function (resp) {
+       // Debug.log("Posted photo, resp:");
+     //   Debug.log(resp);
+ //setTimeout(function () {
+   $("#eventModal").trigger("reveal:close");
+var myEvents;
+  setTimeout(function () {
+    
+    var y;
+    if (FB != undefined) {
+        var x = $.get("https://graph.facebook.com/me/events?access_token=" + FB.getAccessToken(), function (data) {
+    });
+        setTimeout(function () {
+            y = JSON.parse(x.responseText);
+            myEvents = new Array(y.data.length);
+            for (var i = 0; i < y.data.length; i++) {
+                var e = new Object();
+                e.id = y.data[i].id;
+                e.start = y.data[i].start_time;
+                e.title = y.data[i].name;//"{id:" + y.data[i].id + ",start:" + y.data[i].start_time + ",title:" + y.data[i].name + "}";
+                if (y.data[i].end_time != undefined) {
+                    e.end = y.data[i].end_time;
+                }
+                switch(i%10)
+                {
+                    case 0:
+                        e.color = "goldenrod";
+                        break;
+                    case 1:
+                        e.color = "lightcoral";
+                        break;
+                    case 2:
+                        e.color = "lemonchiffon";
+                        break;
+                    case 3:
+                        e.color = "thistle";
+                        break;
+                    case 4:
+                        e.color = "lightpink";
+                        break;
+                    case 5:
+                        e.color = "steelblue";
+                        break;
+                    case 6:
+                        e.color = "seagreen";
+                        break;
+                    case 7:
+                        e.color = "darkorchid";
+                        break;
+                    case 8:
+                        e.color = "tomato";
+                        break;
+                    case 9:
+                        e.color = "thistle";
+                        break;
+                    default:
+                        e.color = "yellow";
+                }
+                
+                myEvents[i] = e;
+            }
+
+
+
+
+            $(".calendar").fullCalendar(
+                'removeEvents'
+            );
+setTimeout
+$(".calendar").fullCalendar(
+                'renderEvents',myEvents,true
+            );
+        }, 1000);
+          
+        
+    }
+  
+}, 1000);
+
+
+
+        
+//},2000);
+    });
+    event.preventDefault();
+};
+$(".addEvent").click(addEvent);
+
+var onEventKey = function (event) {
+    if (event.keyCode == 13) {
+        Debug.log("Publishing photo");
+        addEvent(event);
+    }
+};
+$("#event_end").keyup(onEventKey);
+

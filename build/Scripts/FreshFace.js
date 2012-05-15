@@ -11,6 +11,8 @@
 *
 */
 
+var chart;
+
 var FreshFace = {
 
     /**
@@ -34,9 +36,11 @@ var FreshFace = {
     *
     */
     logOn: function (data) {
+        
         $.post("../Account/LogOn", data, function (resp) {
             if (resp.Success) {
                 window.location.href = '../Home/Index';
+                
             }
         });
     },
@@ -132,7 +136,7 @@ var FreshFace = {
         // A post may have:
         // post.story
         // post.link
-
+        
         if (typeof type !== "undefined") {
             post.type = type;
         }
@@ -157,10 +161,10 @@ var FreshFace = {
             titleText = post.caption;
         }
         if (post.picture && (post.type === "photo" || post.type === "video")) {
-            photo = "<img src=\"" + post.picture + "\"/>";
+            photo = "<a href=\"" + post.link + "\"><img src=\"" + post.picture + "\"/></a>";
         }
 
-        if (post.link) {
+        if (post.link && !(post.picture && (post.type === "photo" || post.type === "video"))) {
             tLink = document.createElement("a");
             tLink.href = post.link;
             $(tLink).append(title);
@@ -218,7 +222,7 @@ var FreshFace = {
             $(stockRow).css("background-color", colVal);
         });
 
-        $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
+        $(stockLink).attr("href", "MyStocks#" + stockData.CompanyName);
         $(stockLink).html(stockData.CompanyName);
         $(stockName).append(stockLink);
 
@@ -253,6 +257,32 @@ var FreshFace = {
         $("#stocks").append(stockRow);
     },
 
+    makeRequest: function (name) {
+        //Abort any open requests
+        if (this.xhr) { this.xhr.abort(); }
+        //Start a new request
+        this.xhr = $.ajax({
+            data: { symbol: name },
+            url: "http://dev.markitondemand.com/Api/Quote/jsonp",
+            dataType: "jsonp",
+            success: function (data) {
+                $("#sname").text(data.Data.Name + " (" + data.Data.Symbol + ")");
+                $("#lastprice").text("Last Price: " + data.Data.LastPrice);
+                $("#change").text("Change: " + data.Data.Change.toFixed(2));
+                $("#changeper").text("Change Percent: " + data.Data.ChangePercent.toFixed(2));
+                $("#marketcap").text("Market Cap: " + data.Data.MarketCap);
+                $("#changeytd").text("Change YTD: " + data.Data.ChangeYTD);
+                $("#high").text("High: " + data.Data.High);
+                $("#low").text("Low: " + data.Data.Low);
+                $("#open").text("Open: " + data.Data.Open);
+            },
+            error: function (data) {
+                alert("Error ");
+            },
+            context: this
+        });
+    },
+
     appendStockTable: function (stockData) {
         var stockStr = localStorage.getItem("MyStocks");
         var stocks = JSON.parse(stockStr);
@@ -284,9 +314,13 @@ var FreshFace = {
             $(stockRow).css("background-color", colVal);
         });
 
-        $(stockLink).attr("href", "http://finance.yahoo.com/q?s=" + stockData.CompanyName);
+        $(stockLink).attr("href", "#");
         $(stockLink).html(stockData.CompanyName);
         $(stockName).append(stockLink);
+        $(stockLink).click(function (event) {
+            chart.changeSymbol(stockData.CompanyName);
+            FreshFace.makeRequest(stockData.CompanyName);
+        });
 
         $(stockPrice).html(stockData.CurrentPrice.toFixed(2));
 
@@ -351,11 +385,28 @@ var FreshFace = {
         $(stockRow).append(stockExtra);
 
         $("#stockTable").append(stockRow);
+    },
+    
+    addEvent: function (eventData) {
+        $('#calendar').fullCalendar('renderEvent', eventData, true);
     }
+
 
 };
 
 $(document).ready(function () {
+
+    // Calendar Initialization
+    $("#calendar").fullCalendar({
+        editable: false,
+        header: {
+            left: 'title',
+            center: '',
+            right: 'next,prev today'
+        }
+    });
+
+    // Stock Initialization
     var stocks = [];
     if (localStorage.getItem("MyStocks") === null ||
             typeof localStorage.getItem("MyStocks") === "undefined") {
@@ -372,6 +423,8 @@ $(document).ready(function () {
         stocks = JSON.parse(stockStr);
     }
 
+    $("#bfcChart").attr("style", "height: 400px;");
+
     for (var i = 0; i < stocks.length; i++) {
 
         var url = "../Stock/Details/" + stocks[i].name;
@@ -386,7 +439,7 @@ $(document).ready(function () {
 
     }
 
-    //AJAX UPDATE
+    // Stocks - AJAX UPDATE
     self.setInterval(function () {
         for (var i = 0; i < stocks.length; i++) {
 
@@ -419,17 +472,4 @@ $(document).ready(function () {
 
         }
     }, 5000);
-});
-
-// Turns calendars into FullCalendars
-// http://arshaw.com/fullcalendar/docs/usage/
-$(document).ready(function () {
-    $(".calendar").fullCalendar({
-        editable: false,
-        header: {
-            left: 'title',
-            center: '',
-            right: 'next,prev today'
-        }
-    });
 });

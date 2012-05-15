@@ -1,0 +1,56 @@
+﻿
+
+
+FB.api('/me/events', function (apiResp) {
+
+    for (var i = 0; i < apiResp.data.length; i++) {
+        var e = {
+            id: apiResp.data[i].id,
+            start: apiResp.data[i].start_time,
+            title: apiResp.data[i].name,
+            allDay: false
+        };
+
+        if (apiResp.data[i].end_time !== undefined) {
+            e.end = apiResp.data[i].end_time;
+        }
+
+        switch(i%10)
+        {
+            case 0:
+                e.color = "yellow";
+                break;
+            case 1:
+                e.color = "lightcoral";
+                break;
+            case 2:
+                e.color = "lemonchiffon";
+                break;
+            case 3:
+                e.color = "goldenrod";
+                break;
+            case 4:
+                e.color = "lightpink";
+                break;
+            case 5:
+                e.color = "steelblue";
+                break;
+            case 6:
+                e.color = "seagreen";
+                break;
+            case 7:
+                e.color = "darkorchid";
+                break;
+            case 8:
+                e.color = "tomato";
+                break;
+            case 9:
+                e.color = "thistle";
+                break;
+            default:
+                e.color = "yellow";
+        }
+                
+        FreshFace.addEvent(e);
+    }
+});
