@@ -55,17 +55,19 @@
         <script language=javascript>
             var chart = new BFCChart("bfcChart", 501, 625, 400);
             chart.targetElement = 'bfcHostDiv';
+            
+            var split = (window.location + "").split("#");
+            if (split[1]) {
+                chart.changeSymbol(split[1]);
+                FreshFace.makeRequest(split[1]);
+            }
             chart.createChart();
-
-            self.setTimeout(function () {
-                chart.showToolBar_set(false);
-                chart.showChangeSymbol_set(false);
-                var split = (window.location + "").split("#");
-                if (split[1]) {
-                    chart.changeSymbol(split[1]);
-                    FreshFace.makeRequest(split[1]);
-                }
-            }, 3000);
+            if (split[1]) {
+                chart.addLoadedHandler("this.changeSymbol(\""+split[1]+"\")");
+            }
+            
+            chart.addLoadedHandler("this.showToolBar_set(false)");
+            chart.addLoadedHandler("this.showChangeSymbol_set(false)");
             
         </script>
         </div>
